@@ -1,0 +1,109 @@
+  /* calendarStyles.css */
+.custom-date-cell {
+    background-color: #fafafa; /* Change background color */
+    border: none !important; /* Remove border */
+    width: 30px; /* Set width */
+    height: 30px; /* Set height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .rbc-calendar {
+    border: none !important; /* Remove border from the entire calendar */
+    width: 100%;
+    padding: 3px;
+  }
+
+  
+  
+  /* Custom CSS to change font to Manrope for everything in React Big Calendar */
+.rbc-calendar,
+.rbc-calendar *,
+.rbc-agenda-view,
+.rbc-month-view,
+.rbc-week-view,
+.rbc-day-view,
+.rbc-time-view,
+.rbc-toolbar,
+.rbc-header,
+.rbc-day-bg,
+.rbc-time-header,
+.rbc-event,
+.rbc-event-label,
+.rbc-event-content,
+.rbc-today,
+.rbc-off-range,
+.rbc-off-range-bg,
+.rbc-header + .rbc-header,
+.rbc-time-content + .rbc-time-content {
+  font-family: 'Manrope', sans-serif; /* Change the font family to Manrope */
+}
+.rbc-events-container {
+  background-color: white; /* Set background color to white */
+}
+.rbc-toolbar {
+  display: flex; /* Use flexbox layout */
+  flex-wrap: nowrap; /* Prevent line wrapping */
+  overflow-x: auto; /* Enable horizontal scrolling when toolbar overflows */
+}
+
+.rbc-event {
+  /* Styles for the event container */
+  /* For example: */
+  background-color: #3164f4; /* Set background color */
+  color: white; /* Set text color */
+  border-radius: 100px; /* Set border radius */
+  padding: 1px; /* Add padding */
+  width: 30px;
+  height: 10px;
+  margin-bottom: 8px;
+  visibility: hidden;
+}
+
+.rbc-event-content {
+  /* Your styles here */
+  /* For example: */
+  background-color: #3164f4; /* Set background color */
+  color: white; /* Set text color */
+  border-radius: 20px; /* Set border radius */
+  padding: 1px; /* Add padding */
+}
+
+.rbc-btn-group {
+  width: 220px; /* Set the fixed width for the button groups */
+}
+
+.rbc-toolbar .rbc-btn-group:nth-of-type(3) {
+  padding-left: 60px;
+}
+
+.rbc-btn-group button {
+  padding: 0.2rem 0.5rem; /* Adjust padding to change button size */
+  font-size: 0.8rem; /* Adjust font size */
+}
+
+.rbc-toolbar .rbc-btn-group:nth-of-type(3) button:nth-of-type(2),
+.rbc-toolbar .rbc-btn-group:nth-of-type(3) button:nth-of-type(3) {
+  display: none;
+}
+
+.rbc-toolbar-label {
+  text-align: center;
+  font-size: 12px;
+  width: 20px;
+}
+
+.rbc-events-container {
+  margin-right: 0 !important; /* Set margin-right to none */
+}
+
+.rbc-timeslot-group {
+  background-color: transparent !important; /* Set background color to transparent */
+}
+
+.rbc-button-link {
+  pointer-events: none;
+  
+}
+
