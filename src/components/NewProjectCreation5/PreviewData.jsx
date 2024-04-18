@@ -315,7 +315,7 @@ const handleSubmit = () => {
       const rowData = {};
 
       // Assign description and quantity
-      rowData.description = row[columnIndex.description];
+      rowData.description = row[columnIndex.description].toString();
       rowData.quantity = row[columnIndex.quantity];
 
       // Assign room and item based on their indices if they exist
