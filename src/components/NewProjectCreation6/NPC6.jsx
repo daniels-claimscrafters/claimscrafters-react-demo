@@ -47,7 +47,7 @@ const NPC6 = ({ npcData, onInputChange, onNext, onPrevious, resetParentData }) =
   
   const handleFullNameChange = (newValue) => {
     // Check if newValue has at least two characters
-    if (newValue.length >= 2) {
+    if (newValue === "4729") {
       setAcceptLegalFullName(newValue);
       setIsInputFieldPopulated(true); // If newValue has at least two characters, set to true
       onInputChange('acceptLegalFullName', newValue);

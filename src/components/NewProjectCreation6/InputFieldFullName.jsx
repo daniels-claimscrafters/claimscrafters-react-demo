@@ -29,9 +29,10 @@ const InputFieldFullName = ({ value, onChange }) => {
   return (
     <input 
       style={styles.Input} 
-      placeholder="Enter Full Name" 
+      placeholder="Enter Pin" 
       value={value} 
-      onChange={handleChange} 
+      onChange={handleChange}
+      type='password'
     />
   );
 };
