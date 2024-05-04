@@ -85,7 +85,9 @@ const CardChangelog = ({ projectDetails }) => {
         console.error('Error:', error);
         // Handle errors
       });
-  }, []); 
+  }, []);
+  
+  console.log(entries);
 
   // Function to handle download
   const handleDownload = () => {
@@ -124,7 +126,7 @@ const CardChangelog = ({ projectDetails }) => {
         <ul style={styles.entryList}>
         {entries.slice().reverse().map((entry, index) => (
   // Check if the entry contains the word "Depreciation" among other words
-  !/\bDepreciation\b/.test(entry.entry) && (
+  !/\bDepreciationDisplay\b/.test(entry.entry) && (
     <li key={entry.id} style={{ ...styles.entryItem }}>
       {/* Split the entry text into different parts */}
       {entry.entry.split(/(User ID: \d+|DepreciationDisplay)/).map((part, index) => {

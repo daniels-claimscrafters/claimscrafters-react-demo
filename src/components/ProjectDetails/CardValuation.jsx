@@ -77,15 +77,53 @@ projectDetails.project.spreadsheetData.forEach(item => {
     const quantity = parseFloat(item['Quantity']);
     
     // Calculate RCV (ext) for the current item using the provided formula
-    const RCVExt = (RCVHigh + RCVLow) / 2 * quantity;
+    const RCVExt = ((RCVHigh + RCVLow) / 2 * quantity).toFixed(2);
     
     // Add RCV (ext) to total
-    suggestedRCVTotal += RCVExt;
+    suggestedRCVTotal += parseFloat(RCVExt);;
 });
+
+console.log(suggestedRCVTotal);
 
 
 // Calculate total RCV tax
-const totalRCVTax = suggestedRCVTotal * (projectDetails.project.salesTax / 100);
+// Initialize total RCV tax
+// Initialize total RCV tax
+let totalRCVTax = 0;
+
+// Iterate through each item in spreadsheetData
+projectDetails.project.spreadsheetData.forEach(item => {
+    // Parse RCV High, RCV Low, and Quantity from the current item
+    const RCVHigh = parseFloat(item['RCV High']);
+    const RCVLow = parseFloat(item['RCV Low']);
+    const quantity = parseFloat(item['Quantity']);
+    
+    // Calculate RCV (ext) for the current item using the provided formula
+    const RCVExt = (RCVHigh + RCVLow) / 2 * quantity;
+    
+    // Round RCVExt to two decimal places to minimize rounding errors
+    const roundedRCVExt = parseFloat(RCVExt.toFixed(2));
+    
+    // Calculate RCV tax for the current item and add it to the total
+    const RCVTax = roundedRCVExt * (projectDetails.project.salesTax / 100);
+    
+    // Round RCVTax to two decimal places before adding to totalRCVTax
+    const roundedRCVTax = parseFloat(RCVTax.toFixed(2));
+    
+    // Add rounded RCVTax to totalRCVTax
+    totalRCVTax += roundedRCVTax;
+});
+
+// Round the total RCV tax to two decimal places
+totalRCVTax = roundToTwoDecimalPlaces(totalRCVTax);
+
+// Output the total RCV tax
+console.log(totalRCVTax);
+
+// Function to round a number to two decimal places
+function roundToTwoDecimalPlaces(number) {
+    return Math.round(number * 100) / 100;
+}
 
 // Calculate RCV with tax total
 const rcvWithTaxTotal = suggestedRCVTotal + totalRCVTax;
@@ -145,11 +183,11 @@ projectDetails.project.spreadsheetData.forEach(item => {
   // Ensure that the depreciation factor does not exceed 100
   depreciationFactor = Math.min(depreciationFactor, 100);
   
-  const depreciationAmount = (ACV1 * (depreciationFactor / 100));
+  const depreciationAmount = (ACV1 * (depreciationFactor / 100)).toFixed(2);
   
     
     // Add depreciation amount to total
-    totalDepreciation += depreciationAmount;
+    totalDepreciation += parseFloat(depreciationAmount);
 });
 
 // Now you have the total depreciation amount

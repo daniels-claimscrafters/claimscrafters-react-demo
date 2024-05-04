@@ -24,55 +24,57 @@ const confirmMappingDisabled = !selectedDescription || !selectedQuantity || !sub
 
 
   useEffect(() => {
-    const convertExcelDataToWorkbook = () => {
-      try {
-        const arrayBuffer = excelData;
-        const workbook = XLSX.read(arrayBuffer, { type: 'array' });
-        return workbook;
-      } catch (err) {
-        console.error('Error reading Excel data', err);
-        return null;
-      }
-    };
-
-    const workbook = convertExcelDataToWorkbook(excelData);
-
-    if (workbook) {
-      const worksheetNames = workbook.SheetNames;
-      setWorksheetOptions(worksheetNames);
-
-      const firstSheetName = workbook.SheetNames[0];
-      setSelectedWorksheet(firstSheetName);
-      setSelectWorksheetText(firstSheetName);
-
-      const ws = workbook.Sheets[firstSheetName];
-      const jsonData = XLSX.utils.sheet_to_json(ws, { header: 1 });
-
-
-      const genericColumnHeaders = jsonData[0].map((header, index) => `Column ${String.fromCharCode(65 + index)}`);
-      setColumnNames(genericColumnHeaders);
-
-      jsonData.unshift(genericColumnHeaders);
-
-      const formattedData = jsonData.map((row, rowIndex) => {
-        const formattedRow = {};
-        if (rowIndex === 0) {
-          // Treat the first row as headers
-          row.forEach((header, index) => {
-            formattedRow[header] = `Column ${String.fromCharCode(65 + index)}`;
-          });
-        } else {
-          // Treat subsequent rows as data
-          genericColumnHeaders.forEach((header, index) => {
-            formattedRow[header] = row[index];
-          });
-        }
-        return formattedRow;
-      });
-
-      setTableData(formattedData);
+  const convertExcelDataToWorkbook = () => {
+    try {
+      const arrayBuffer = excelData;
+      const workbook = XLSX.read(arrayBuffer, { type: 'array' });
+      return workbook;
+    } catch (err) {
+      console.error('Error reading Excel data', err);
+      return null;
     }
-  }, []);
+  };
+
+  const workbook = convertExcelDataToWorkbook(excelData);
+
+  if (workbook) {
+    const worksheetNames = workbook.SheetNames;
+    setWorksheetOptions(worksheetNames);
+
+    const firstSheetName = workbook.SheetNames[0];
+    setSelectedWorksheet(firstSheetName);
+    setSelectWorksheetText(firstSheetName);
+
+    const ws = workbook.Sheets[firstSheetName];
+    const jsonData = XLSX.utils.sheet_to_json(ws, { header: 1 });
+
+    const genericColumnHeaders = jsonData[0].map((header, index) => `Column ${String.fromCharCode(65 + index)}`);
+    setColumnNames(genericColumnHeaders);
+    jsonData.unshift(genericColumnHeaders);
+
+    // Add a row number column to the formatted data
+    const formattedData = jsonData.map((row, rowIndex) => {
+      const formattedRow = {};
+    
+      if (rowIndex === 0) {
+        // Treat the first row as headers
+        formattedRow['Row Number'] = 'Row Number'; // Add an empty cell for the "Row Number" column in the header row
+        row.forEach((header, index) => {
+          formattedRow[header] = `Column ${String.fromCharCode(65 + index)}`;
+        });
+      } else {
+        // Treat subsequent rows as data
+        formattedRow['Row Number'] = rowIndex; // Set the row number as the index for subsequent rows
+        genericColumnHeaders.forEach((header, index) => {
+          formattedRow[header] = row[index];
+        });
+      }
+      return formattedRow;
+    });
+
+    setTableData(formattedData);
+  }
+}, []);
 
   function processData(selectedWorksheet) {
     setSelectedWorksheet(selectedWorksheet);
@@ -195,16 +197,14 @@ const handleColumnSelection = (inputFieldName, columnName) => {
       // Check if the description column contains non-empty strings
       if (selectedDescription[i] === '' || selectedDescription[i] === undefined) {
         setError(true);
-        setErrorMessage('Description column cannot contain any empty cells');
-        console.log('nope');
+        setErrorMessage(`(Error on row ${i + 1}) Description column cannot contain any empty cells`);
         return; // Abort
       }
 
       // Check if the quantity column contains only numbers
       if (isNaN(selectedQuantity[i])) {
         setError(true);
-        setErrorMessage('Quantity column can only contain numbers and non-empty cells');
-        console.log('nope');
+        setErrorMessage(`(Error on row ${i + 1}) Quantity column can only contain numbers and non-empty cells`);
         return; // Abort
       }
 
@@ -654,6 +654,3 @@ const styles = {
 };
 
 export default PreviewData;
-
-
-
