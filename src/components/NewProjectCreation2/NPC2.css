@@ -1,0 +1,54 @@
+.npc2FormCreation {
+  display: "flex";
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  background: #04101e;
+  color: white;
+}
+.logoImg {
+  height: 110px;
+  width: 110px;
+}
+
+.npc2 {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+.npc2 div {
+  display: flex;
+  align-items: center;
+}
+.npc2 svg {
+  font-size: 2rem;
+  margin-right: 10px;
+  cursor: pointer;
+}
+.npc2FormContainer {
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin: auto;
+  padding: 20px;
+}
+.npc2Form {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  align-items: center;
+  margin: auto;
+  gap: 10px;
+}
+.npc2Form > div {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.npc2FormInputContainer {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}

@@ -1,47 +1,23 @@
 //NPC1.jsx
 
-import React, { useState } from 'react';
-import ButtonContinue from './ButtonContinue';
-import CardCircle from './CardCircle';
-import CardCircleMain from './CardCircleMain';
-import DropdownLossState from './DropdownLossState';
-import HorizontalDivider from './HorizontalDivider';
-import IconHome from './IconHome';
-import ImageLogo from './ImageLogo';
-import InputFieldClaimNumber from './InputFieldClaimNumber';
-import InputFieldDateofLoss from './InputFieldDateofLoss';
-import InputFieldFirstName from './InputFieldFirstName';
-import InputFieldLastName from './InputFieldLastName';
-import InputFieldLossAddress from './InputFieldLossAddress';
-import InputFieldLossCity from './InputFieldLossCity';
-import InputFieldLossPostalCode from './InputFieldLossPostalCode';
-import Text1 from './Text1';
-import Text2 from './Text2';
-import Text3 from './Text3';
-import Text4 from './Text4';
-import Text5 from './Text5';
-import Text6 from './Text6';
-import TextAdditional from './TextAdditional';
-import TextClaimNumber from './TextClaimNumber';
-import TextDateOfLoss from './TextDateOfLoss';
-import TextFinancialInputs from './TextFinancialInputs';
-import TextHeader from './TextHeader';
-import TextHeader2 from './TextHeader2';
-import TextInsuredFirstName from './TextInsuredFirstName';
-import TextInsuredInformation from './TextInsuredInformation';
-import TextInsuredLastName from './TextInsuredLastName';
-import TextLossAddress from './TextLossAddress';
-import TextLossCity from './TextLossCity';
-import TextLossDetails from './TextLossDetails';
-import TextLossPostalCode from './TextLossPostalCode';
-import TextLossState from './TextLossState';
-import TextPayment from './TextPayment';
-import TextProvidePersonal from './TextProvidePersonal';
-import TextSubheader from './TextSubheader';
-import ImageFooterLogo from './ImageFooterLogo';
-import CardFooterBackground from './CardFooterBackground';
+import React, { useState } from "react";
+import "./NPC1.css";
+import { AiFillHome } from "react-icons/ai";
+import ButtonContinue from "./ButtonContinue";
+
+import DropdownLossState from "./DropdownLossState";
+import HorizontalDivider from "./HorizontalDivider";
+import InputFieldClaimNumber from "./InputFieldClaimNumber";
+import InputFieldDateofLoss from "./InputFieldDateofLoss";
+import InputFieldFirstName from "./InputFieldFirstName";
+import InputFieldLastName from "./InputFieldLastName";
+import InputFieldLossAddress from "./InputFieldLossAddress";
+import InputFieldLossCity from "./InputFieldLossCity";
+import InputFieldLossPostalCode from "./InputFieldLossPostalCode";
+import { useNavigate } from "react-router-dom";
 
 const NPC1 = (props) => {
+  const navigate = useNavigate();
   const { npcData, onInputChange, onNext } = props;
   const [validationErrors, setValidationErrors] = useState(false);
   // Function to update validationErrors
@@ -52,208 +28,337 @@ const NPC1 = (props) => {
   const areAllFieldsFilled = () => {
     // Check if all the necessary fields in npcData are filled
     const allFieldsFilled =
-      npcData.claimNumber.trim() !== '' &&
-      npcData.dateOfLoss.trim() !== '' &&
-      npcData.insuredFirstName.trim() !== '' &&
-      npcData.insuredLastName.trim() !== '' &&
-      npcData.lossAddress.trim() !== '' &&
-      npcData.lossCity.trim() !== '' &&
-      npcData.lossState.trim() !== '' &&
-      npcData.lossPostalCode.trim() !== '' &&
+      npcData.claimNumber.trim() !== "" &&
+      npcData.dateOfLoss.trim() !== "" &&
+      npcData.insuredFirstName.trim() !== "" &&
+      npcData.insuredLastName.trim() !== "" &&
+      npcData.lossAddress.trim() !== "" &&
+      npcData.lossCity.trim() !== "" &&
+      npcData.lossState.trim() !== "" &&
+      npcData.lossPostalCode.trim() !== "" &&
       !validationErrors;
-  
-    console.log('All fields filled:', allFieldsFilled);
-    console.log('NPC Data:', npcData);
-  
+
+    console.log("All fields filled:", allFieldsFilled);
+    console.log("NPC Data:", npcData);
+
     return allFieldsFilled;
   };
-    return (
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', height: '100vh'  }}>
-        {/* Row 1 */}
-        <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-            {/* Assuming ImageLogo, TextHeader, and other components */}
-            <ImageLogo />
-            <div style={{ marginLeft: '10px' }}>
-              <TextHeader />
-              {/* Other components go here */}
-            </div>
-          </div>
-          <div style={{ alignSelf: 'flex-start', marginTop: '10px' }}>
-            <IconHome />
+  const handleToHome = () => {
+    navigate("/pmhs");
+  };
+  return (
+    <div className="npc1Creation">
+      {/* Row 1 */}
+      <div className="npc1">
+        <div>
+          {/* Assuming ImageLogo, TextHeader, and other components */}
+          <img className="logoImg" src="ContentsIQ.png" alt="" />
+          <div style={{ marginLeft: "10px" }}>
+            <h3>New Project Creation</h3>
+            {/* Other components go here */}
           </div>
         </div>
-  
-    {/* Row 2 Centered */}
-<div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: '100%', marginTop: '10px' }}>
-  <HorizontalDivider />
-
-  {/* Card Circle 1 */}
-  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-    <CardCircleMain >
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%' }}>
-        <Text1 style={{ margin: 0 }}>1</Text1>
+        <div onClick={handleToHome}>
+          <AiFillHome />
+        </div>
       </div>
-    </CardCircleMain>
-    <TextInsuredInformation />
-  </div>
 
-  <HorizontalDivider />
+      {/* Row 2 Centered */}
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "center",
+          width: "100%",
+          marginTop: "10px",
+        }}
+      >
+        <HorizontalDivider />
 
-  {/* Card Circle 2 */}
-  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-    <CardCircle>
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%' }}>
-        <Text2 style={{ margin: 0 }}>2</Text2>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              width: "40px",
+              height: "40px",
+              borderRadius: "50%",
+              background: "white",
+              color: "#132A58",
+              fontWeight: "bold",
+            }}
+          >
+            1
+          </div>
+          <p
+            style={{ fontSize: "10px", textAlign: "center", marginTop: "3px" }}
+          >
+            Insured Information
+          </p>
+        </div>
+
+        <HorizontalDivider />
+
+        {/* Card Circle 2 */}
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              width: "40px",
+              height: "40px",
+              borderRadius: "50%",
+              background: "#132A58",
+            }}
+          >
+            2
+          </div>
+          <p
+            style={{ fontSize: "10px", textAlign: "center", marginTop: "3px" }}
+          >
+            Loss details
+          </p>
+        </div>
+
+        <HorizontalDivider />
+
+        {/* Card Circle 3 */}
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              width: "40px",
+              height: "40px",
+              borderRadius: "50%",
+              background: "#132A58",
+            }}
+          >
+            3
+          </div>
+          <p
+            style={{ fontSize: "10px", textAlign: "center", marginTop: "3px" }}
+          >
+            Financial Inputs
+          </p>
+        </div>
+
+        <HorizontalDivider />
+
+        {/* Card Circle 4 */}
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              width: "40px",
+              height: "40px",
+              borderRadius: "50%",
+              background: "#132A58",
+            }}
+          >
+            4
+          </div>
+          <p
+            style={{ fontSize: "10px", textAlign: "center", marginTop: "3px" }}
+          >
+            Data Upload
+          </p>
+        </div>
+
+        <HorizontalDivider />
+
+        {/* Card Circle 5 */}
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              width: "40px",
+              height: "40px",
+              borderRadius: "50%",
+              background: "#132A58",
+            }}
+          >
+            5
+          </div>
+          <p
+            style={{ fontSize: "10px", textAlign: "center", marginTop: "3px" }}
+          >
+            Column Mapping
+          </p>
+        </div>
+
+        <HorizontalDivider />
+
+        {/* Card Circle 6 */}
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              width: "40px",
+              height: "40px",
+              borderRadius: "50%",
+              background: "#132A58",
+            }}
+          >
+            6
+          </div>
+          <p
+            style={{ fontSize: "10px", textAlign: "center", marginTop: "3px" }}
+          >
+            Legal disclaimer
+          </p>
+        </div>
+
+        <HorizontalDivider />
       </div>
-    </CardCircle>
-    <TextLossDetails />
-  </div>
 
-  <HorizontalDivider />
-
-  {/* Card Circle 3 */}
-  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-    <CardCircle>
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%' }}>
-        <Text3 style={{ margin: 0 }}>3</Text3>
-      </div>
-    </CardCircle>
-    <TextFinancialInputs />
-  </div>
-
-  <HorizontalDivider />
-
-  {/* Card Circle 4 */}
-  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-    <CardCircle>
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%' }}>
-        <Text4 style={{ margin: 0 }}>4</Text4>
-      </div>
-    </CardCircle>
-    <TextProvidePersonal />
-  </div>
-
-  <HorizontalDivider />
-
-  {/* Card Circle 5 */}
-  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-    <CardCircle>
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%' }}>
-        <Text5 style={{ margin: 0 }}>5</Text5>
-      </div>
-    </CardCircle>
-    <TextAdditional />
-  </div>
-
-  <HorizontalDivider />
-
-  {/* Card Circle 6 */}
-  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-    <CardCircle>
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%' }}>
-        <Text6 style={{ margin: 0 }}>6</Text6>
-      </div>
-    </CardCircle>
-    <TextPayment />
-  </div>
-
-  <HorizontalDivider />
-</div>
-
-{/* New Section with TextHeader2 and TextSubtitle */}
-
-
+      {/* New Section with TextHeader2 and TextSubtitle */}
 
       {/* Financial Inputs Section */}
-<div style={{ width: '100%', height: '80vh', alignItems: 'center', justifyContent: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '20px' }}>
-  {/* Input Fields Section */}
-  <div style={{ display: 'flex', flexDirection: 'column', width: '100%', alignItems: 'center' }}>
-    {/* Claim Number and Date of Loss */}
-    <div style={{ display: 'flex', flexDirection: 'row', marginTop: '20px' }}>
-      <div style={{ marginRight: '20px' }}>
-        <TextClaimNumber />
-        <InputFieldClaimNumber
-          value={npcData.claimNumber}
-          onChange={onInputChange}
-          updateValidationErrors={updateValidationErrors}
-        />
-      </div>
-      <div>
-        <TextDateOfLoss />
-        <InputFieldDateofLoss
-          value={npcData.dateOfLoss}
-          onChange={onInputChange}
-          updateValidationErrors={updateValidationErrors}
-        />
-      </div>
-    </div>
+      <div className="npc1FormContainer">
+        {/* Input Fields Section */}
+        <div className="npc1Form">
+          {/* Claim Number and Date of Loss */}
+          <div className="npc1FormInputContainer">
+            <div className="npc1FormInput">
+              <label>Claim Number</label>
+              <InputFieldClaimNumber
+                value={npcData.claimNumber}
+                onChange={onInputChange}
+                updateValidationErrors={updateValidationErrors}
+              />
+            </div>
+            <div className="npc1FormInput">
+              <label htmlFor="">Date of Loss</label>
+              <InputFieldDateofLoss
+                value={npcData.dateOfLoss}
+                onChange={onInputChange}
+                updateValidationErrors={updateValidationErrors}
+              />
+            </div>
+          </div>
 
-    {/* Insured Information */}
-    <div style={{ display: 'flex', flexDirection: 'row', marginTop: '10px' }}>
-      <div style={{ marginRight: '20px' }}>
-        <TextInsuredFirstName />
-        <InputFieldFirstName 
-          value={npcData.insuredFirstName}
-          onChange={onInputChange}
-          updateValidationErrors={updateValidationErrors}
-        />
-      </div>
-      <div>
-        <TextInsuredLastName />
-        <InputFieldLastName 
-          value={npcData.insuredLastName}
-          onChange={onInputChange}
-          updateValidationErrors={updateValidationErrors}
-        />
-      </div>
-    </div>
+          {/* Insured Information */}
+          <div className="npc1FormInputContainer">
+            <div>
+              <label htmlFor="firstName">Insured Fist Name</label>
+              <InputFieldFirstName
+                value={npcData.insuredFirstName}
+                onChange={onInputChange}
+                updateValidationErrors={updateValidationErrors}
+              />
+            </div>
+            <div>
+              <label htmlFor="lastName">Insured Last Name</label>
+              <InputFieldLastName
+                value={npcData.insuredLastName}
+                onChange={onInputChange}
+                updateValidationErrors={updateValidationErrors}
+              />
+            </div>
+          </div>
 
-    {/* Loss Information */}
-    <div style={{ display: 'flex', flexDirection: 'column', marginTop: '10px' }}>
-      <div style={{ marginBottom: '10px' }}>
-        <TextLossAddress />
-        <InputFieldLossAddress 
-          value={npcData.lossAddress}
-          onChange={onInputChange}
-          updateValidationErrors={updateValidationErrors}
-        />
-      </div>
-      <div style={{ display: 'flex', flexDirection: 'row', marginBottom: '30px' }}>
-        <div style={{ marginRight: '20px' }}>
-          <TextLossCity />
-          <InputFieldLossCity 
-            value={npcData.lossCity}
-            onChange={onInputChange}
-            updateValidationErrors={updateValidationErrors}
-          />
+          {/* Loss Information */}
+          <div className="npc1FormInputContainer">
+            <div>
+              <label htmlFor="address">Loss Address</label>
+              <InputFieldLossAddress
+                value={npcData.lossAddress}
+                onChange={onInputChange}
+                updateValidationErrors={updateValidationErrors}
+              />
+            </div>
+            <div>
+              <label htmlFor="city">Loss City</label>
+              <InputFieldLossCity
+                value={npcData.lossCity}
+                onChange={onInputChange}
+                updateValidationErrors={updateValidationErrors}
+              />
+            </div>
+          </div>
+          <div className="npc1FormInputContainer">
+            <div>
+              <label htmlFor="state">Loss State</label>
+              <DropdownLossState
+                value={npcData.lossState}
+                onChange={onInputChange}
+                updateValidationErrors={updateValidationErrors}
+              />
+            </div>
+            <div>
+              <label htmlFor="postalCode">Loss Postal Code</label>
+              <InputFieldLossPostalCode
+                value={npcData.lossPostalCode}
+                onChange={onInputChange}
+                updateValidationErrors={updateValidationErrors}
+              />
+            </div>
+          </div>
         </div>
-        <div style={{ marginRight: '20px' }}>
-          <TextLossState />
-          <DropdownLossState 
-            value={npcData.lossState}
-            onChange={onInputChange}
-            updateValidationErrors={updateValidationErrors}
-          />
-        </div>
-        <div>
-        <TextLossPostalCode />
-        <InputFieldLossPostalCode 
-          value={npcData.lossPostalCode}
-          onChange={onInputChange}
-          updateValidationErrors={updateValidationErrors}
-        />
-      </div>
-      </div>
-      
-    </div>
-  </div>
 
-  {/* Continue Button */}
-  <ButtonContinue label="Continue" onClick={onNext} disabled={!areAllFieldsFilled()} />
-</div>
-</div>
+        {/* Continue Button */}
+
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            marginTop: "20px",
+          }}
+        >
+          <ButtonContinue onClick={onNext} disabled={!areAllFieldsFilled}>
+            Continue
+          </ButtonContinue>
+        </div>
+      </div>
+    </div>
   );
 };
-  
+
 export default NPC1;

@@ -1,45 +1,42 @@
 // InputFieldDateOfLoss.jsx
-import React, { useState } from 'react';
-import { isValidDateFormat } from '../../validationUtils';
+import React, { useState } from "react";
+import { isValidDateFormat } from "../../validationUtils";
+import { color } from "framer-motion";
 
 const styles = {
   Input: {
-    top: '676px',
-    left: '722px',
-    width: '623px',
-    height: '45px',
-    padding: '0px 8px',
-    border: '1px solid #ceced3',
-    boxSizing: 'border-box',
-    borderRadius: '12px',
-    //backgroundColor: '#030303',
-    color: '#000000',
-    fontSize: '20px',
-    fontFamily: 'Poppins',
+    top: "676px",
+    left: "722px",
+    width: "100%",
+    height: "45px",
+    padding: "0px 8px",
+    boxSizing: "border-box",
+    fontSize: "20px",
+    fontFamily: "Poppins",
     fontWeight: 500,
-    lineHeight: '26px',
-    textTransform: 'capitalize',
-    outline: 'none',
+    lineHeight: "26px",
+    textTransform: "capitalize",
+    outline: "none",
   },
   ErrorMessage: {
-    color: 'red',
-    marginTop: '5px',
-    fontSize: '14px',
+    color: "red",
+    marginTop: "5px",
+    fontSize: "14px",
   },
 };
 
 const defaultProps = {
-  text: 'Date of Loss (mm/dd/yyyy)',
+  text: "Date of Loss (mm/dd/yyyy)",
 };
 
 const InputFieldDateofLoss = (props) => {
   const { value, onChange, updateValidationErrors } = props;
-  const [validationError, setValidationError] = useState('');
+  const [validationError, setValidationError] = useState("");
 
   const handleChange = (e) => {
     const newValue = e.target.value;
-    onChange('dateOfLoss', newValue);
-    setValidationError('');
+    onChange("dateOfLoss", newValue);
+    setValidationError("");
   };
 
   const handleBlur = () => {
@@ -47,7 +44,7 @@ const InputFieldDateofLoss = (props) => {
     if (value !== undefined) {
       const isValid = isValidDateFormat(value);
       if (!isValid) {
-        setValidationError('Invalid date format');
+        setValidationError("Invalid date format");
         updateValidationErrors(true);
       }
     }
@@ -59,7 +56,7 @@ const InputFieldDateofLoss = (props) => {
         style={styles.Input}
         type="date" // Use type="date" for date picker
         placeholder={props.text ?? defaultProps.text}
-        value={value || ''}
+        value={value || ""}
         onChange={handleChange}
         onBlur={handleBlur}
       />

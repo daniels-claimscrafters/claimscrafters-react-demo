@@ -1,0 +1,30 @@
+.npc4FormCreation {
+  display: "flex";
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  background: #04101e;
+  color: white;
+  padding-bottom: 20px;
+}
+.logoImg {
+  height: 110px;
+  width: 110px;
+}
+
+.npc4 {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+.npc4 div {
+  display: flex;
+  align-items: center;
+}
+.npc4 svg {
+  font-size: 2rem;
+  margin-right: 10px;
+  cursor: pointer;
+}

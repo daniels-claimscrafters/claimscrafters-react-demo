@@ -1,37 +1,36 @@
-import React from 'react';
+import React from "react";
 
 const styles = {
   Card: {
-    top: '502px',
-    left: '24px',
-    width: '682px',
-    height: '300px',
-    backgroundColor: '#ffffff',
-    borderRadius: '12px',
-    border: '1px solid #030303',
-    boxSizing: 'border-box',
-    boxShadow: '0px 1px 12px rgba(3,3,3,0.08)',
-    marginTop: '20px',
-    padding: '5px',
-    fontFamily: 'Poppins',
+    top: "502px",
+    left: "24px",
+    width: "100%",
+    height: "300px",
+    backgroundColor: "#132A58",
+    borderRadius: "12px",
+    border: "1px solid #030303",
+    boxSizing: "border-box",
+    boxShadow: "0px 1px 12px rgba(3,3,3,0.08)",
+    marginTop: "20px",
+    padding: "5px",
+    fontFamily: "Poppins",
   },
   Table: {
-    width: '100%',
-    borderCollapse: 'collapse',
-    textAlign: 'center',
+    width: "100%",
+    borderCollapse: "collapse",
+    textAlign: "center",
   },
   TableHeader: {
-    backgroundColor: '#ffffff',
-    borderBottom: '1px solid #dddddd',
-    height: '40px'
+    backgroundColor: "#132A58",
+    borderBottom: "1px solid #dddddd",
+    height: "40px",
   },
   TableCell: {
-    borderBottom: '1px solid #dddddd',
-    padding: '7px',
+    borderBottom: "1px solid #dddddd",
+    padding: "7px",
   },
   TableCellLast: {
-    
-    padding: '10px',
+    padding: "10px",
   },
 };
 
@@ -59,22 +58,18 @@ const CardPriceBreakdown = () => {
           <tr>
             <td style={styles.TableCell}>301-500 Lines</td>
             <td style={styles.TableCell}>$2.00 / line</td>
-            
           </tr>
           <tr>
             <td style={styles.TableCell}>501-700 Lines</td>
             <td style={styles.TableCell}>1.75 / line</td>
-            
           </tr>
           <tr>
             <td style={styles.TableCell}>701-900 Lines</td>
             <td style={styles.TableCell}>$1.50 / line</td>
-            
           </tr>
           <tr>
             <td style={styles.TableCellLast}>1000+ Lines</td>
             <td style={styles.TableCellLast}>$1.25 / line</td>
-            
           </tr>
           {/* Add more rows as needed */}
         </tbody>

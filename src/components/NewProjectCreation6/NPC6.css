@@ -1,0 +1,29 @@
+.npc6Div {
+  display: "flex";
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  background: #04101e;
+  color: white;
+}
+.logoImg {
+  height: 110px;
+  width: 110px;
+}
+
+.npc6 {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+.npc6 div {
+  display: flex;
+  align-items: center;
+}
+.npc6 svg {
+  font-size: 2rem;
+  margin-right: 10px;
+  cursor: pointer;
+}

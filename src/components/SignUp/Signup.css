@@ -1,0 +1,120 @@
+.signupPage {
+  background: #04101e;
+}
+
+.signup {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background: #142c4b; */
+  min-height: 100vh;
+  padding: 20px;
+}
+.signupForm {
+  width: 60%;
+
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  /* gap: 10px; */
+  justify-content: center;
+  /* align-items: center; */
+  text-align: center;
+  /* background: #142c4b; */
+  border: 2px solid #142c4b;
+  border-radius: 15px;
+}
+.signupFormContent {
+  background: #142c4b;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+  padding: 15px;
+  border-radius: 0 0 15px 15px;
+  color: white;
+}
+.signUpHeader {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+.signupLogo img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+}
+
+.inputHolder {
+  width: 100%;
+  display: flex;
+  gap: 20px;
+}
+.inputColumn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+  width: 100%;
+}
+.inputColumn input {
+  width: 100%;
+}
+.signupCheckBox {
+  display: flex;
+  /* width: 100%; */
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  gap: 10px;
+}
+.signupCheckBox p {
+  display: flex;
+  margin: 0;
+  width: 100%;
+}
+.signupCheckBox a {
+  font-size: 1rem;
+}
+
+@media (max-width: 1024px) {
+  .signupForm {
+    width: 90%;
+  }
+  /* .signupCheckBox {
+    gap: 2px;
+    flex-wrap: wrap;
+  } */
+}
+
+@media (max-width: 640px) {
+  .signupForm {
+    width: 95%;
+  }
+  .signUpHeader {
+    flex-direction: column;
+    align-items: center;
+  }
+  .signupLogo {
+    order: -1;
+  }
+  .signupFormHeader h1 {
+    font-size: 1.2rem;
+  }
+  .signupFormHeader p {
+    font-size: 0.8rem;
+  }
+  .inputHolder {
+    flex-direction: column;
+    gap: 5px;
+  }
+  .inputColumn {
+    gap: 2px;
+  }
+  .signupCheckBox {
+    font-size: 8px;
+  }
+  .signupCheckBox a {
+    font-size: 8px;
+  }
+}

@@ -1,0 +1,124 @@
+.loginPage {
+  background: #04101e;
+}
+input {
+  border-bottom: 2px solid white;
+  outline: none;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  background: #142c4b;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+.login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background: #142c4b; */
+  min-height: 100vh;
+  padding: 20px;
+}
+.loginForm {
+  width: 40%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  border: 2px solid #142c4b;
+  border-radius: 15px;
+}
+.Logo {
+  /* background: white; */
+  background: #142c4b;
+  border-radius: 15px 15px 0 0;
+}
+.formContent {
+  background: #142c4b;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+  padding: 15px;
+  border-radius: 0 0 15px 15px;
+  color: white;
+}
+.form-logo {
+  height: 170px;
+  width: 170px;
+  margin: auto;
+}
+.input-column {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+}
+.input-column input {
+  width: 100%;
+}
+.remember-me {
+  display: flex;
+  justify-content: space-between;
+}
+.remember-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  padding: 0;
+}
+input[type="checkbox"] {
+  height: 15px;
+  width: 15px;
+}
+
+.formBtn {
+  background: #1791ec;
+  color: white;
+  flex: 1;
+  width: 100%;
+  padding: 10px;
+}
+.formBtn:hover {
+  color: white;
+  cursor: pointer;
+}
+
+@media (max-width: 998px) {
+  .loginForm {
+    width: 70%;
+  }
+}
+@media (max-width: 608px) {
+  .loginForm {
+    width: 90%;
+  }
+}
+
+@media (max-width: 478px) {
+  .form-logo {
+    height: 150px;
+    width: 150px;
+  }
+  .loginForm {
+    width: 95%;
+  }
+  .form-header h1 {
+    font-size: 1.2rem;
+  }
+  .form-header p {
+    font-size: 0.8rem;
+  }
+  .remember-box label {
+    font-size: 0.8rem;
+  }
+  .remember-me a {
+    font-size: 0.8rem;
+  }
+  .signupLink {
+    font-size: 0.8rem;
+  }
+}

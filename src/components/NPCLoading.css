@@ -1,0 +1,21 @@
+.title {
+  margin: 0;
+  color: #030303;
+  font-size: 24px;
+  font-family: Poppins;
+  font-weight: 600;
+}
+.overlayCard {
+  background-color: #fff;
+
+  height: 100%;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 824px) {
+  .title {
+    font-size: 14px;
+  }
+}

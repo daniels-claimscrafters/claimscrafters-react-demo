@@ -1,24 +1,21 @@
-import React from 'react';
+import React from "react";
 
 const styles = {
   Text: {
-    color: '#030303',
-    fontSize: '18px',
-    fontFamily: 'Poppins',
-    lineHeight: '42px',
+    padding: "10px",
+    color: "white",
+    fontSize: "18px",
+    fontFamily: "Poppins",
+    lineHeight: "42px",
   },
 };
 
 const defaultProps = {
-  text: 'Count of line items being evaluated:',
+  text: "Count of line items being evaluated:",
 };
 
 const Text = (props) => {
-  return (
-    <div style={styles.Text}>
-      {props.text ?? defaultProps.text}
-    </div>
-  );
+  return <div style={styles.Text}>{props.text ?? defaultProps.text}</div>;
 };
 
 export default Text;

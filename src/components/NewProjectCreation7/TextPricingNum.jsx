@@ -1,16 +1,16 @@
 // TextPricingNum.jsx
 
-import React from 'react';
+import React from "react";
 
 const styles = {
   Text: {
-    color: '#212121',
-    fontSize: '20px',
-    fontFamily: 'Poppins',
+    color: "white",
+    fontSize: "20px",
+    fontFamily: "Poppins",
     fontWeight: 700,
-    lineHeight: '26px',
-    textAlign: 'right',
-    marginRight: '20px',
+    lineHeight: "26px",
+    textAlign: "right",
+    marginRight: "20px",
   },
 };
 

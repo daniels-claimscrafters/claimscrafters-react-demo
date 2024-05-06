@@ -1,64 +1,51 @@
 // InputFieldPostalCode.jsx
 
-import React, { useState } from 'react';
-import { isValidPostalCode } from '../../validationUtils';
+import React, { useState } from "react";
+import { isValidPostalCode } from "../../validationUtils";
 
 const styles = {
   Input: {
-    top: '256px',
-    left: '580px',
-    width: '242px',
-    height: '36px',
-    padding: '0px 8px',
-    border: '1px solid #ededed',
-    boxSizing: 'border-box',
-    borderRadius: '3px',
-    backgroundColor: '#fcfdff',
-    color: '#929699',
-    fontSize: '14px',
-    fontFamily: 'Poppins',
-    lineHeight: '18px',
-    outline: 'none',
+    width: "100%",
   },
   ErrorMessage: {
-    color: 'red',
-    marginTop: '5px',
-    fontSize: '14px',
+    color: "red",
+    marginTop: "5px",
+    fontSize: "14px",
   },
 };
 
 const defaultProps = {
-  text: 'Postal Code',
+  text: "Postal Code",
 };
 
 const InputField = (props) => {
   const { value, onChange, text, updateValidationErrors, userData } = props;
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const postalCode = userData.postalCode;
 
   const handleInputChange = (e) => {
     const inputValue = e.target.value;
-  
+
     // Limit the input length to 5 digits
     if (inputValue.length > 5) {
       e.target.value = inputValue.slice(0, 5);
     }
-  
+
     if (inputValue.length <= 5) {
       if (!isValidPostalCode(inputValue)) {
-        setError('Invalid postal code');
+        setError("Invalid postal code");
         updateValidationErrors(true);
       } else {
-        setError('');
+        setError("");
         updateValidationErrors(false);
       }
     }
-  
+
     onChange(e);
   };
 
   return (
-    <div>
+    <div className="inputFill">
       <input
         style={styles.Input}
         placeholder={postalCode ?? defaultProps.text}
@@ -71,4 +58,3 @@ const InputField = (props) => {
 };
 
 export default InputField;
-

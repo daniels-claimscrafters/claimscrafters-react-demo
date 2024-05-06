@@ -1,18 +1,18 @@
 // IconBack.jsx
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const styles = {
   Icon: {
-    color: '#030303',
-    fill: '#030303',
-    fontSize: '40px',
-    top: '225px',
-    left: '45px',
-    width: '40px',
-    height: '40px',
-    marginRight: '10px',
-    cursor: 'pointer', // Add cursor pointer for indicating it's clickable
+    color: "white",
+    fill: "white",
+    fontSize: "40px",
+    top: "225px",
+    left: "45px",
+    width: "40px",
+    height: "40px",
+    marginRight: "10px",
+    cursor: "pointer", // Add cursor pointer for indicating it's clickable
   },
 };
 
@@ -20,7 +20,7 @@ const IconBack = () => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate('/login'); // Redirect to login page when clicked
+    navigate("/login"); // Redirect to login page when clicked
   };
 
   return (

@@ -1,0 +1,131 @@
+.npc5Div {
+  display: "flex";
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  background: #04101e;
+  color: white;
+  padding-bottom: 20px;
+}
+.logoImg {
+  height: 110px;
+  width: 110px;
+}
+
+.npc5 {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+.npc5 div {
+  display: flex;
+  align-items: center;
+}
+.npc5 svg {
+  font-size: 2rem;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.inputRow {
+  /* display: flex;
+  flex-direction: row; */
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 5px;
+  align-items: end;
+  gap: 10px;
+  margin-bottom: 10px;
+  /* background: red; */
+}
+.inputRow > div {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.inputField {
+  /* margin-right: 10px; */
+  cursor: pointer;
+  padding: 4px 5px;
+  /* border: 1px solid #ceced3; */
+  border-radius: 12px;
+  background-color: #04101e;
+  color: white;
+  font-size: 20px;
+  font-family: Poppins;
+
+  outline: none;
+}
+.tableBody {
+  overflow: auto;
+  width: 70%;
+  margin-bottom: 10px;
+}
+.firstCol {
+  width: 30px;
+}
+.tableCell {
+  padding: 10px;
+  text-align: left;
+  min-width: 20%;
+  max-width: 20%;
+  font-family: Poppins;
+  border: 1px solid #ceced3;
+  font-size: 16px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.etableCell {
+  padding: 10px;
+  text-align: left;
+  min-width: 20%;
+  max-width: 20%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-family: Poppins;
+  font-size: 16px;
+  white-space: nowrap;
+}
+.confirmButton {
+  /* background: #04101e; */
+  background: #2a84ea;
+  padding: 10px;
+  border-radius: 15px;
+  width: 220px;
+  cursor: pointer;
+}
+.disable {
+  background: #04101e;
+
+  padding: 10px;
+  border-radius: 15px;
+  width: 220px;
+  cursor: pointer;
+}
+
+@media (max-width: 960px) {
+  .inputRow {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .tableBody {
+    width: 90%;
+  }
+}
+@media (max-width: 720px) {
+  .inputRow {
+    grid-template-columns: 1fr;
+  }
+  .tableBody {
+    width: 100%;
+  }
+  .tableCell {
+    background: #000;
+    padding-left: 2px;
+    padding-right: 0;
+    font-size: 12px;
+  }
+}

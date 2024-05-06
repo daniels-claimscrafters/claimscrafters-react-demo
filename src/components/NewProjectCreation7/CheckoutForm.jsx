@@ -74,7 +74,7 @@ const CheckoutForm = ({ handleSubmit, npcData }) => {
         />
       </div>
       <div className="form-group">
-        <label className="form-label" htmlFor="email">Receipt Email</label>
+        <label className="form-label" htmlFor="email">Reciept Email</label>
         <input
           type="email"
           id="email"

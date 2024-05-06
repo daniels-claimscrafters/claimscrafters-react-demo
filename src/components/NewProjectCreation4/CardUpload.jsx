@@ -1,26 +1,27 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState } from "react";
 
 const styles = {
   Card: {
-    top: '498px',
-    left: '153px',
-    width: '1163px',
-    height: '365px',
-    backgroundColor: '#ffffff',
-    borderRadius: '12px',
-    border: '1px solid #030303',
-    boxSizing: 'border-box',
-    boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.16)',
-    cursor: 'pointer',
+    top: "498px",
+    left: "153px",
+    width: "80%",
+    minHeight: "365px",
+    backgroundColor: "#132A58",
+    borderRadius: "12px",
+    border: "1px solid #030303",
+    boxSizing: "border-box",
+    boxShadow: "0px 2px 8px rgba(0, 0, 0, 0.16)",
+    cursor: "pointer",
+    paddingBottom: "20px",
   },
   FileInput: {
-    display: 'none', // Hide the input visually
+    display: "none", // Hide the input visually
   },
   UploadedFileName: {
-    color: '#030303', // Match specified font color
-    fontSize: '16px', // Match specified font size
-    fontFamily: 'Poppins', // Match specified font family
-    textAlign: 'center', // Align text center
+    color: "#030303", // Match specified font color
+    fontSize: "16px", // Match specified font size
+    fontFamily: "Poppins", // Match specified font family
+    textAlign: "center", // Align text center
   },
 };
 
@@ -40,12 +41,12 @@ const CardUpload = (props) => {
   const handleFileChange = (event) => {
     const uploadedFile = event.target.files[0];
     // Check if a file was selected
-  if (!uploadedFile) {
-    // Display a message to the user or perform any other action
-    console.log('No file selected');
-    return;
-  }
-  
+    if (!uploadedFile) {
+      // Display a message to the user or perform any other action
+      console.log("No file selected");
+      return;
+    }
+
     const reader = new FileReader();
 
     reader.onload = (event) => {
@@ -66,10 +67,8 @@ const CardUpload = (props) => {
         ref={fileInputRef}
       />
       {props.children}
-      
     </div>
   );
 };
 
 export default CardUpload;
-

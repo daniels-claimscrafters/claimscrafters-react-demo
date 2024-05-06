@@ -1,0 +1,42 @@
+.NPC7Div {
+  display: "flex";
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  background: #04101e;
+  color: white;
+  padding-bottom: 20px;
+}
+.logoImg {
+  height: 110px;
+  width: 110px;
+}
+
+.npc7 {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding-left: 10px;
+  padding-right: 20px;
+}
+.npc7 div {
+  display: flex;
+  align-items: center;
+}
+.npc7 svg {
+  font-size: 2rem;
+  margin-right: 10px;
+}
+.orderPayment {
+  display: flex;
+  width: 90%;
+}
+
+@media (max-width: 768px) {
+  .orderPayment {
+    flex-direction: column;
+    gap: 20px;
+  }
+}

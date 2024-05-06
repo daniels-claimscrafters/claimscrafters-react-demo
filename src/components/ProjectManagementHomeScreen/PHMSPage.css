@@ -1,0 +1,370 @@
+a {
+  font-weight: 500;
+  font-family: "Red Hat Display", sans-serif;
+  color: #2a84ea;
+  text-decoration: underline;
+  font-size: 14px;
+}
+/* .cardTaskParent {
+  position: absolute;
+  left: 10%;
+  top: 10px;
+  height: 80vh;
+  width: 100%;
+} */
+.PHMS {
+  background: #04101e;
+}
+.PhmsNav {
+  display: flex;
+  height: 89px;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background: #132a58;
+  padding: 20px 20px;
+}
+.logoutBtn {
+  position: fixed;
+  left: 20px;
+  bottom: 20px;
+}
+.pmhsLogo {
+  height: 80px;
+  width: 80px;
+}
+
+.header-content {
+  text-align: center;
+}
+.header-content h2 {
+  margin-top: 10px;
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: white;
+}
+.header-content h4 {
+  margin-top: 0;
+  font-size: 1.2rem;
+  font-weight: normal;
+  color: white;
+}
+.profile-photo {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.profile-photo p {
+  color: white;
+}
+/* Project list */
+.projectTask {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+.projectList {
+  display: flex;
+}
+.projectBtnTabs {
+  display: flex;
+  flex-direction: column;
+  max-height: 500px;
+  background: #132a58;
+  width: 170px;
+}
+.projectBtnTabs button {
+  font-size: 0.8rem;
+  padding: 10px 15px;
+  color: white;
+  text-align: left;
+  font-weight: bold;
+}
+
+/* cards */
+
+.projectStatus {
+  color: white;
+  display: flex;
+  /* flex-direction: column; */
+  background: #04101e;
+}
+.projectStates {
+  display: flex;
+  flex-direction: column;
+  justify-content: Center;
+  gap: 20px;
+  width: 170px;
+  padding: 10px;
+}
+.projectStateHeading {
+  background: #1e1f26;
+  padding: 5px;
+  height: 100px;
+  width: 100px;
+  border-radius: 100%;
+  /* border-radius: 15px; */
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  color: White;
+}
+.projectStateHeading svg {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.card {
+  width: 100%;
+  margin: auto;
+  min-height: 93%;
+  background-color: #1e1f26;
+  /* border-radius: 20px; */
+  border: 2px solid #cddef2;
+  box-sizing: border-box;
+  padding: 20px;
+  overflow-x: auto;
+}
+.card h3 {
+  color: white;
+  font-size: 1.2rem;
+  text-align: center;
+}
+.projectSearchBox {
+  display: block;
+  margin: 0 auto;
+  padding: 10px;
+  width: 95%;
+  border-radius: 12px;
+  color: #1d1d1f;
+  font-size: 14px;
+  font-family: Poppins;
+  outline: none;
+  background-color: #f0f0f0;
+  border: 1px solid #ceced3;
+}
+.projectTable {
+  width: 100%;
+  border-collapse: collapse;
+  overflow-x: auto;
+}
+.projectTable th {
+  color: #ffffff;
+  padding: 12px 8px;
+  text-align: center;
+  border-bottom: 2px solid #cddef2;
+  font-size: 14px;
+  font-family: "Red Hat Display", sans-serif;
+  font-weight: 1000;
+}
+.projectTable td {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #cddef2;
+  color: #ffffff;
+  font-size: 14px;
+  font-family: "Red Hat Display", sans-serif;
+  font-weight: 500;
+  text-align: center;
+}
+.activityBox {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  text-align: center;
+}
+.activityTracker {
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.calendarCard {
+  width: 100%;
+  height: 220px;
+  background: #1e1f26;
+  color: white;
+  border-radius: 16px;
+  box-sizing: border-box;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  padding: 10px;
+}
+.rbc-btn-group button {
+  color: white !important;
+}
+.rbc-btn-group button:hover {
+  color: black !important;
+}
+.rbc-btn-group .rbc-active {
+  color: black !important;
+  font-weight: bold;
+}
+.taskCard {
+  width: 100%;
+  background-color: #1e1f26;
+  border-radius: 16px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.taskHeader,
+.taskValue {
+  display: flex;
+  justify-content: space-between;
+}
+.taskHeader div,
+.taskValue div {
+  width: 20%;
+  border-bottom: 1px solid white;
+  font-weight: bold;
+  /* background: red; */
+}
+
+.newTaskBtn {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px;
+  width: 100%;
+  font-weight: bold;
+}
+.newTaskBtn h3 {
+  font-weight: bold;
+}
+.plusIcon {
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 3rem;
+  background: #1e90ff;
+  height: 50px;
+  width: 50px;
+  border-radius: 15px;
+}
+
+.rbc-toolbar {
+  width: 100% !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  flex-direction: row !important;
+}
+@media (max-width: 1130px) {
+  .activityTracker {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .projectList {
+    flex-direction: column;
+  }
+  .projectBtnTabs {
+    flex-direction: row;
+    width: 100%;
+  }
+  .projectBtnTabs button {
+    width: 20%;
+    font-size: 12px;
+  }
+  .card {
+    padding: 10px 2px;
+  }
+  .projectStateHeading {
+    width: 100px;
+    height: 100px;
+    font-size: 1rem;
+    text-align: center;
+  }
+  .rbc-toolbar {
+    flex-direction: row;
+    gap: 10px !important;
+    padding: 20px 5px;
+    justify-content: center !important;
+    width: 100% !important;
+  }
+  .rbc-btn-group {
+    width: 150px !important;
+    padding: 0 !important;
+  }
+  .rbc-toolbar-label {
+    width: 50px !important;
+  }
+  .calendarCard {
+    height: 300px;
+    width: 90%;
+    margin: auto;
+  }
+  /* .taskCard; */
+}
+@media (max-width: 607px) {
+  .PHMS {
+    padding: 20px 10px;
+  }
+  .header-content h2 {
+    font-size: 1rem;
+  }
+  .header-content h4 {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 574px) {
+  .calendarCard {
+    width: 320px;
+  }
+  .taskCard {
+    width: 320px;
+  }
+  .taskHeader {
+    font-weight: normal;
+    font-size: 13px;
+  }
+  .taskValue div {
+    font-size: 10px;
+    font-weight: normal;
+  }
+}
+
+@media (max-width: 555px) {
+  .projectStatus {
+    flex-direction: column;
+  }
+  .projectStates {
+    flex-direction: row;
+    width: 100%;
+  }
+  .projectStateHeading {
+    width: 80px;
+    height: 80px;
+    font-size: 0.6rem;
+  }
+  .projectTableBox {
+    width: 555px;
+  }
+  .PhmsNav {
+    padding: 10px 2px;
+  }
+  .header-content h2 {
+    font-size: 13px;
+  }
+  .pmhsLogo {
+    height: 60px;
+    width: 60px;
+  }
+  .profile-photo p {
+    font-size: 12px;
+  }
+  .PhmsNav {
+    align-items: center;
+  }
+}

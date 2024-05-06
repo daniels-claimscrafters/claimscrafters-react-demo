@@ -1,0 +1,79 @@
+.editProfile {
+  display: flex;
+  background: #04101e;
+  padding-bottom: 20px;
+}
+.logoutBtn {
+  position: fixed;
+  left: 20px;
+  bottom: 20px;
+}
+.logoutBtn svg {
+  font-size: 1.6rem;
+  color: white;
+  cursor: pointer;
+}
+.editHeader {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
+.editHeader h3 {
+  font-size: 1.6rem;
+  margin: 0;
+  color: white;
+}
+.editHeader div {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.editHeader svg {
+  font-size: 1.6rem;
+  color: white;
+  cursor: pointer;
+}
+.editForm {
+  width: 60%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  justify-content: center;
+  text-align: center;
+  background: #142c4b;
+  border: 2px solid #142c4b;
+  border-radius: 15px;
+  color: white;
+  padding: 20px;
+}
+.editLogo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.inputHolder {
+  width: 100%;
+  display: flex;
+  gap: 20px;
+}
+.inputColumn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0px;
+  width: 100%;
+}
+.editFormMain {
+  width: 90%;
+  margin: auto;
+}
+.inputFill {
+  width: 100%;
+}
+@media (max-width: 768px) {
+  .editForm {
+    width: 90%;
+  }
+}
