@@ -38,9 +38,27 @@
   display: flex;
   flex-direction: column;
   width: 80%;
+  max-height: 60vh;
+  overflow: auto;
   align-items: center;
   margin: auto;
   gap: 10px;
+}
+/* Styling the scrollbar */
+.npc2Form::-webkit-scrollbar {
+  width: 10px; /* Width of the scrollbar */
+}
+
+.npc2Form::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Color of the track */
+}
+
+.npc2Form::-webkit-scrollbar-thumb {
+  background: #888; /* Color of the thumb */
+}
+
+.npc2Form::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Color of the thumb on hover */
 }
 .npc2Form > div {
   display: flex;

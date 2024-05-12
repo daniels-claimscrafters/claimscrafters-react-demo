@@ -5,8 +5,7 @@ import React, { useState } from "react";
 const styles = {
   Button: {
     cursor: "pointer",
-    top: "913px",
-    left: "848px",
+    margin: "20px auto",
     width: "140px",
     height: "40px",
     padding: "0px 8px",
@@ -20,7 +19,6 @@ const styles = {
     fontWeight: 600,
     lineHeight: "21px",
     outline: "none",
-    marginTop: "20px",
   },
   DisabledButton: {
     backgroundColor: "#999999",

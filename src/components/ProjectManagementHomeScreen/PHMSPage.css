@@ -14,6 +14,7 @@ a {
 } */
 .PHMS {
   background: #04101e;
+  min-height: 100vh;
 }
 .PhmsNav {
   display: flex;
@@ -101,9 +102,9 @@ a {
 .projectStateHeading {
   background: #1e1f26;
   padding: 5px;
-  height: 100px;
-  width: 100px;
-  border-radius: 100%;
+  height: 60px;
+  width: 130px;
+  border-radius: 15px;
   /* border-radius: 15px; */
   cursor: pointer;
   display: flex;
@@ -121,7 +122,7 @@ a {
 .card {
   width: 100%;
   margin: auto;
-  min-height: 93%;
+  max-height: 300px;
   background-color: #1e1f26;
   /* border-radius: 20px; */
   border: 2px solid #cddef2;
@@ -149,6 +150,7 @@ a {
 }
 .projectTable {
   width: 100%;
+
   border-collapse: collapse;
   overflow-x: auto;
 }
@@ -172,6 +174,7 @@ a {
   text-align: center;
 }
 .activityBox {
+  flex: 1;
   margin-top: 20px;
   display: flex;
   flex-direction: column;
@@ -179,14 +182,15 @@ a {
   text-align: center;
 }
 .activityTracker {
-  padding: 20px;
+  padding: 5px 20px 20px 20px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 20px;
 }
 
 .calendarCard {
-  width: 100%;
+  /* width: 100%; */
+  flex: 1;
   height: 220px;
   background: #1e1f26;
   color: white;
@@ -207,6 +211,7 @@ a {
   font-weight: bold;
 }
 .taskCard {
+  height: 220px;
   width: 100%;
   background-color: #1e1f26;
   border-radius: 16px;

@@ -17,7 +17,7 @@ const styles = {
     backgroundColor: "#04101E",
     color: "white",
     borderRadius: "26px",
-    border: "1px solid #030303",
+    border: "1px solid white",
     boxSizing: "border-box",
     overflowY: "hidden",
   },

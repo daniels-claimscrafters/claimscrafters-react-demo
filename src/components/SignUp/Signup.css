@@ -43,6 +43,7 @@
   width: 120px;
   height: 120px;
   border-radius: 50%;
+  margin: auto;
 }
 
 .inputHolder {
@@ -62,7 +63,6 @@
 }
 .signupCheckBox {
   display: flex;
-  /* width: 100%; */
   align-items: center;
   justify-content: center;
   margin: auto;
@@ -70,6 +70,7 @@
 }
 .signupCheckBox p {
   display: flex;
+  flex-wrap: wrap;
   margin: 0;
   width: 100%;
 }
@@ -112,9 +113,15 @@
     gap: 2px;
   }
   .signupCheckBox {
-    font-size: 8px;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    font-size: 12px;
+    flex-direction: column;
+    align-items: flex-start;
   }
+
   .signupCheckBox a {
-    font-size: 8px;
+    font-size: 12px;
   }
 }

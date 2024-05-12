@@ -76,6 +76,27 @@ a:focus {
   color: initial;
 }
 
+.drawer-content {
+  position: fixed;
+  top: 0;
+  right: -100%; /* Start hidden off the screen */
+  width: 80%; /* Adjust width as needed */
+  height: 100%;
+  background-color: #ffffff; /* Background color of the drawer */
+  z-index: 1000; /* Ensure it's above other content */
+  transition: right 0.3s ease; /* Smooth transition for opening/closing */
+
+  /* Add additional styling as needed */
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  padding-top: 30px;
+}
+
+.drawer-content.open {
+  right: 0; /* Move drawer to the screen when open */
+}
 .btn,
 .btn:focus {
   outline: none !important;

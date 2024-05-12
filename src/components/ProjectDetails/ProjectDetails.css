@@ -1,5 +1,6 @@
 .projectDetails {
   background: #04101e;
+  min-height: 100vh;
 }
 .cardChangeLog {
   display: flex;

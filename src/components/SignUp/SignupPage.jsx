@@ -17,9 +17,11 @@ import Checkbox from "./Checkbox";
 import IconHome from "./IconHome";
 import { motion } from "framer-motion";
 import Popup from "./Popup";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { AiFillHome } from "react-icons/ai";
 
 const SignupPage = () => {
+  const navigate = useNavigate();
   const [showEvdbPage, setShowEvdbPage] = useState(false);
   const [isAgreeChecked, setIsAgreeChecked] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -301,8 +303,24 @@ const SignupPage = () => {
     }
   };
 
+  const handleToHome = () => {
+    navigate("/");
+  };
   return (
     <div className="signupPage">
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "end",
+          paddingRight: "20px",
+          paddingTop: "20px",
+        }}
+        onClick={handleToHome}
+      >
+        <AiFillHome
+          style={{ fontSize: "1.8rem", color: "white", cursor: "pointer" }}
+        />
+      </div>
       <div className="signup">
         <form onSubmit={handleSubmit} className="signupForm">
           <div className="signupFormContent">
@@ -447,11 +465,11 @@ const SignupPage = () => {
             <div className="signupCheckBox">
               <Checkbox onChange={handleCheckboxChange} />
               <div style={{ width: "100%", display: "flex", padding: "0" }}>
-                By signing up, you agree to our
+                By signing up, you agree to our &nbsp;
                 <motion.div whileHover={{ textDecoration: "underline" }}>
                   <Link to="/tos"> term of service</Link>
                 </motion.div>
-                and
+                &nbsp; and &nbsp;
                 <motion.div whileHover={{ textDecoration: "underline" }}>
                   <Link to="/privacypolicy"> privacy policy</Link>
                 </motion.div>

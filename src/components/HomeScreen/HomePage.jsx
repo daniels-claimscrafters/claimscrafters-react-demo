@@ -16,8 +16,13 @@ import TextUsername from "./TextUsername";
 import TextGetStarted from "./TextGetStarted";
 import ButtonSignIn from "./ButtonSignIn";
 import IconLogout from "./IconLogout";
+import { useNavigate } from "react-router-dom";
+import { IoMdCloseCircleOutline } from "react-icons/io";
 
 const HomePage = () => {
+  const navigate = useNavigate();
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  console.log(isDrawerOpen);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userData, setUserData] = useState(null);
   const API_URL = process.env.REACT_APP_API_URL;
@@ -125,6 +130,7 @@ const HomePage = () => {
               aria-controls="navbarSupportedContent"
               aria-expanded="false"
               aria-label="Toggle navigation"
+              onClick={() => setIsDrawerOpen(!isDrawerOpen)}
             >
               <span className=""> </span>
             </button>
@@ -244,6 +250,106 @@ const HomePage = () => {
               </form>
             </div>
           </nav>
+        </div>
+
+        <div className={`drawer-content ${isDrawerOpen ? "open" : ""}`}>
+          {!isAuthenticated ? (
+            <>
+              {
+                <div
+                  style={{
+                    width: "100%",
+                    padding: "20px",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "20px",
+                  }}
+                >
+                  <IoMdCloseCircleOutline
+                    style={{ fontSize: "3rem", alignSelf: "flex-start" }}
+                    onClick={() => setIsDrawerOpen(!isDrawerOpen)}
+                  />
+                  <button
+                    style={{
+                      background: "#2A84EA",
+                      border: "none",
+                      padding: "10px",
+                      fontSize: "1.2rem",
+                      fontWeight: "bold",
+                      borderRadius: "10px",
+                      flex: "1",
+                      width: "90%",
+                    }}
+                    onClick={() => navigate("/signup")}
+                  >
+                    Signup
+                  </button>
+                </div>
+              }
+            </>
+          ) : (
+            <div
+              style={{
+                width: "100%",
+                padding: "20px",
+                display: "flex",
+                flexDirection: "column",
+                gap: "20px",
+              }}
+            >
+              <IoMdCloseCircleOutline
+                style={{ fontSize: "3rem", alignSelf: "flex-start" }}
+                onClick={() => setIsDrawerOpen(!isDrawerOpen)}
+              />
+              <button
+                style={{
+                  background: "#2A84EA",
+                  border: "none",
+                  padding: "10px",
+                  fontSize: "1.2rem",
+                  fontWeight: "bold",
+                  borderRadius: "10px",
+                  flex: "1",
+                  width: "90%",
+                }}
+                onClick={() => navigate("/pmhs")}
+              >
+                Dashboard
+              </button>
+
+              <button
+                style={{
+                  background: "#2A84EA",
+                  border: "none",
+                  padding: "10px",
+                  fontSize: "1.2rem",
+                  fontWeight: "bold",
+                  borderRadius: "10px",
+                  flex: "1",
+                  width: "90%",
+                }}
+                onClick={() => navigate("/editProfile")}
+              >
+                Profile
+              </button>
+
+              <button
+                style={{
+                  background: "#2A84EA",
+                  border: "none",
+                  padding: "10px",
+                  fontSize: "1.2rem",
+                  fontWeight: "bold",
+                  borderRadius: "10px",
+                  flex: "1",
+                  width: "90%",
+                }}
+                onClick={() => handleLogout()}
+              >
+                logout
+              </button>
+            </div>
+          )}
         </div>
       </header>
       {/* End header section */}

@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 import { motion } from "framer-motion";
 import "./Login.css";
+import { AiFillHome } from "react-icons/ai";
 
 const LogInPage = () => {
   const [email, setEmail] = useState("");
@@ -91,9 +92,25 @@ const LogInPage = () => {
       localStorage.removeItem("rememberedEmail");
     }
   };
+  const handleToHome = () => {
+    navigate("/");
+  };
 
   return (
     <div className="loginPage">
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "end",
+          paddingRight: "20px",
+          paddingTop: "20px",
+        }}
+        onClick={handleToHome}
+      >
+        <AiFillHome
+          style={{ fontSize: "1.8rem", color: "white", cursor: "pointer" }}
+        />
+      </div>
       <div className="login">
         <form action="" className="loginForm" onSubmit={handleLogin}>
           {/* <div className="loginForm"> */}

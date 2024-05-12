@@ -170,7 +170,6 @@ const CardValuation = ({ projectDetails }) => {
     <div>
       <div className="numItem">
         Number Of Items:
-        <br />
         {projectDetails.project.numberOfLines}
       </div>
       <div className="calcProject">

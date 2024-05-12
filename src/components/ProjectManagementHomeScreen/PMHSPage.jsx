@@ -313,7 +313,6 @@ const PMHSPage = () => {
                 animate={{ scale: 1, opacity: 1 }} // Animate to scale 1 and opacity 1
                 transition={{ delay: 1.0, duration: 0.5 }} // Delay animation by 0.5 seconds
               >
-                <h3>Activity Tracker</h3>
                 <TasksList
                   showCardTaskParent={showCardTaskParent}
                   toggleCardTaskParent={toggleCardTaskParent}

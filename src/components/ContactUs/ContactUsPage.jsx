@@ -280,16 +280,18 @@ const ContactUsPage = () => {
               />
             </div>
             {/* Use ButtonSendMessage as the submit button */}
-            <motion.div
-              initial={{ scale: 0 }} // Initial scale is 0
-              animate={{ scale: 1 }} // Animate to scale 1
-              whileHover={{ scale: 1.1 }} // Scale up to 1.1 when hovered
-              transition={{ duration: 1.0 }} // Transition duration
-            >
-              <ButtonSendMessage type="submit" disabled={!submitEnabled}>
-                Send Message
-              </ButtonSendMessage>
-            </motion.div>
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              <motion.div
+                initial={{ scale: 0 }} // Initial scale is 0
+                animate={{ scale: 1 }} // Animate to scale 1
+                whileHover={{ scale: 1.1 }} // Scale up to 1.1 when hovered
+                transition={{ duration: 1.0 }} // Transition duration
+              >
+                <ButtonSendMessage type="submit" disabled={!submitEnabled}>
+                  Send Message
+                </ButtonSendMessage>
+              </motion.div>
+            </div>
           </form>
         </div>
       </div>

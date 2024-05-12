@@ -11,6 +11,7 @@ const localizer = momentLocalizer(moment);
 const styles = {
   calendarContainer: {
     height: "100%",
+    width: "100%",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
