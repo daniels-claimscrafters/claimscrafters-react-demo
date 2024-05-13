@@ -6,7 +6,7 @@ import Popup from "./Popup";
 const styles = {
   cardContainer: {
     width: "100%",
-    height: "50%",
+    // height: "50%",
     backgroundColor: "#f1f1f1",
     borderRadius: "26px",
     border: "1px solid #505050",

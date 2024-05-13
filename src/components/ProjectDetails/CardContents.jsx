@@ -13,13 +13,13 @@ import {
 const styles = {
   Card: {
     width: "100%",
-    maxHeight: "100%",
+    height: "30vh",
+    maxHeight: "40vh",
     backgroundColor: "#04101E",
     color: "white",
     borderRadius: "26px",
     border: "1px solid white",
     boxSizing: "border-box",
-    overflowY: "hidden",
   },
   headerRow: {
     display: "flex",

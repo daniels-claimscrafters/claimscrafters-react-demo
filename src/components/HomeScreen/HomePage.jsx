@@ -284,6 +284,21 @@ const HomePage = () => {
                   >
                     Signup
                   </button>
+                  <button
+                    style={{
+                      background: "#2A84EA",
+                      border: "none",
+                      padding: "10px",
+                      fontSize: "1.2rem",
+                      fontWeight: "bold",
+                      borderRadius: "10px",
+                      flex: "1",
+                      width: "90%",
+                    }}
+                    onClick={() => navigate("/login")}
+                  >
+                    Login
+                  </button>
                 </div>
               }
             </>
@@ -420,7 +435,7 @@ const HomePage = () => {
         <div className="service_container">
           <div className="container">
             <div className="heading_container heading_center">
-              <h2>
+              <h2 className="heading">
                 Crafting Contents Value <span>with AI</span>
               </h2>
             </div>
@@ -556,8 +571,15 @@ const HomePage = () => {
 
       <section className="info_section layout_padding2">
         <div className="container">
-          <div className="row">
-            <div className="col-md-6 col-lg-3 info_col">
+          <div
+            className="row"
+            style={{
+              paddingBottom: "10px",
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <div className="col-4 col-md-6 col-lg-6 info_col">
               <div className="info_contact">
                 <div
                   style={{
@@ -568,11 +590,11 @@ const HomePage = () => {
                 >
                   <div style={{ display: "flex", alignItems: "center" }}>
                     <TextFooterContactUs />
-                    <IconFooterContactus />
+                    {/* <IconFooterContactus /> */}
                   </div>
                 </div>
               </div>
-              <div className="info_social">
+              {/* <div className="info_social">
                 <a href="#">
                   <i className="fa fa-facebook" aria-hidden="true"></i>
                 </a>
@@ -585,12 +607,18 @@ const HomePage = () => {
                 <a href="#">
                   <i className="fa fa-instagram" aria-hidden="true"></i>
                 </a>
-              </div>
+              </div> */}
             </div>
-            <div className="col-md-6 col-lg-3 info_col"></div>
-            <div className="col-md-6 col-lg-2 mx-auto info_col"></div>
-            <div className="col-md-6 col-lg-3 info_col">
-              <div style={{ display: "flex", alignItems: "center" }}>
+            {/* <div className="col-1 col-md-6 col-lg-3 info_col"></div>
+            <div className="col-1 col-md-6 col-lg-2 mx-auto info_col"></div> */}
+            <div className="col-7 col-md-6 col-lg-6 info_col">
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "flex-end",
+                }}
+              >
                 <TextFooterTermsOfUse />
                 <VerticalDividerFooter />
                 <TextFooterPrivacyPolicy />

@@ -317,27 +317,38 @@ const NPC3 = (props) => {
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
+              justifyContent: "flex-start",
               height: "150px",
               width: "100%",
             }}
           >
-            <label htmlFor="depreciation">Depreciation Range</label>
-            <div style={{ width: "80%" }}>
-              <DropdownDepreciation
-                value={npcData.depreciationRange}
-                onChange={onInputChange}
-              />
-              {/* Icon for Depreciation Popup */}
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "flex-start",
-                  alignItems: "center",
-                  cursor: "pointer", // Add cursor pointer to indicate clickability
-                }}
-                onClick={handleDepreciationIconClick}
-              >
-                {isDepreciationPopupOpen ? "Close ▲" : "What's this? ▼"}
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "flex-start",
+                height: "150px",
+                width: "80%",
+              }}
+            >
+              <label htmlFor="depreciation">Depreciation Range</label>
+              <div>
+                <DropdownDepreciation
+                  value={npcData.depreciationRange}
+                  onChange={onInputChange}
+                />
+                {/* Icon for Depreciation Popup */}
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "flex-start",
+                    alignItems: "center",
+                    cursor: "pointer", // Add cursor pointer to indicate clickability
+                  }}
+                  onClick={handleDepreciationIconClick}
+                >
+                  {isDepreciationPopupOpen ? "Close ▲" : "What's this? ▼"}
+                </div>
               </div>
             </div>
             {/* Popup for Depreciation */}

@@ -63,6 +63,8 @@
   overflow: auto;
   width: 70%;
   margin-bottom: 10px;
+  height: 200px;
+  max-height: 350px;
 }
 .firstCol {
   width: 30px;

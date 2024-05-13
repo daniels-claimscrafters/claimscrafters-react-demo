@@ -63,7 +63,7 @@ a {
 .projectTask {
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  /* gap: 30px; */
 }
 .projectList {
   display: flex;
@@ -71,7 +71,8 @@ a {
 .projectBtnTabs {
   display: flex;
   flex-direction: column;
-  max-height: 500px;
+  justify-content: space-evenly;
+  /* max-height: 500px; */
   background: #132a58;
   width: 170px;
 }
@@ -93,10 +94,12 @@ a {
 }
 .projectStates {
   display: flex;
+  height: 42vh;
   flex-direction: column;
   justify-content: Center;
   gap: 20px;
-  width: 170px;
+  width: 150px;
+  background: #132a58;
   padding: 10px;
 }
 .projectStateHeading {
@@ -122,7 +125,8 @@ a {
 .card {
   width: 100%;
   margin: auto;
-  max-height: 300px;
+  height: 50vh;
+  /* max-height: 60vh; */
   background-color: #1e1f26;
   /* border-radius: 20px; */
   border: 2px solid #cddef2;
@@ -186,18 +190,19 @@ a {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 20px;
+  height: 40vh;
 }
 
 .calendarCard {
   /* width: 100%; */
   flex: 1;
-  height: 220px;
+  /* height: 220px; */
   background: #1e1f26;
   color: white;
   border-radius: 16px;
   box-sizing: border-box;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
+  /* margin-bottom: 20px; */
   padding: 10px;
 }
 .rbc-btn-group button {
@@ -211,7 +216,7 @@ a {
   font-weight: bold;
 }
 .taskCard {
-  height: 220px;
+  /* height: 220px; */
   width: 100%;
   background-color: #1e1f26;
   border-radius: 16px;

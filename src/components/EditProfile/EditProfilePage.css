@@ -2,6 +2,7 @@
   display: flex;
   background: #04101e;
   padding-bottom: 20px;
+  min-height: 100vh;
 }
 .logoutBtn {
   position: fixed;
@@ -67,6 +68,10 @@
 }
 .editFormMain {
   width: 90%;
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
   margin: auto;
 }
 .inputFill {

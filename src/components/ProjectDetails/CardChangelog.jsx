@@ -5,31 +5,19 @@ import React, { useState, useEffect } from "react";
 import { FaFileDownload } from "react-icons/fa";
 
 const styles = {
-  cardContainer: {
-    width: "200px",
-    minHeight: "150px",
-    maxHeight: "250px",
-    boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
-    backgroundColor: "#1E1F26",
-    borderTop: "2px solid white",
-    borderBottom: "2px solid white",
-    padding: "10px",
-    overflow: "hidden",
-    display: "flex",
-    flexDirection: "column", // Align children vertically
-    alignItems: "center", // Center children horizontally
-    bordeRadius: "15px",
-  },
   header: {
     textAlign: "center", // Center text horizontally
     color: "white",
     fontSize: "10px",
     fontFamily: "Poppins",
     fontWeight: 600,
+    width: "90%",
   },
   entryContainer: {
     flex: "1",
     overflowY: "auto",
+    width: "100%",
+    textAlign: "center",
   },
   entryList: {
     padding: "0",
@@ -111,7 +99,7 @@ const CardChangelog = ({ projectDetails }) => {
   };
 
   return (
-    <div style={styles.cardContainer}>
+    <div className="changeCardContainer">
       <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
         <h1 style={styles.header}>Changelog Entries</h1>
         <button style={styles.button} onClick={handleDownload}>

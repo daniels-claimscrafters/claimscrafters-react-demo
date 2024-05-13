@@ -167,13 +167,13 @@ const CardValuation = ({ projectDetails }) => {
   }
 
   return (
-    <div>
+    <div className="cardValuation">
       <div className="numItem">
         Number Of Items:
         {projectDetails.project.numberOfLines}
       </div>
       <div className="calcProject">
-        <div>
+        <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
           <div className="calcProjectHeader">RCV</div>
           <div>
             Suggested RCV Total: $
@@ -198,7 +198,7 @@ const CardValuation = ({ projectDetails }) => {
             })}
           </div>
         </div>
-        <div>
+        <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
           <div className="calcProjectHeader">ACV</div>
           <div>
             RCV with Tax Total: $
@@ -233,7 +233,7 @@ const CardValuation = ({ projectDetails }) => {
             })}
           </div>
         </div>
-        <div>
+        <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
           <div className="calcProjectHeader">DEPRECIATION</div>
 
           <div>Depreciating Years: {depreciationRange}</div>
