@@ -4,9 +4,9 @@
 }
 .cardChangeLog {
   display: flex;
-  padding: 20px;
+
   justify-content: space-between;
-  padding: 40px;
+  padding: 20px 40px 2px 40px;
 }
 .iconHome svg {
   font-size: 1.8rem;
@@ -82,7 +82,7 @@
 }
 
 .cardValuation {
-  width: 40%;
+  width: 55%;
 }
 
 .changeCardContainer {

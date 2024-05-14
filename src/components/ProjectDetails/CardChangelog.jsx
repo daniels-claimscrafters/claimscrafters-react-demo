@@ -28,7 +28,7 @@ const styles = {
     padding: "10px",
     borderBottom: "1px solid #ccc",
     color: "white",
-    fontSize: "8px",
+    fontSize: "12px",
     fontWeight: 600,
   },
   button: { color: "white", fontSize: "1.5rem", padding: "0" },
@@ -114,7 +114,7 @@ const CardChangelog = ({ projectDetails }) => {
             .map(
               (entry, index) =>
                 // Check if the entry contains the word "Depreciation" among other words
-              !/\bDepreciationDisplay\b/.test(entry.entry) && (
+                !/\bDepreciationDisplay\b/.test(entry.entry) && (
                   <li key={entry.id} style={{ ...styles.entryItem }}>
                     {/* Split the entry text into different parts */}
                     {entry.entry
