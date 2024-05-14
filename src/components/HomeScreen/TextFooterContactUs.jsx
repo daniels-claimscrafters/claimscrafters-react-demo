@@ -3,18 +3,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const styles = {
-  Text: {
-    color: "#ffffff",
-    fontSize: "14px",
-    fontFamily: "Poppins",
-    lineHeight: "23px",
-    cursor: "pointer", // Add this to indicate it's clickable
-    transition: "transform 0.3s ease", // Add transition for transform property
-    marginRight: "10px",
-  },
-};
-
 const defaultProps = {
   text: "Contact Us",
 };
@@ -38,8 +26,8 @@ const TextFooterContactUs = (props) => {
 
   return (
     <div
+      className="Text"
       style={{
-        ...styles.Text,
         transform: isHovered ? "scale(1.1)" : "scale(1)", // Apply scale transform based on hover state
         ...props.style,
       }}

@@ -36,8 +36,8 @@ const Text = (props) => {
 
   return (
     <div
+      className="Text"
       style={{
-        ...styles.Text,
         transform: isHovered ? "scale(1.1)" : "scale(1)", // Apply scale transform based on hover state
         ...props.style,
       }}

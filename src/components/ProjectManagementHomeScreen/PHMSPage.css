@@ -13,7 +13,8 @@ a {
   width: 100%;
 } */
 .PHMS {
-  background: #04101e;
+  background: #04101e !important;
+  /* background-color: red; */
   min-height: 100vh;
 }
 .PhmsNav {
@@ -181,6 +182,7 @@ a {
 }
 .activityBox {
   flex: 1;
+  /* min-height: 40vh; */
   margin-top: 20px;
   display: flex;
   flex-direction: column;
@@ -192,7 +194,7 @@ a {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 20px;
-  height: 40vh;
+  min-height: 40vh;
 }
 
 .calendarCard {
@@ -269,6 +271,15 @@ a {
   display: flex !important;
   justify-content: space-between !important;
   flex-direction: row !important;
+}
+
+.Text {
+  color: #ffffff;
+  font-size: 14px;
+  font-family: Poppins;
+  line-height: 23px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
 }
 
 @media (max-width: 1440px) {
@@ -396,5 +407,17 @@ a {
   }
   .PhmsNav {
     align-items: center;
+  }
+  .Text {
+    font-size: 9px;
+  }
+}
+
+@media (max-width: 320px) {
+  .calendarCard {
+    width: 250px;
+  }
+  .taskCard {
+    width: 250px;
   }
 }

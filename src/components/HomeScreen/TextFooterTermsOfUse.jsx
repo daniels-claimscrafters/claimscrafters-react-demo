@@ -1,17 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const styles = {
-  Text: {
-    color: "#ffffff",
-    fontSize: "14px",
-    fontFamily: "Poppins",
-    lineHeight: "23px",
-    cursor: "pointer",
-    transition: "transform 0.3s ease",
-  },
-};
-
 const defaultProps = {
   text: "Terms of Use",
 };
@@ -35,8 +24,8 @@ const Text = (props) => {
 
   return (
     <div
+      className="Text"
       style={{
-        ...styles.Text,
         transform: isHovered ? "scale(1.1)" : "scale(1)", // Apply scale transform based on hover state
         ...props.style,
       }}

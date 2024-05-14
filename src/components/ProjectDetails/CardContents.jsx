@@ -28,6 +28,7 @@ const styles = {
     padding: "10px",
     borderBottom: "1px solid #ccc",
     color: "white",
+    width: "100%",
   },
   titleText: {
     color: "white",
@@ -45,14 +46,15 @@ const styles = {
     fontFamily: "Poppins",
     fontWeight: 600,
     //marginLeft: '50px',
-    minWidth: "300px", // Define a minimum width for each cell
-    maxWidth: "300px",
+    // Define a minimum width for each cell
+    width: "300px",
   },
   icon: {
     marginRight: "10px", // Add space between icon and button
   },
   spreadsheet: {
     paddingBottom: "15px",
+    width: "100%",
     height: "100%",
     overflow: "auto", // Add overflow to allow scrolling if content exceeds height
     backgroundColor: "#04101E",
@@ -65,12 +67,13 @@ const styles = {
     width: "fit-content",
     color: "white",
     backgroundColor: "#04101E",
+    // backgroundColor: "red",
   },
   bigCell: {
     display: "flex",
-    flex: "1", // Let each cell take up equal space initially
-    minWidth: "150px", // Define a minimum width for each cell
-    maxWidth: "300px", // Define a maximum width for each cell to prevent excessive expansion
+    // Let each cell take up equal space initially
+    // Define a minimum width for each cell
+    width: "100px", // Define a maximum width for each cell to prevent excessive expansion
     overflow: "hidden", // Hide overflow content
     textOverflow: "ellipsis", // Truncate text that overflows its container
     whiteSpace: "nowrap", // Prevent text from wrapping to the next line
@@ -83,9 +86,9 @@ const styles = {
   },
   cell: {
     display: "flex",
-    flex: "1", // Let each cell take up equal space initially
-    minWidth: "150px", // Define a minimum width for each cell
-    maxWidth: "300px", // Define a maximum width for each cell to prevent excessive expansion
+    // Let each cell take up equal space initially
+    // Define a minimum width for each cell
+    width: "100px", // Define a maximum width for each cell to prevent excessive expansion
     overflow: "hidden", // Hide overflow content
     textOverflow: "ellipsis", // Truncate text that overflows its container
     whiteSpace: "nowrap", // Prevent text from wrapping to the next line
@@ -100,7 +103,7 @@ const styles = {
   bigInput: {
     display: "flex",
     justifyContent: "center",
-    width: "200px",
+    width: "100px",
     fontSize: "12px",
     fontWeight: 600,
     color: "white",
@@ -109,7 +112,7 @@ const styles = {
   input: {
     display: "flex",
     justifyContent: "center",
-    width: "100px",
+    width: "60px",
     fontSize: "12px",
     fontWeight: 600,
     color: "white",
@@ -590,7 +593,7 @@ const CardContents = ({ projectDetails, setProjectDetails }) => {
               }}
             >
               <div style={styles.cell}>{index + 1}</div>
-              <div style={{ ...styles.cell, ...styles.input }}>
+              <div style={{ ...styles.cell }}>
                 <input
                   style={styles.input}
                   value={item.Room}
