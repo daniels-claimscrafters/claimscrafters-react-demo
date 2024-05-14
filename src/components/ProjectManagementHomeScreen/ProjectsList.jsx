@@ -42,7 +42,7 @@ const ProjectsList = (projects, inProcess, completed, total) => {
       </div>
       {/* </CardButtonBackground> */}
       <motion.div
-        style={{ width: "100%", height: "100%" }}
+        style={{ flex: "1", height: "100%" }}
         initial={{ scale: 0, opacity: 0 }} // Initial scale and opacity
         animate={{ scale: 1, opacity: 1 }} // Animate to scale 1 and opacity 1
         transition={{ delay: 1.5, duration: 0.5 }} // Delay animation by 0.5 seconds
