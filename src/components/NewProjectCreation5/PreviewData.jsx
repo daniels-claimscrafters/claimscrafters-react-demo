@@ -105,15 +105,19 @@ const PreviewData = ({ excelData, onColumnsSelected, resetParentData }) => {
     console.log(columnNames);
     jsonData.unshift(genericColumnHeaders);
 
-    const formattedData = jsonData.map((row, rowIndex) => {
+     // Add a row number column to the formatted data
+     const formattedData = jsonData.map((row, rowIndex) => {
       const formattedRow = {};
+    
       if (rowIndex === 0) {
         // Treat the first row as headers
+        formattedRow['Row Number'] = 'Row Number'; // Add an empty cell for the "Row Number" column in the header row
         row.forEach((header, index) => {
           formattedRow[header] = `Column ${String.fromCharCode(65 + index)}`;
         });
       } else {
         // Treat subsequent rows as data
+        formattedRow['Row Number'] = rowIndex; // Set the row number as the index for subsequent rows
         genericColumnHeaders.forEach((header, index) => {
           formattedRow[header] = row[index];
         });
