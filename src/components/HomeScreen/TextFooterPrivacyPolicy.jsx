@@ -1,18 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const styles = {
-  Text: {
-    color: "#ffffff",
-    fontSize: "14px",
-    fontFamily: "Poppins",
-    lineHeight: "23px",
-    marginRight: "30px",
-    cursor: "pointer",
-    transition: "transform 0.3s ease",
-  },
-};
-
 const defaultProps = {
   text: "Privacy Policy",
 };
