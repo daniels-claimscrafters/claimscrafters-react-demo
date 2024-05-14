@@ -114,7 +114,7 @@ const CardChangelog = ({ projectDetails }) => {
             .map(
               (entry, index) =>
                 // Check if the entry contains the word "Depreciation" among other words
-              !/\bDepreciationDisplay\b/.test(entry.entry) && (
+                !/\bDepreciation\b/.test(entry.entry) && (
                   <li key={entry.id} style={{ ...styles.entryItem }}>
                     {/* Split the entry text into different parts */}
                     {entry.entry

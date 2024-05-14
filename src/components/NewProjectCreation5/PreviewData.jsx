@@ -56,25 +56,21 @@ const PreviewData = ({ excelData, onColumnsSelected, resetParentData }) => {
 
       jsonData.unshift(genericColumnHeaders);
 
-      // Add a row number column to the formatted data
-    const formattedData = jsonData.map((row, rowIndex) => {
-      const formattedRow = {};
-    
-      if (rowIndex === 0) {
-        // Treat the first row as headers
-        formattedRow['Row Number'] = 'Row Number'; // Add an empty cell for the "Row Number" column in the header row
-        row.forEach((header, index) => {
-          formattedRow[header] = `Column ${String.fromCharCode(65 + index)}`;
-        });
-      } else {
-        // Treat subsequent rows as data
-        formattedRow['Row Number'] = rowIndex; // Set the row number as the index for subsequent rows
-        genericColumnHeaders.forEach((header, index) => {
-          formattedRow[header] = row[index];
-        });
-      }
-      return formattedRow;
-    });
+      const formattedData = jsonData.map((row, rowIndex) => {
+        const formattedRow = {};
+        if (rowIndex === 0) {
+          // Treat the first row as headers
+          row.forEach((header, index) => {
+            formattedRow[header] = `Column ${String.fromCharCode(65 + index)}`;
+          });
+        } else {
+          // Treat subsequent rows as data
+          genericColumnHeaders.forEach((header, index) => {
+            formattedRow[header] = row[index];
+          });
+        }
+        return formattedRow;
+      });
 
       setTableData(formattedData);
     }
@@ -202,14 +198,18 @@ const PreviewData = ({ excelData, onColumnsSelected, resetParentData }) => {
           selectedDescription[i] === undefined
         ) {
           setError(true);
-          setErrorMessage(`(Error on row ${i + 1}) Description column cannot contain any empty cells`);
+          setErrorMessage("Description column cannot contain any empty cells");
+          console.log("nope");
           return; // Abort
         }
 
         // Check if the quantity column contains only numbers
         if (isNaN(selectedQuantity[i])) {
           setError(true);
-          setErrorMessage(`(Error on row ${i + 1}) Quantity column can only contain numbers and non-empty cells`);
+          setErrorMessage(
+            "Quantity column can only contain numbers and non-empty cells"
+          );
+          console.log("nope");
           return; // Abort
         }
 
