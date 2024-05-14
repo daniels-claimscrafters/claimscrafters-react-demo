@@ -13,8 +13,8 @@ import {
 const styles = {
   Card: {
     width: "100%",
-    height: "30vh",
-    maxHeight: "40vh",
+    height: "50vh",
+    maxHeight: "50vh",
     backgroundColor: "#04101E",
     color: "white",
     borderRadius: "26px",
@@ -73,7 +73,7 @@ const styles = {
     display: "flex",
     // Let each cell take up equal space initially
     // Define a minimum width for each cell
-    width: "100px", // Define a maximum width for each cell to prevent excessive expansion
+    width: "150px", // Define a maximum width for each cell to prevent excessive expansion
     overflow: "hidden", // Hide overflow content
     textOverflow: "ellipsis", // Truncate text that overflows its container
     whiteSpace: "nowrap", // Prevent text from wrapping to the next line
@@ -88,7 +88,7 @@ const styles = {
     display: "flex",
     // Let each cell take up equal space initially
     // Define a minimum width for each cell
-    width: "100px", // Define a maximum width for each cell to prevent excessive expansion
+    width: "150px", // Define a maximum width for each cell to prevent excessive expansion
     overflow: "hidden", // Hide overflow content
     textOverflow: "ellipsis", // Truncate text that overflows its container
     whiteSpace: "nowrap", // Prevent text from wrapping to the next line

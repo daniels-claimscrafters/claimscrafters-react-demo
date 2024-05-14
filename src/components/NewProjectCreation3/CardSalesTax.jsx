@@ -2,9 +2,10 @@ import React from "react";
 
 const styles = {
   Card: {
-    top: "656px",
-    left: "80px",
-    width: "90%",
+    top: "650px",
+    left: "716px",
+    margin: "auto",
+    width: "60%",
     padding: "10px",
     backgroundColor: "#080a0b",
     borderRadius: "12px",

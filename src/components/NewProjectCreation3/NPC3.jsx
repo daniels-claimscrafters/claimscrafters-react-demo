@@ -355,15 +355,7 @@ const NPC3 = (props) => {
           </div>
         </div>
 
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "start",
-            alignItems: "center",
-            width: "100%",
-          }}
-        >
+        <div>
           {/* Render CardSalesTax if isSalesTaxPopupOpen is true */}
           {isSalesTaxPopupOpen && (
             <div style={{ display: "flex", alignItems: "center" }}>
