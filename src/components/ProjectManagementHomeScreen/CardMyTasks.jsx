@@ -46,7 +46,7 @@ const CardMyTasks = ({ showCardTaskParent, toggleCardTaskParent, tasks }) => {
   return (
     <div className="taskCard">
       <div className="newTaskBtn">
-        <h3>My Task</h3>
+        <h3>My Tasks</h3>
         <motion.div
           whileTap={{ scale: 0.9, transition: { duration: 0.2 } }} // Animation properties for tap/click
           //onClick={handleOnClick} // Handle the click event

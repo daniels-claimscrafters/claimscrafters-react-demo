@@ -361,7 +361,7 @@ const HomePage = () => {
                 }}
                 onClick={() => handleLogout()}
               >
-                logout
+                Logout
               </button>
             </div>
           )}

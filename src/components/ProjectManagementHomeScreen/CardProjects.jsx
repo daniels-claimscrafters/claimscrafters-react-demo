@@ -37,7 +37,7 @@ const CardProjects = ({ projects, filter }) => {
 
   return (
     <div className="card">
-      <h3>Search in MY Projects</h3>
+      <h3>Search In My Projects</h3>
       {/* Search Bar */}
       <input
         type="text"

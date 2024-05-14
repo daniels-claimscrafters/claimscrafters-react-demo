@@ -287,7 +287,7 @@ const NPC1 = (props) => {
           {/* Insured Information */}
           <div className="npc1FormInputContainer">
             <div>
-              <label htmlFor="firstName">Insured Fist Name</label>
+              <label htmlFor="firstName">Insured First Name</label>
               <InputFieldFirstName
                 value={npcData.insuredFirstName}
                 onChange={onInputChange}
