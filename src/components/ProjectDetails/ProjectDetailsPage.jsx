@@ -124,7 +124,7 @@ const ProjectDetailsPage = () => {
   };
 
   return (
-    <div>
+    <div className="projectDetailsPage">
       {/* delete */}
       {/* <div>
         <HeaderBackground>

@@ -1,7 +1,12 @@
-.projectDetails {
-  background: #04101e;
+.projectDetailsPage {
   min-height: 100vh;
+  background: #04101e;
 }
+
+/* .projectDetails {
+  background: #04101e;
+  min-height: 100vh - 89px;
+} */
 .cardChangeLog {
   display: flex;
 

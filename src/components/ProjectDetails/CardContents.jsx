@@ -13,8 +13,8 @@ import {
 const styles = {
   Card: {
     width: "100%",
-    height: "50vh",
-    maxHeight: "50vh",
+    height: "40vh",
+    maxHeight: "40vh",
     backgroundColor: "#04101E",
     color: "white",
     borderRadius: "26px",
@@ -103,7 +103,8 @@ const styles = {
   bigInput: {
     display: "flex",
     justifyContent: "center",
-    width: "100px",
+    textAlign: "center",
+    width: "150px",
     fontSize: "12px",
     fontWeight: 600,
     color: "white",
@@ -112,7 +113,8 @@ const styles = {
   input: {
     display: "flex",
     justifyContent: "center",
-    width: "60px",
+    textAlign: "center",
+    width: "95px",
     fontSize: "12px",
     fontWeight: 600,
     color: "white",
