@@ -224,6 +224,15 @@ const CardValuation = ({ projectDetails }) => {
               maximumFractionDigits: 2,
             })}
           </div>
+          <hr
+            style={{
+              backgroundColor: "white",
+              height: "1px",
+              width: "100%",
+              margin: "5px 0",
+            }}
+            align="left"
+          />
           <div>
             RCV with Tax Total: $
             {rcvWithTaxTotal.toLocaleString("en-US", {
