@@ -203,7 +203,7 @@ const CardValuation = ({ projectDetails }) => {
   return (
     <div className="cardValuation">
       <div className="numItem">
-        Number Of Items:
+        Number Of Items: 
         {projectDetails.project.numberOfLines}
       </div>
       <div className="calcProject">
