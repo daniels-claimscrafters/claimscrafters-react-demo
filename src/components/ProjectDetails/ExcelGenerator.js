@@ -6,41 +6,90 @@ const API_URL = process.env.REACT_APP_API_URL;
 const generateSummary = async (projectDetails) => {
     let suggestedRCVTotal = 0;
 
-    // Iterate through each item in spreadsheetData
-    projectDetails.project.spreadsheetData.forEach(item => {
-        // Parse RCV High, RCV Low, and Quantity from the current item
-        const RCVHigh = parseFloat(item['RCV High']);
-        const RCVLow = parseFloat(item['RCV Low']);
-        const quantity = parseFloat(item['Quantity']);
-        
-        // Calculate RCV (ext) for the current item using the provided formula
-        const RCVExt = (RCVHigh + RCVLow) / 2 * quantity;
-        
-        // Add RCV (ext) to total
-        suggestedRCVTotal += RCVExt;
-    });
+  // Iterate through each item in spreadsheetData
+  projectDetails.project.spreadsheetData.forEach((item) => {
+    // Parse RCV High, RCV Low, and Quantity from the current item
+    const RCVHigh = parseFloat(item["RCV High"]).toFixed(2);
+    const RCVLow = parseFloat(item["RCV Low"]).toFixed(2);
+    const quantity = parseFloat(item["Quantity"]);
 
-    // Calculate total RCV tax
-    const totalRCVTax = suggestedRCVTotal * (projectDetails.project.salesTax / 100);
+    // Calculate RCV (ext) for the current item using the provided formula
+    let RCVExt = (((parseFloat(RCVHigh) + parseFloat(RCVLow)) / 2) * quantity).toFixed(2);
+    // console.log("RCVExt "+RCVExt);
+    RCVExt = parseFloat(RCVExt);
+    
+    // Add RCV (ext) to total
+    suggestedRCVTotal += RCVExt;
+  });
+
+    // Initialize total RCV tax
+  let totalRCVTax = 0;
+
+  // Iterate through each item in spreadsheetData
+  projectDetails.project.spreadsheetData.forEach((item) => {
+    // Parse RCV High, RCV Low, and Quantity from the current item
+    const RCVHigh = parseFloat(item["RCV High"]);
+    const RCVLow = parseFloat(item["RCV Low"]);
+    const quantity = parseFloat(item["Quantity"]);
+
+    // Calculate RCV (ext) for the current item using the provided formula
+    const RCVExt = ((RCVHigh + RCVLow) / 2) * quantity;
+
+    // Round RCVExt to two decimal places to minimize rounding errors
+    const roundedRCVExt = parseFloat(RCVExt.toFixed(2));
+
+    // Calculate RCV tax for the current item and add it to the total
+    const RCVTax = roundedRCVExt * (projectDetails.project.salesTax / 100);
+
+    // Round RCVTax to two decimal places before adding to totalRCVTax
+    const roundedRCVTax = parseFloat(RCVTax.toFixed(2));
+
+    // Add rounded RCVTax to totalRCVTax
+    totalRCVTax += roundedRCVTax;
+  });
+
+  // Round the total RCV tax to two decimal places
+  totalRCVTax = roundToTwoDecimalPlaces(totalRCVTax);
+
+  // Output the total RCV tax
+  
+
+  // Function to round a number to two decimal places
+  function roundToTwoDecimalPlaces(number) {
+    return Math.round(number * 100) / 100;
+  }
 
     // Calculate RCV with tax total
     const rcvWithTaxTotal = suggestedRCVTotal + totalRCVTax;
 
     let suggestedACVTotal = 0; // Initialize total ACV
 
-    // Iterate over each item in the spreadsheet data
-    projectDetails.project.spreadsheetData.forEach(item => {
-        // Parse RCV High, RCV Low, Quantity, and Depreciation from the current item
-        const RCVHigh = parseFloat(item['RCV High']);
-        const RCVLow = parseFloat(item['RCV Low']);
-        const quantity = parseFloat(item['Quantity']);
-        const depreciation = parseFloat(item['Depreciation']);
-        
-        // Calculate ACV for the current item using the provided formula
-        const ACV = ((RCVHigh + RCVLow) / 2 * quantity);
-        // Add ACV to total
-        suggestedACVTotal += ACV;
-    });
+  // Iterate over each item in the spreadsheet data
+  projectDetails.project.spreadsheetData.forEach((item) => {
+    // Parse RCV High, RCV Low, Quantity, and Depreciation from the current item
+    const RCVHigh = parseFloat(item["RCV High"]);
+    const RCVLow = parseFloat(item["RCV Low"]);
+    const quantity = parseFloat(item["Quantity"]);
+    const depreciation = parseFloat(item["Depreciation"]);
+
+   // Calculate depreciation amount for the current item using the provided formula
+  const ACV1 = parseFloat((((RCVHigh + RCVLow) / 2) * quantity).toFixed(2));
+    
+  let depreciationFactor = depreciation * 100 * projectDetails.project.depreciationRange;
+
+  // Ensure that the depreciation factor does not exceed 100
+  depreciationFactor = Math.min(depreciationFactor, 100);
+
+  const depreciationAmount = ACV1 * (depreciationFactor / 100);
+
+  // Convert the depreciation amount to a string with 2 decimal places
+  const formattedDepreciationAmount = parseFloat(depreciationAmount.toFixed(2));
+
+    let ACV2 = ACV1 - formattedDepreciationAmount;
+
+    // Add ACV to total
+    suggestedACVTotal += ACV2;
+  });
 
     // Calculate total ACV tax by multiplying total ACV by the sales tax rate
     const totalACVTax = suggestedACVTotal * (projectDetails.project.salesTax / 100);
@@ -50,24 +99,32 @@ const generateSummary = async (projectDetails) => {
 
     let totalDepreciation = 0 + totalRCVTax; // Initialize total depreciation
 
-    // Iterate over each item in the spreadsheet data
-    projectDetails.project.spreadsheetData.forEach(item => {
-        // Parse RCV High, Quantity, and Depreciation from the current item
-        const RCVHigh = parseFloat(item['RCV High']);
-        const RCVLow = parseFloat(item['RCV Low']);
-        const quantity = parseFloat(item['Quantity']);
-        const depreciation = parseFloat(item['Depreciation']);
-        
-        // Calculate depreciation amount for the current item using the provided formula
-        const rcvTotal = ((RCVHigh + RCVLow) / 2 * quantity);
-        let depreciationFactor = (depreciation * 100) * projectDetails.project.depreciationRange;
-        depreciationFactor = Math.min(depreciationFactor, 100);
-        const depreciationAmount = rcvTotal * (depreciationFactor / 100);
+  // Iterate over each item in the spreadsheet data
+projectDetails.project.spreadsheetData.forEach((item) => {
+  // Parse RCV High, Quantity, and Depreciation from the current item
+  const RCVHigh = parseFloat(item["RCV High"]);
+  const RCVLow = parseFloat(item["RCV Low"]);
+  const quantity = parseFloat(item["Quantity"]);
+  const depreciation = parseFloat(item["Depreciation"]);
 
-        
-        // Add depreciation amount to total
-        totalDepreciation += depreciationAmount;
-    });
+  // Calculate depreciation amount for the current item using the provided formula
+  let ACV1 = (((RCVHigh + RCVLow) / 2) * quantity).toFixed(2);
+  ACV1 = parseFloat(ACV1);
+  let depreciationFactor = depreciation * 100 * projectDetails.project.depreciationRange;
+
+  // Ensure that the depreciation factor does not exceed 100
+  depreciationFactor = Math.min(depreciationFactor, 100);
+
+  const depreciationAmount = ACV1 * (depreciationFactor / 100);
+
+  // Convert the depreciation amount to a string with 2 decimal places
+  const formattedDepreciationAmount = parseFloat(depreciationAmount.toFixed(2));
+
+  // console.log(formattedDepreciationAmount);
+
+  // Add formatted depreciation amount to total
+  totalDepreciation += formattedDepreciationAmount;
+});
 
     const headers = {
         'ngrok-skip-browser-warning': '69420'
@@ -555,8 +612,6 @@ const generateDetailWorksheet = async (worksheet, projectDetails) => {
         worksheet.getCell(`R${rowNumber}`).value = item.Class;
     });
 };
-
-
 
 const generateRawDataWorksheet = async (worksheet, projectDetails) => {
     // Iterate over projectDetails and replace cells starting from A2
