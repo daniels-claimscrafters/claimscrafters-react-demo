@@ -489,7 +489,7 @@ const CardContents = ({ projectDetails, setProjectDetails }) => {
       (projectDetails.project.salesTax / 100) *
       (((Number(item["RCV High"]) + Number(item["RCV Low"])) / 2) *
         item.Quantity);
-    return (rcvTotal * (depreciationFactor / 100) + salesTaxAmount).toFixed(2);
+    return (rcvTotal * (depreciationFactor / 100)).toFixed(2);
   };
 
   // Define a function to calculate ACV Total
