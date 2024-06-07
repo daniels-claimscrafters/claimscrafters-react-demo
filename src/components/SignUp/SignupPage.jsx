@@ -445,7 +445,7 @@ const SignupPage = () => {
               </div>
               {/* Second Row */}
               <div className="inputColumn">
-                <label htmlFor="confirmPassword">ConfirmPassword:</label>
+                <label htmlFor="confirmPassword">Confirm Password:</label>
                 <input
                   value={formData.confirmPassword}
                   onChange={(e) =>
@@ -467,11 +467,11 @@ const SignupPage = () => {
               <div style={{ width: "100%", display: "flex", padding: "0" }}>
                 By signing up, you agree to our &nbsp;
                 <motion.div whileHover={{ textDecoration: "underline" }}>
-                  <Link to="/tos"> term of service</Link>
+                  <Link to="/tos">Terms Of Service</Link>
                 </motion.div>
                 &nbsp; and &nbsp;
                 <motion.div whileHover={{ textDecoration: "underline" }}>
-                  <Link to="/privacypolicy"> privacy policy</Link>
+                  <Link to="/privacypolicy">Privacy Policy</Link>
                 </motion.div>
               </div>
             </div>
