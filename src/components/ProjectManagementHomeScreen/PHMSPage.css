@@ -56,9 +56,11 @@ a {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 10px;
 }
 .profile-photo p {
   color: white;
+  margin-bottom: 10px;
 }
 /* Project list */
 .projectTask {

@@ -2,11 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./ProjectDetails.css";
-import TextHeader from "./TextHeader";
-import ImageProfile from "./ImageProfile";
-import ImageHeader from "./ImageHeader";
 import CardChangelog from "./CardChangelog";
-import HeaderBackground from "./HeaderBackground";
 import CardValuation from "./CardValuation";
 import CardDetails from "./CardDetails";
 import CardContents from "./CardContents";
@@ -24,6 +20,17 @@ const ProjectDetailsPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const API_URL = process.env.REACT_APP_API_URL;
   const [userData, setUserData] = useState(null);
+
+  const [filteredData, setFilteredData] = useState([]);
+
+  const handleFilteredData = (filteredData) => {
+    // Update the filtered data state
+    setFilteredData(filteredData);
+  };
+
+  console.log('here', filteredData);
+
+  
 
   const isPageTallEnough = useMediaQuery({ minHeight: 750 });
   // Function to retrieve token from cookie
@@ -172,7 +179,7 @@ const ProjectDetailsPage = () => {
             <CardDetails projectDetails={projectDetails} />
           </div>
           <div className="cardChangeLog">
-            <CardValuation projectDetails={projectDetails} />
+          <CardValuation projectDetails={projectDetails} filteredData={filteredData} />
             <CardChangelog projectDetails={projectDetails} />
           </div>
         </div>
@@ -181,6 +188,7 @@ const ProjectDetailsPage = () => {
             projectDetails={projectDetails}
             setProjectDetails={handleUpdateProjectDetails}
             userData={userData}
+            onFilter={handleFilteredData}
           />
         </div>
       </div>

@@ -145,9 +145,13 @@ const styles = {
     paddingBottom: "15px",
     backgroundColor: "#04101E",
   },
+  dropdown: {
+    marginRight: '10px',
+    backgroundColor: "#04101E",
+  },
 };
 
-const CardContents = ({ projectDetails, setProjectDetails }) => {
+const CardContents = ({ projectDetails, setProjectDetails, onFilter }) => {
   const [originalProjectDetails, setOriginalProjectDetails] = useState(null);
   const [userData, setUserData] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
@@ -158,6 +162,113 @@ const CardContents = ({ projectDetails, setProjectDetails }) => {
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const API_URL = process.env.REACT_APP_API_URL;
+
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedRoom, setSelectedRoom] = useState('');
+  const [selectedItem, setSelectedItem] = useState('');
+  const [selectedClass, setSelectedClass] = useState('');
+  const [selectedSubclass, setSelectedSubclass] = useState('');
+
+  useEffect(() => {
+    // Call the filtering function when searchQuery or dropdown selections change
+    const filteredData = filterData();
+    // Pass filtered data to parent component using the onFilter callback
+    onFilter(filteredData);
+  }, [searchQuery, selectedRoom, selectedItem, selectedClass, selectedSubclass]);
+
+  const populateDropdowns = () => {
+    const roomSet = new Set();
+    const itemSet = new Set();
+    const classSet = new Set();
+    const subclassSet = new Set();
+
+    projectDetails.project.spreadsheetData.forEach(item => {
+      if (!roomSet.has(item.Room)) roomSet.add(item.Room);
+      if (!itemSet.has(item.Item)) itemSet.add(item.Item);
+      if (!classSet.has(item.Class)) classSet.add(item.Class);
+      if (!subclassSet.has(item.Subclass)) subclassSet.add(item.Subclass);
+  });
+
+    const roomFilter = document.getElementById("roomFilter");
+    const itemFilter = document.getElementById("itemFilter");
+    const classFilter = document.getElementById("classFilter");
+    const subclassFilter = document.getElementById("subclassFilter");
+
+    // Clear existing options
+    roomFilter.innerHTML = '<option value="">Filter by Room</option>';
+    itemFilter.innerHTML = '<option value="">Filter by Item</option>';
+    classFilter.innerHTML = '<option value="">Filter by Class</option>';
+    subclassFilter.innerHTML = '<option value="">Filter by Subclass</option>';
+
+    roomSet.forEach(room => {
+      const option = document.createElement("option");
+      option.value = room;
+      option.text = room;
+      roomFilter.add(option);
+    });
+
+    itemSet.forEach(item => {
+      const option = document.createElement("option");
+      option.value = item;
+      option.text = item;
+      itemFilter.add(option);
+    });
+
+    classSet.forEach(cls => {
+      const option = document.createElement("option");
+      option.value = cls;
+      option.text = cls;
+      classFilter.add(option);
+    });
+
+    subclassSet.forEach(subcls => {
+      const option = document.createElement("option");
+      option.value = subcls;
+      option.text = subcls;
+      subclassFilter.add(option);
+    });
+  };
+
+// Call the function to populate dropdowns on page load
+useEffect(() => {
+  populateDropdowns();
+}, [projectDetails]);
+
+
+const filterData = () => {
+  return projectDetails.project.spreadsheetData
+    .map((item, index) => ({ ...item, originalIndex: index }))
+    .filter(item => {
+      const matchesSearch = item.Description.toLowerCase().includes(searchQuery.toLowerCase());
+      const matchesRoom = selectedRoom ? item.Room === selectedRoom : true;
+      const matchesItem = selectedItem ? item.Item === selectedItem : true;
+      const matchesClass = selectedClass ? item.Class === selectedClass : true;
+      const matchesSubclass = selectedSubclass ? item.Subclass === selectedSubclass : true;
+      return matchesSearch && matchesRoom && matchesItem && matchesClass && matchesSubclass;
+    });
+};
+
+  const handleSearchChange = (e) => {
+    
+    setSearchQuery(e.target.value);
+    console.log('T', searchQuery);
+  };
+  
+  const handleRoomChange = (e) => {
+    setSelectedRoom(e.target.value);
+  };
+
+  const handleItemChange = (e) => {
+    setSelectedItem(e.target.value);
+  };
+
+  const handleClassChange = (e) => {
+    setSelectedClass(e.target.value);
+  };
+
+  const handleSubclassChange = (e) => {
+    setSelectedSubclass(e.target.value);
+  };
 
   useEffect(() => {
     // Store the original projectDetails when the component mounts
@@ -193,14 +304,14 @@ const CardContents = ({ projectDetails, setProjectDetails }) => {
     return null;
   };
 
-  const handleFieldChange = (index, fieldName, value) => {
+  const handleFieldChange = (originalIndex, fieldName, value) => {
     console.log(
-      `Updating field ${fieldName} at index ${index} with value:`,
+      `Updating field ${fieldName} at original index ${originalIndex} with value:`,
       value
     );
     // Update the projectDetails state with the new value
     const updatedProjectDetails = { ...projectDetails };
-    updatedProjectDetails.project.spreadsheetData[index][fieldName] = value;
+    updatedProjectDetails.project.spreadsheetData[originalIndex][fieldName] = value;
     setProjectDetails(updatedProjectDetails);
     setDataChanged(true);
   };
@@ -473,7 +584,6 @@ const CardContents = ({ projectDetails, setProjectDetails }) => {
   };
 
   // Define a function to calculate total depreciation
-  // Define a function to calculate total depreciation
   const calculateDepreciationAmount = (item, projectDetails) => {
     const rcvTotal =
       ((Number(item["RCV High"]) + Number(item["RCV Low"])) / 2) *
@@ -515,6 +625,31 @@ const CardContents = ({ projectDetails, setProjectDetails }) => {
         {error && (
           <div style={{ color: "red", marginLeft: "10px" }}>{errorMessage}</div>
         )}
+
+        {/* Search and Filter UI Elements */}
+        <div className="search-filter" style={{  }}>
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Search contents..."
+            value={searchQuery}
+            onChange={handleSearchChange}
+            style={{ flex: 1, marginRight: '10px' }}
+          />
+          <select id="roomFilter" style={styles.dropdown} onChange={handleRoomChange}>
+          <option value="">Filter by Room</option>
+        </select>
+        <select id="itemFilter" style={styles.dropdown} onChange={handleItemChange}>
+          <option value="">Filter by Item</option>
+        </select>
+        <select id="classFilter" style={styles.dropdown} onChange={handleClassChange}>
+          <option value="">Filter by Class</option>
+        </select>
+        <select id="subclassFilter" style={styles.dropdown} onChange={handleSubclassChange}>
+          <option value="">Filter by Subclass</option>
+        </select>
+        </div>
+
         <div>
           <div style={{ display: "inline-block", marginRight: "10px" }}>
             <motion.div
@@ -563,6 +698,7 @@ const CardContents = ({ projectDetails, setProjectDetails }) => {
           </div>
         </div>
       </div>
+  
       <div style={{ ...styles.spreadsheetContainer }}>
         <div style={styles.spreadsheet}>
           <div style={styles.row}>
@@ -586,7 +722,7 @@ const CardContents = ({ projectDetails, setProjectDetails }) => {
             <div style={styles.cell}>Class</div>
           </div>
           {/* Render data rows */}
-          {projectDetails.project.spreadsheetData.map((item, index) => (
+          {filterData().map((item, index) => (
             <div
               key={index}
               style={{
@@ -600,7 +736,7 @@ const CardContents = ({ projectDetails, setProjectDetails }) => {
                   style={styles.input}
                   value={item.Room}
                   onChange={(e) =>
-                    handleFieldChange(index, "Room", e.target.value)
+                    handleFieldChange(item.originalIndex, "Room", e.target.value)
                   }
                 />
               </div>
@@ -609,7 +745,7 @@ const CardContents = ({ projectDetails, setProjectDetails }) => {
                   style={styles.input}
                   value={item.Item}
                   onChange={(e) =>
-                    handleFieldChange(index, "Item", e.target.value)
+                    handleFieldChange(item.originalIndex, "Item", e.target.value)
                   }
                 />
               </div>
@@ -618,7 +754,7 @@ const CardContents = ({ projectDetails, setProjectDetails }) => {
                   style={styles.bigInput}
                   value={item.Description}
                   onChange={(e) =>
-                    handleFieldChange(index, "Description", e.target.value)
+                    handleFieldChange(item.originalIndex, "Description", e.target.value)
                   }
                 />
               </div>
@@ -626,7 +762,7 @@ const CardContents = ({ projectDetails, setProjectDetails }) => {
                 <input
                   style={styles.input}
                   value={item.Quantity}
-                  onChange={(e) => handleQuantityChange(index, e.target.value)}
+                  onChange={(e) => handleQuantityChange(item.originalIndex, e.target.value)}
                 />
               </div>
               <div style={styles.cell}>
@@ -635,7 +771,7 @@ const CardContents = ({ projectDetails, setProjectDetails }) => {
                   style={styles.input}
                   value={item["RCV High"]}
                   onChange={(e) =>
-                    handleRCVChange(index, "RCV High", e.target.value)
+                    handleRCVChange(item.originalIndex, "RCV High", e.target.value)
                   }
                 />
               </div>
@@ -645,7 +781,7 @@ const CardContents = ({ projectDetails, setProjectDetails }) => {
                   style={styles.input}
                   value={item["RCV Low"]}
                   onChange={(e) =>
-                    handleRCVChange(index, "RCV Low", e.target.value)
+                    handleRCVChange(item.originalIndex, "RCV Low", e.target.value)
                   }
                 />
               </div>
@@ -703,7 +839,7 @@ const CardContents = ({ projectDetails, setProjectDetails }) => {
                       : item.DepreciationDisplay
                   }
                   onChange={(e) =>
-                    handleDepreciationInputChange(index, e.target.value)
+                    handleDepreciationInputChange(item.originalIndex, e.target.value)
                   }
                 />
                 <span>%</span>
@@ -723,7 +859,7 @@ const CardContents = ({ projectDetails, setProjectDetails }) => {
                   style={styles.bigInput}
                   value={item.Subclass}
                   onChange={(e) =>
-                    handleFieldChange(index, "Subclass", e.target.value)
+                    handleFieldChange(item.originalIndex, "Subclass", e.target.value)
                   }
                 />
               </div>
@@ -732,7 +868,7 @@ const CardContents = ({ projectDetails, setProjectDetails }) => {
                   style={styles.input}
                   value={item.Class}
                   onChange={(e) =>
-                    handleFieldChange(index, "Class", e.target.value)
+                    handleFieldChange(item.originalIndex, "Class", e.target.value)
                   }
                 />
               </div>

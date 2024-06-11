@@ -63,12 +63,15 @@ const styles = {
   },
 };
 
-const CardValuation = ({ projectDetails }) => {
+const CardValuation = ({ projectDetails, filteredData }) => {
+
+  console.log('yup', filteredData);
+
   // Initialize total
   let suggestedRCVTotal = 0;
 
   // Iterate through each item in spreadsheetData
-  projectDetails.project.spreadsheetData.forEach((item) => {
+  filteredData.forEach((item) => {
     // Parse RCV High, RCV Low, and Quantity from the current item
     const RCVHigh = parseFloat(item["RCV High"]).toFixed(2);
     const RCVLow = parseFloat(item["RCV Low"]).toFixed(2);
@@ -87,7 +90,7 @@ const CardValuation = ({ projectDetails }) => {
   let totalRCVTax = 0;
 
   // Iterate through each item in spreadsheetData
-  projectDetails.project.spreadsheetData.forEach((item) => {
+  filteredData.forEach((item) => {
     // Parse RCV High, RCV Low, and Quantity from the current item
     const RCVHigh = parseFloat(item["RCV High"]);
     const RCVLow = parseFloat(item["RCV Low"]);
@@ -126,7 +129,7 @@ const CardValuation = ({ projectDetails }) => {
   let suggestedACVTotal = 0; // Initialize total ACV
 
   // Iterate over each item in the spreadsheet data
-  projectDetails.project.spreadsheetData.forEach((item) => {
+  filteredData.forEach((item) => {
     // Parse RCV High, RCV Low, Quantity, and Depreciation from the current item
     const RCVHigh = parseFloat(item["RCV High"]);
     const RCVLow = parseFloat(item["RCV Low"]);
@@ -162,7 +165,7 @@ const CardValuation = ({ projectDetails }) => {
   let totalDepreciation = 0 + totalRCVTax; // Initialize total depreciation
 
   // Iterate over each item in the spreadsheet data
-projectDetails.project.spreadsheetData.forEach((item) => {
+filteredData.forEach((item) => {
   // Parse RCV High, Quantity, and Depreciation from the current item
   const RCVHigh = parseFloat(item["RCV High"]);
   const RCVLow = parseFloat(item["RCV Low"]);
