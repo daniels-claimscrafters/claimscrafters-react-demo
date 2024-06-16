@@ -330,6 +330,7 @@ a {
   .projectBtnTabs {
     flex-direction: row;
     width: 100%;
+    overflow: auto;
   }
   .projectBtnTabs button {
     width: 20%;

@@ -106,6 +106,21 @@
   border-radius: 15px;
 }
 
+.headerRow {
+  width: max-content;
+  overflow: auto !important;
+}
+.titleText {
+  width: 200px !important;
+}
+.search-filter {
+  width: 800px !important;
+}
+.buttons {
+  width: max-content;
+}
+/* @media (max-width: 1300px) {
+} */
 @media (max-width: 1006px) {
   .createdProject {
     grid-template-columns: repeat(2, 1fr);

@@ -28,7 +28,8 @@ const styles = {
     padding: "10px",
     borderBottom: "1px solid #ccc",
     color: "white",
-    width: "100%",
+    // width: "100%",
+    overflow: "hidden",
   },
   titleText: {
     color: "white",
@@ -146,7 +147,7 @@ const styles = {
     backgroundColor: "#04101E",
   },
   dropdown: {
-    marginRight: '10px',
+    marginRight: "10px",
     backgroundColor: "#04101E",
   },
 };
@@ -163,18 +164,24 @@ const CardContents = ({ projectDetails, setProjectDetails, onFilter }) => {
   const [errorMessage, setErrorMessage] = useState("");
   const API_URL = process.env.REACT_APP_API_URL;
 
-  const [searchQuery, setSearchQuery] = useState('');
-  const [selectedRoom, setSelectedRoom] = useState('');
-  const [selectedItem, setSelectedItem] = useState('');
-  const [selectedClass, setSelectedClass] = useState('');
-  const [selectedSubclass, setSelectedSubclass] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedRoom, setSelectedRoom] = useState("");
+  const [selectedItem, setSelectedItem] = useState("");
+  const [selectedClass, setSelectedClass] = useState("");
+  const [selectedSubclass, setSelectedSubclass] = useState("");
 
   useEffect(() => {
     // Call the filtering function when searchQuery or dropdown selections change
     const filteredData = filterData();
     // Pass filtered data to parent component using the onFilter callback
     onFilter(filteredData);
-  }, [searchQuery, selectedRoom, selectedItem, selectedClass, selectedSubclass]);
+  }, [
+    searchQuery,
+    selectedRoom,
+    selectedItem,
+    selectedClass,
+    selectedSubclass,
+  ]);
 
   const populateDropdowns = () => {
     const roomSet = new Set();
@@ -182,12 +189,12 @@ const CardContents = ({ projectDetails, setProjectDetails, onFilter }) => {
     const classSet = new Set();
     const subclassSet = new Set();
 
-    projectDetails.project.spreadsheetData.forEach(item => {
+    projectDetails.project.spreadsheetData.forEach((item) => {
       if (!roomSet.has(item.Room)) roomSet.add(item.Room);
       if (!itemSet.has(item.Item)) itemSet.add(item.Item);
       if (!classSet.has(item.Class)) classSet.add(item.Class);
       if (!subclassSet.has(item.Subclass)) subclassSet.add(item.Subclass);
-  });
+    });
 
     const roomFilter = document.getElementById("roomFilter");
     const itemFilter = document.getElementById("itemFilter");
@@ -200,28 +207,28 @@ const CardContents = ({ projectDetails, setProjectDetails, onFilter }) => {
     classFilter.innerHTML = '<option value="">Filter by Class</option>';
     subclassFilter.innerHTML = '<option value="">Filter by Subclass</option>';
 
-    roomSet.forEach(room => {
+    roomSet.forEach((room) => {
       const option = document.createElement("option");
       option.value = room;
       option.text = room;
       roomFilter.add(option);
     });
 
-    itemSet.forEach(item => {
+    itemSet.forEach((item) => {
       const option = document.createElement("option");
       option.value = item;
       option.text = item;
       itemFilter.add(option);
     });
 
-    classSet.forEach(cls => {
+    classSet.forEach((cls) => {
       const option = document.createElement("option");
       option.value = cls;
       option.text = cls;
       classFilter.add(option);
     });
 
-    subclassSet.forEach(subcls => {
+    subclassSet.forEach((subcls) => {
       const option = document.createElement("option");
       option.value = subcls;
       option.text = subcls;
@@ -229,31 +236,41 @@ const CardContents = ({ projectDetails, setProjectDetails, onFilter }) => {
     });
   };
 
-// Call the function to populate dropdowns on page load
-useEffect(() => {
-  populateDropdowns();
-}, [projectDetails]);
+  // Call the function to populate dropdowns on page load
+  useEffect(() => {
+    populateDropdowns();
+  }, [projectDetails]);
 
-
-const filterData = () => {
-  return projectDetails.project.spreadsheetData
-    .map((item, index) => ({ ...item, originalIndex: index }))
-    .filter(item => {
-      const matchesSearch = item.Description.toLowerCase().includes(searchQuery.toLowerCase());
-      const matchesRoom = selectedRoom ? item.Room === selectedRoom : true;
-      const matchesItem = selectedItem ? item.Item === selectedItem : true;
-      const matchesClass = selectedClass ? item.Class === selectedClass : true;
-      const matchesSubclass = selectedSubclass ? item.Subclass === selectedSubclass : true;
-      return matchesSearch && matchesRoom && matchesItem && matchesClass && matchesSubclass;
-    });
-};
+  const filterData = () => {
+    return projectDetails.project.spreadsheetData
+      .map((item, index) => ({ ...item, originalIndex: index }))
+      .filter((item) => {
+        const matchesSearch = item.Description.toLowerCase().includes(
+          searchQuery.toLowerCase()
+        );
+        const matchesRoom = selectedRoom ? item.Room === selectedRoom : true;
+        const matchesItem = selectedItem ? item.Item === selectedItem : true;
+        const matchesClass = selectedClass
+          ? item.Class === selectedClass
+          : true;
+        const matchesSubclass = selectedSubclass
+          ? item.Subclass === selectedSubclass
+          : true;
+        return (
+          matchesSearch &&
+          matchesRoom &&
+          matchesItem &&
+          matchesClass &&
+          matchesSubclass
+        );
+      });
+  };
 
   const handleSearchChange = (e) => {
-    
     setSearchQuery(e.target.value);
-    console.log('T', searchQuery);
+    console.log("T", searchQuery);
   };
-  
+
   const handleRoomChange = (e) => {
     setSelectedRoom(e.target.value);
   };
@@ -311,7 +328,8 @@ const filterData = () => {
     );
     // Update the projectDetails state with the new value
     const updatedProjectDetails = { ...projectDetails };
-    updatedProjectDetails.project.spreadsheetData[originalIndex][fieldName] = value;
+    updatedProjectDetails.project.spreadsheetData[originalIndex][fieldName] =
+      value;
     setProjectDetails(updatedProjectDetails);
     setDataChanged(true);
   };
@@ -618,87 +636,107 @@ const filterData = () => {
 
   return (
     <div style={styles.Card}>
-      <div style={styles.headerRow} className="headerRow">
-        <div style={styles.titleText} className="titleText">
-          Contents Inventory
-        </div>
-        {error && (
-          <div style={{ color: "red", marginLeft: "10px" }}>{errorMessage}</div>
-        )}
-
-        {/* Search and Filter UI Elements */}
-        <div className="search-filter" style={{  }}>
-          <input
-            type="text"
-            id="searchInput"
-            placeholder="Search contents..."
-            value={searchQuery}
-            onChange={handleSearchChange}
-            style={{ flex: 1, marginRight: '10px' }}
-          />
-          <select id="roomFilter" style={styles.dropdown} onChange={handleRoomChange}>
-          <option value="">Filter by Room</option>
-        </select>
-        <select id="itemFilter" style={styles.dropdown} onChange={handleItemChange}>
-          <option value="">Filter by Item</option>
-        </select>
-        <select id="classFilter" style={styles.dropdown} onChange={handleClassChange}>
-          <option value="">Filter by Class</option>
-        </select>
-        <select id="subclassFilter" style={styles.dropdown} onChange={handleSubclassChange}>
-          <option value="">Filter by Subclass</option>
-        </select>
-        </div>
-
-        <div>
-          <div style={{ display: "inline-block", marginRight: "10px" }}>
-            <motion.div
-              animate={
-                isDataChanged ? { scale: [1, 1.2, 1, 1.2, 1] } : { scale: 1 }
-              } // Apply animation only when isDataChanged is true
-              transition={{ duration: 0.2, repeat: 1 }} // Duration and number of repeats
-            >
-              <button
-                style={{
-                  ...styles.Button,
-                  backgroundColor: isDataChanged ? "#2a84ea" : "#808080",
-                }}
-                onClick={createChangelogEntry}
-                disabled={!isDataChanged}
-                className="saveBtn"
-              >
-                Save
-              </button>
-            </motion.div>
+      <div style={{ width: "100%", overflow: "auto" }}>
+        <div style={styles.headerRow} className="headerRow">
+          <div style={styles.titleText} className="titleText">
+            Contents Inventory
           </div>
-          <div style={{ display: "inline-block" }}>
+          {error && (
+            <div style={{ color: "red", marginLeft: "10px" }}>
+              {errorMessage}
+            </div>
+          )}
+
+          {/* Search and Filter UI Elements */}
+          <div className="search-filter" style={{}}>
+            <input
+              type="text"
+              id="searchInput"
+              placeholder="Search contents..."
+              value={searchQuery}
+              onChange={handleSearchChange}
+              style={{ flex: 1, marginRight: "10px" }}
+            />
             <select
-              style={styles.Button}
-              onChange={(event) => handleDropdownChange(event.target.value)}
-              className="downloadBtn"
+              id="roomFilter"
+              style={styles.dropdown}
+              onChange={handleRoomChange}
             >
-              <option
-                value=""
-                disabled
-                selected
-                style={{ textAlign: "center" }}
-              >
-                Download
-              </option>
-              <option value="option1" style={styles.dropdownOption}>
-                Summary
-              </option>
-              <option value="option2" style={styles.dropdownOption}>
-                Details
-              </option>
-              <option value="option3" style={styles.dropdownOption}>
-                Raw Data
-              </option>
+              <option value="">Filter by Room</option>
             </select>
+            <select
+              id="itemFilter"
+              style={styles.dropdown}
+              onChange={handleItemChange}
+            >
+              <option value="">Filter by Item</option>
+            </select>
+            <select
+              id="classFilter"
+              style={styles.dropdown}
+              onChange={handleClassChange}
+            >
+              <option value="">Filter by Class</option>
+            </select>
+            <select
+              id="subclassFilter"
+              style={styles.dropdown}
+              onChange={handleSubclassChange}
+            >
+              <option value="">Filter by Subclass</option>
+            </select>
+          </div>
+
+          <div className="buttons">
+            <div style={{ display: "inline-block" }}>
+              <motion.div
+                animate={
+                  isDataChanged ? { scale: [1, 1.2, 1, 1.2, 1] } : { scale: 1 }
+                } // Apply animation only when isDataChanged is true
+                transition={{ duration: 0.2, repeat: 1 }} // Duration and number of repeats
+              >
+                <button
+                  style={{
+                    ...styles.Button,
+                    backgroundColor: isDataChanged ? "#2a84ea" : "#808080",
+                  }}
+                  onClick={createChangelogEntry}
+                  disabled={!isDataChanged}
+                  className="saveBtn"
+                >
+                  Save
+                </button>
+              </motion.div>
+            </div>
+            <div style={{ display: "inline-block" }}>
+              <select
+                style={styles.Button}
+                onChange={(event) => handleDropdownChange(event.target.value)}
+                className="downloadBtn"
+              >
+                <option
+                  value=""
+                  disabled
+                  selected
+                  style={{ textAlign: "center" }}
+                >
+                  Download
+                </option>
+                <option value="option1" style={styles.dropdownOption}>
+                  Summary
+                </option>
+                <option value="option2" style={styles.dropdownOption}>
+                  Details
+                </option>
+                <option value="option3" style={styles.dropdownOption}>
+                  Raw Data
+                </option>
+              </select>
+            </div>
           </div>
         </div>
       </div>
-  
+
       <div style={{ ...styles.spreadsheetContainer }}>
         <div style={styles.spreadsheet}>
           <div style={styles.row}>
@@ -736,7 +774,11 @@ const filterData = () => {
                   style={styles.input}
                   value={item.Room}
                   onChange={(e) =>
-                    handleFieldChange(item.originalIndex, "Room", e.target.value)
+                    handleFieldChange(
+                      item.originalIndex,
+                      "Room",
+                      e.target.value
+                    )
                   }
                 />
               </div>
@@ -745,7 +787,11 @@ const filterData = () => {
                   style={styles.input}
                   value={item.Item}
                   onChange={(e) =>
-                    handleFieldChange(item.originalIndex, "Item", e.target.value)
+                    handleFieldChange(
+                      item.originalIndex,
+                      "Item",
+                      e.target.value
+                    )
                   }
                 />
               </div>
@@ -754,7 +800,11 @@ const filterData = () => {
                   style={styles.bigInput}
                   value={item.Description}
                   onChange={(e) =>
-                    handleFieldChange(item.originalIndex, "Description", e.target.value)
+                    handleFieldChange(
+                      item.originalIndex,
+                      "Description",
+                      e.target.value
+                    )
                   }
                 />
               </div>
@@ -762,7 +812,9 @@ const filterData = () => {
                 <input
                   style={styles.input}
                   value={item.Quantity}
-                  onChange={(e) => handleQuantityChange(item.originalIndex, e.target.value)}
+                  onChange={(e) =>
+                    handleQuantityChange(item.originalIndex, e.target.value)
+                  }
                 />
               </div>
               <div style={styles.cell}>
@@ -771,7 +823,11 @@ const filterData = () => {
                   style={styles.input}
                   value={item["RCV High"]}
                   onChange={(e) =>
-                    handleRCVChange(item.originalIndex, "RCV High", e.target.value)
+                    handleRCVChange(
+                      item.originalIndex,
+                      "RCV High",
+                      e.target.value
+                    )
                   }
                 />
               </div>
@@ -781,7 +837,11 @@ const filterData = () => {
                   style={styles.input}
                   value={item["RCV Low"]}
                   onChange={(e) =>
-                    handleRCVChange(item.originalIndex, "RCV Low", e.target.value)
+                    handleRCVChange(
+                      item.originalIndex,
+                      "RCV Low",
+                      e.target.value
+                    )
                   }
                 />
               </div>
@@ -839,7 +899,10 @@ const filterData = () => {
                       : item.DepreciationDisplay
                   }
                   onChange={(e) =>
-                    handleDepreciationInputChange(item.originalIndex, e.target.value)
+                    handleDepreciationInputChange(
+                      item.originalIndex,
+                      e.target.value
+                    )
                   }
                 />
                 <span>%</span>
@@ -859,7 +922,11 @@ const filterData = () => {
                   style={styles.bigInput}
                   value={item.Subclass}
                   onChange={(e) =>
-                    handleFieldChange(item.originalIndex, "Subclass", e.target.value)
+                    handleFieldChange(
+                      item.originalIndex,
+                      "Subclass",
+                      e.target.value
+                    )
                   }
                 />
               </div>
@@ -868,7 +935,11 @@ const filterData = () => {
                   style={styles.input}
                   value={item.Class}
                   onChange={(e) =>
-                    handleFieldChange(item.originalIndex, "Class", e.target.value)
+                    handleFieldChange(
+                      item.originalIndex,
+                      "Class",
+                      e.target.value
+                    )
                   }
                 />
               </div>
