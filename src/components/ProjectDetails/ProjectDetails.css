@@ -107,17 +107,17 @@
 }
 
 .headerRow {
-  width: max-content;
+  width: 100%;
+  justify-content: space-between;
   overflow: auto !important;
 }
-.titleText {
-  width: 200px !important;
-}
+
 .search-filter {
-  width: 800px !important;
+  flex-shrink: 0;
 }
 .buttons {
-  width: max-content;
+  flex-shrink: 0;
+  display: flex;
 }
 /* @media (max-width: 1300px) {
 } */
@@ -134,11 +134,7 @@
     grid-template-columns: repeat(2, 1fr);
   }
   .saveBtn {
-    width: 50px !important;
     margin-right: 0 !important;
-  }
-  .downloadBtn {
-    width: 120px !important;
   }
 
   .titleText {
@@ -157,7 +153,7 @@
     width: 90%;
   }
   .changeCardContainer {
-    width: 90%;
+    width: 100%;
   }
 }
 
@@ -165,9 +161,7 @@
   .calcProject {
     grid-template-columns: 1fr;
   }
-  .downloadBtn {
-    width: 80px !important;
-  }
+
   .headerRow {
     padding: 10px 2px !important;
   }

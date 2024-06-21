@@ -77,6 +77,10 @@
 .signupCheckBox a {
   font-size: 1rem;
 }
+.signupCheckBox > div {
+  display: flex;
+  gap: 5px;
+}
 
 @media (max-width: 1024px) {
   .signupForm {
@@ -90,7 +94,7 @@
 
 @media (max-width: 640px) {
   .signupForm {
-    width: 95%;
+    width: 98%;
   }
   .signUpHeader {
     flex-direction: column;
@@ -122,6 +126,10 @@
   }
 
   .signupCheckBox a {
-    font-size: 12px;
+    font-size: 8px;
+  }
+  .signupCheckBox > div {
+    /* gap: 2px; */
+    font-size: 8px;
   }
 }

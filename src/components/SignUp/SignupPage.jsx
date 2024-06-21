@@ -464,12 +464,19 @@ const SignupPage = () => {
 
             <div className="signupCheckBox">
               <Checkbox onChange={handleCheckboxChange} />
-              <div style={{ width: "100%", display: "flex", padding: "0" }}>
-                By signing up, you agree to our &nbsp;
+              <div
+                style={{
+                  width: "100%",
+                  display: "flex",
+
+                  padding: "0",
+                }}
+              >
+                By signing up, you agree to our
                 <motion.div whileHover={{ textDecoration: "underline" }}>
                   <Link to="/tos">Terms Of Service</Link>
                 </motion.div>
-                &nbsp; and &nbsp;
+                and
                 <motion.div whileHover={{ textDecoration: "underline" }}>
                   <Link to="/privacypolicy">Privacy Policy</Link>
                 </motion.div>
@@ -510,7 +517,12 @@ const SignupPage = () => {
               </motion.div>
 
               <div
-                style={{ display: "flex", alignItems: "center", gap: "5px", marginTop: '10px' }}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "5px",
+                  marginTop: "10px",
+                }}
               >
                 <p className="text-mute" style={{ margin: "0" }}>
                   Already have an account

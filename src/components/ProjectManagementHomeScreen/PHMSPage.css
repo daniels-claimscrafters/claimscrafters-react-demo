@@ -419,7 +419,14 @@ a {
     font-size: 9px;
   }
 }
-
+@media (max-width: 360px) {
+  .calendarCard {
+    margin-left: -10px;
+  }
+  .taskCard {
+    margin-left: -10px;
+  }
+}
 @media (max-width: 320px) {
   .calendarCard {
     width: 250px;

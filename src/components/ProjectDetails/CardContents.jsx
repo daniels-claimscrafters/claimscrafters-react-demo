@@ -130,9 +130,11 @@ const styles = {
     fontFamily: "Poppins",
     fontWeight: 700,
     border: "0",
-    width: "155px",
+    width: "max-content",
+    paddingLeft: "40px",
+    paddingRight: "40px",
     height: "30px",
-    marginRight: "30px",
+    marginRight: "5px",
   },
   dropdownOption: {
     backgroundColor: "#f0f0f0", // Background color for options
