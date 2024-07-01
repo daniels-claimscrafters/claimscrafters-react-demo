@@ -151,6 +151,7 @@ const styles = {
   dropdown: {
     marginRight: "10px",
     backgroundColor: "#04101E",
+    maxWidth: '150px',
   },
 };
 
