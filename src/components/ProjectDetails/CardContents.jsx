@@ -633,7 +633,11 @@ const CardContents = ({ projectDetails, setProjectDetails, onFilter }) => {
     // Ensure that the depreciation factor does not exceed 100
     depreciationFactor = Math.min(depreciationFactor, 100);
     const depreciationAmount = rcvTotal * (depreciationFactor / 100);
-    return (rcvTotal - depreciationAmount).toFixed(2);
+    const salesTaxAmount =
+      (projectDetails.project.salesTax / 100) *
+      (((Number(item["RCV High"]) + Number(item["RCV Low"])) / 2) *
+        item.Quantity);
+    return ((rcvTotal - depreciationAmount) + salesTaxAmount).toFixed(2);
   };
 
   return (
