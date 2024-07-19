@@ -178,7 +178,7 @@ const CardContents = ({ projectDetails, setProjectDetails, onFilter }) => {
 
   const navigate = useNavigate();
 
-  console.log(projectDetails.project.id);
+ 
 
   useEffect(() => {
     // Call the filtering function when searchQuery or dropdown selections change
@@ -284,7 +284,7 @@ const CardContents = ({ projectDetails, setProjectDetails, onFilter }) => {
 
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
-    console.log("T", searchQuery);
+    
   };
 
   const handleRoomChange = (e) => {
@@ -309,7 +309,7 @@ const CardContents = ({ projectDetails, setProjectDetails, onFilter }) => {
       JSON.stringify(projectDetails)
     );
     setOriginalProjectDetails(originalProjectDetailsCopy);
-    console.log("Original Project Details set:", originalProjectDetailsCopy);
+    
   }, []);
 
   useEffect(() => {
@@ -368,8 +368,7 @@ const CardContents = ({ projectDetails, setProjectDetails, onFilter }) => {
       const updatedProjectDetails = { ...projectDetails };
       updatedProjectDetails.project.spreadsheetData[index]["Quantity"] = value;
       setProjectDetails(updatedProjectDetails);
-      console.log(originalProjectDetails);
-      console.log(projectDetails);
+      
       setDataChanged(true);
     }
   };
@@ -380,12 +379,7 @@ const CardContents = ({ projectDetails, setProjectDetails, onFilter }) => {
     updatedProjectDetails.project.spreadsheetData[index][
       "DepreciationDisplay"
     ] = value;
-    console.log(
-      "1: ",
-      updatedProjectDetails.project.spreadsheetData[index][
-        "DepreciationDisplay"
-      ]
-    );
+    
 
     // Update the actual depreciation value based on the user's input
     const newDepreciation = parseFloat(value) / 100; // Convert the input value to a decimal fraction
@@ -515,7 +509,7 @@ const CardContents = ({ projectDetails, setProjectDetails, onFilter }) => {
       // Assuming you have the necessary attributes available:
       const originalSpreadsheetData =
         originalProjectDetails.project.spreadsheetData;
-      console.log("Original Project Details:", originalSpreadsheetData);
+      
 
       const userFirstName = userData.firstName;
 
@@ -617,6 +611,35 @@ const CardContents = ({ projectDetails, setProjectDetails, onFilter }) => {
     document.body.removeChild(a);
   };
 
+  const calculateRCVAvg = (high, low) => {
+    const avg = (Number(high) + Number(low)) / 2;
+    //console.log(avg.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,"));
+    return avg.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,");
+  };
+
+  const calculateRCVExt = (high, low, quantity) => {
+    const avg = (Number(high) + Number(low)) / 2;
+    const ext = avg * quantity;
+    //console.log(ext.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,"));
+    return ext.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,");
+  };
+
+  const calculateSalesTaxAmount = (salesTax, high, low, quantity) => {
+    const avg = (Number(high) + Number(low)) / 2;
+    const ext = avg * quantity;
+    const taxAmount = (salesTax / 100) * ext;
+    return taxAmount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,");
+  }; 
+  
+  const calculateRCVTotal = (salesTax, high, low, quantity) => {
+    const avg = (Number(high) + Number(low)) / 2;
+    const ext = avg * quantity;
+    const taxAmount = (salesTax / 100) * ext;
+    const total = ext + taxAmount;
+    return total.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,");
+  };
+  
+
   // Define a function to calculate total depreciation
   const calculateDepreciationAmount = (item, projectDetails) => {
     const rcvTotal =
@@ -633,7 +656,7 @@ const CardContents = ({ projectDetails, setProjectDetails, onFilter }) => {
       (projectDetails.project.salesTax / 100) *
       (((Number(item["RCV High"]) + Number(item["RCV Low"])) / 2) *
         item.Quantity);
-    return (rcvTotal * (depreciationFactor / 100)).toFixed(2);
+    return ((rcvTotal + salesTaxAmount) * (depreciationFactor / 100)).toFixed(2);
   };
 
   // Define a function to calculate ACV Total
@@ -646,12 +669,13 @@ const CardContents = ({ projectDetails, setProjectDetails, onFilter }) => {
       item.Depreciation * 100 * projectDetails.project.depreciationRange;
     // Ensure that the depreciation factor does not exceed 100
     depreciationFactor = Math.min(depreciationFactor, 100);
-    const depreciationAmount = rcvTotal * (depreciationFactor / 100);
     const salesTaxAmount =
       (projectDetails.project.salesTax / 100) *
       (((Number(item["RCV High"]) + Number(item["RCV Low"])) / 2) *
         item.Quantity);
-    return ((rcvTotal - depreciationAmount) + salesTaxAmount).toFixed(2);
+    const depreciationAmount = (rcvTotal + salesTaxAmount) * (depreciationFactor / 100);
+    
+    return ((rcvTotal + salesTaxAmount) - depreciationAmount).toFixed(2);
   };
 
   return (
@@ -878,20 +902,12 @@ const CardContents = ({ projectDetails, setProjectDetails, onFilter }) => {
                 />
               </div>
               <div style={styles.cell}>
-                $
-                {((Number(item["RCV High"]) + Number(item["RCV Low"])) / 2)
-                  .toFixed(2)
-                  .replace(/\d(?=(\d{3})+\.)/g, "$&,")}
-              </div>
-              <div style={styles.cell}>
-                $
-                {(
-                  ((Number(item["RCV High"]) + Number(item["RCV Low"])) / 2) *
-                  item.Quantity
-                )
-                  .toFixed(2)
-                  .replace(/\d(?=(\d{3})+\.)/g, "$&,")}
-              </div>
+  ${calculateRCVAvg(item["RCV High"], item["RCV Low"])}
+</div>
+<div style={styles.cell}>
+  ${calculateRCVExt(item["RCV High"], item["RCV Low"], item.Quantity)}
+</div>
+
               <div style={styles.cell}>
                 {typeof projectDetails.project.salesTax === "number"
                   ? projectDetails.project.salesTax
@@ -899,28 +915,18 @@ const CardContents = ({ projectDetails, setProjectDetails, onFilter }) => {
                 %
               </div>
               <div style={styles.cell}>
-                $
-                {(
-                  (projectDetails.project.salesTax / 100) *
-                  (((Number(item["RCV High"]) + Number(item["RCV Low"])) / 2) *
-                    item.Quantity)
-                )
-                  .toFixed(2)
-                  .replace(/\d(?=(\d{3})+\.)/g, "$&,")}
-              </div>
-              <div style={styles.cell}>
-                $
-                {(
-                  ((Number(item["RCV High"]) + Number(item["RCV Low"])) / 2) *
-                    item.Quantity +
-                  (projectDetails.project.salesTax / 100) *
-                    (((Number(item["RCV High"]) + Number(item["RCV Low"])) /
-                      2) *
-                      item.Quantity)
-                )
-                  .toFixed(2)
-                  .replace(/\d(?=(\d{3})+\.)/g, "$&,")}
-              </div>
+  ${calculateSalesTaxAmount(projectDetails.project.salesTax, item["RCV High"], item["RCV Low"], item.Quantity)}
+</div>
+
+<div style={styles.cell}>
+  ${calculateRCVTotal(
+    projectDetails.project.salesTax,
+    item["RCV High"],
+    item["RCV Low"],
+    item.Quantity
+  )}
+</div>
+
               <div style={styles.cell}>
                 <input
                   style={styles.input}
