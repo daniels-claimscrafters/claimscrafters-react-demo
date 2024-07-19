@@ -9,6 +9,8 @@ import {
   generateRawData,
   generateAll,
 } from "./ExcelGenerator";
+import { useNavigate } from "react-router-dom";
+
 
 const styles = {
   Card: {
@@ -167,11 +169,16 @@ const CardContents = ({ projectDetails, setProjectDetails, onFilter }) => {
   const [errorMessage, setErrorMessage] = useState("");
   const API_URL = process.env.REACT_APP_API_URL;
 
+
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedRoom, setSelectedRoom] = useState("");
   const [selectedItem, setSelectedItem] = useState("");
   const [selectedClass, setSelectedClass] = useState("");
   const [selectedSubclass, setSelectedSubclass] = useState("");
+
+  const navigate = useNavigate();
+
+  console.log(projectDetails.project.id);
 
   useEffect(() => {
     // Call the filtering function when searchQuery or dropdown selections change
@@ -185,6 +192,12 @@ const CardContents = ({ projectDetails, setProjectDetails, onFilter }) => {
     selectedClass,
     selectedSubclass,
   ]);
+
+  const handleReconcileGoClick = (projectId) => {
+    // Handle button click to navigate to new page with projectId
+
+    navigate(`/ReconcileGoPayment?projectId=${projectDetails.project.id}`); // Navigate to "/ReconcileGoPayment" route with projectId in URL params
+  };
 
   const populateDropdowns = () => {
     const roomSet = new Set();
@@ -695,6 +708,18 @@ const CardContents = ({ projectDetails, setProjectDetails, onFilter }) => {
           </div>
 
           <div className="buttons">
+          <div style={{ display: "inline-block" }}>
+            <button
+                  style={{
+                    ...styles.Button,
+                  }}
+                  onClick={handleReconcileGoClick}
+                  
+                  className="saveBtn"
+                >
+                  ReconcileGo
+                </button>
+            </div>
             <div style={{ display: "inline-block" }}>
               <motion.div
                 animate={
@@ -746,26 +771,26 @@ const CardContents = ({ projectDetails, setProjectDetails, onFilter }) => {
 
       <div style={{ ...styles.spreadsheetContainer }}>
         <div style={styles.spreadsheet}>
-          <div style={styles.row}>
-            <div style={styles.cell}>Line</div>
-            <div style={styles.cell}>Room</div>
-            <div style={styles.cell}>Item</div>
-            <div style={styles.bigCell}>Description</div>
-            <div style={styles.cell}>QTY</div>
-            <div style={styles.cell}>RCV High</div>
-            <div style={styles.cell}>RCV Low</div>
-            <div style={styles.cell}>RCV Avg (ea)</div>
-            <div style={styles.cell}>RCV (ext)</div>
-            <div style={styles.cell}>Sales Tax</div>
-            <div style={styles.cell}>Sales Tax Amount</div>
-            <div style={styles.cell}>RCV Total</div>
-            <div style={styles.cell}>Depreciation (%)</div>
-            <div style={styles.cell}>Dep Years</div>
-            <div style={styles.cell}>Dep Amount</div>
-            <div style={styles.cell}>ACV Total</div>
-            <div style={styles.bigCell}>Subclass</div>
-            <div style={styles.cell}>Class</div>
-          </div>
+        <div style={{ ...styles.row, position: 'sticky', top: 0, backgroundColor: 'white', zIndex: 1 }}>
+          <div style={styles.cell}>Line</div>
+          <div style={styles.cell}>Room</div>
+          <div style={styles.cell}>Item</div>
+          <div style={styles.bigCell}>Description</div>
+          <div style={styles.cell}>QTY</div>
+          <div style={styles.cell}>RCV High</div>
+          <div style={styles.cell}>RCV Low</div>
+          <div style={styles.cell}>RCV Avg (ea)</div>
+          <div style={styles.cell}>RCV (ext)</div>
+          <div style={styles.cell}>Sales Tax</div>
+          <div style={styles.cell}>Sales Tax Amount</div>
+          <div style={styles.cell}>RCV Total</div>
+          <div style={styles.cell}>Depreciation (%)</div>
+          <div style={styles.cell}>Dep Years</div>
+          <div style={styles.cell}>Dep Amount</div>
+          <div style={styles.cell}>ACV Total</div>
+          <div style={styles.bigCell}>Subclass</div>
+          <div style={styles.cell}>Class</div>
+        </div>
           {/* Render data rows */}
           {filterData().map((item, index) => (
             <div

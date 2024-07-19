@@ -45,6 +45,11 @@ const LogInPage = () => {
       const response = await axios.post(`${API_URL}/auth/login`, {
         email,
         password,
+      }, {
+        headers: {
+          "ngrok-skip-browser-warning": "69420",
+          "Content-Type": "application/json", // Add other headers as needed
+        }
       });
       console.log("Login response:", response); // Log the entire response object
       if (response.status === 200) {

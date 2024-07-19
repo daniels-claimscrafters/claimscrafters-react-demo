@@ -243,9 +243,6 @@ const SignupPage = () => {
       isAgreeChecked: isAgreeChecked ? "" : "Please agree to terms.",
     });
 
-    // Log validation errors
-    console.log("Validation Errors:", validationErrors);
-
     // Check if the form is complete and valid
     const isFormValid =
       isFormComplete(formData) &&
@@ -271,6 +268,7 @@ const SignupPage = () => {
         const response = await fetch(`${API_URL}/auth/register`, {
           method: "POST",
           headers: {
+            "ngrok-skip-browser-warning": "69420",
             "Content-Type": "application/json",
           },
           body: JSON.stringify(formData),
@@ -291,14 +289,12 @@ const SignupPage = () => {
           }
         }
       } catch (error) {
-        console.error("Error sending form data:", error);
         setErrorMessage(
           "An error occurred while processing your request. Please try again later."
         );
       }
     } else {
       // Form is incomplete or invalid, handle accordingly
-      console.log("Form is incomplete or invalid. Please check fields.");
       setErrorMessage("Form is incomplete or invalid. Please check fields.");
     }
   };

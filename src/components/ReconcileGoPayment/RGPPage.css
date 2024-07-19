@@ -1,0 +1,98 @@
+.logo-img {
+    height: 150px;
+    width: auto;
+  }
+  
+  .header {
+    background-color: #f8f9fa;
+    padding: 10px;
+  }
+  
+  .title {
+    text-align: center;
+  }
+  
+  .back-icon {
+    margin-right: 10px;
+  }
+  
+  .slider {
+    width: 100%;
+  }
+  
+  .text-block {
+    text-align: center;
+  }
+  
+  .form-control {
+    font-family: "Poppins";
+    border-radius: 12px;
+    border: 1px solid #ceced3;
+    margin-bottom: 15px;
+    box-shadow: 0px 2px 8px rgba(0,0,0,0.16);
+    
+  }
+
+  .form-label {
+    font-family: "Poppins";
+    font-weight: 700;
+  }
+
+  .bold-header {
+    color: #040000;
+    font-size: 54px;
+    font-family: "Work Sans";
+    font-weight: 700;
+    line-height: 70px;
+  }
+  .card-rect {
+    height: 100px; /* Adjust as needed */
+    width: 100%; /* Adjust as needed */
+    border-radius: 12px;
+  border: 1px solid #030303;
+  box-sizing: border-box;
+  box-shadow: 0px 2px 8px rgba(0,0,0,0.16);
+  background-color: #ffffff;
+  padding: 0px;
+}
+  
+  .card-square {
+     /* Adjust as needed */
+    width: 100%; /* Adjust as needed */
+    border-radius: 12px;
+  border: 1px solid #030303;
+  box-sizing: border-box;
+  box-shadow: 0px 2px 8px rgba(0,0,0,0.16);
+  background-color: #ffffff;
+}
+  .text-center {
+    color: #040000;
+    font-family: "Work Sans";
+  }
+
+  .d-text {
+    color: #040000;
+    font-family: "Open Sans";
+  }
+
+  .card-title {
+    font-size: 1.25rem; /* Adjust as needed */
+    font-weight: 600;
+    margin-bottom: 0px;
+  }
+  
+  .card-text {
+    font-size: 1rem; /* Adjust as needed */
+    line-height: 1.4;
+    overflow: hidden;
+    
+    margin-bottom: 0px;
+  }
+
+  h1 {
+  font-size: 2rem; /* This will scale based on the root font size */
+}
+
+  #finalDateToCloseInput {
+    width: 50%
+  }

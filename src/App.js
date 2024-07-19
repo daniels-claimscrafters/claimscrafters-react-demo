@@ -21,6 +21,19 @@ import NPC7 from "./components/NewProjectCreation7/NPC7";
 import NPCParentComponent from "./components/NPCParentComponent";
 import ProjectDetailsPage from "./components/ProjectDetails/ProjectDetailsPage";
 import EditProfilePage from "./components/EditProfile/EditProfilePage";
+import ReconcileGoPayment from "./components/ReconcileGoPayment/RGPPage";
+
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+
+const stripePromise = loadStripe(
+  "pk_test_51NiiAZCjhYpSpOvRGjQmKbqADIMOaR1nvbnfy4UNdQ7d39Y9hkuMth2JT7WicwuuxcYDHLfCjBmJ7X5HYDLNMw2B00OpdnRxnO"
+);
+
+
+const StripeProviderWrapper = ({ children }) => {
+  return <Elements stripe={stripePromise}>{children}</Elements>;
+};
 
 const App = () => {
   return (
@@ -46,6 +59,14 @@ const App = () => {
         <Route path="/npcpc" element={<NPCParentComponent />} />
         <Route path="/projectdetails" element={<ProjectDetailsPage />} />
         <Route path="/editprofile" element={<EditProfilePage />} />
+        <Route
+          path="/reconcilegopayment"
+          element={
+            <StripeProviderWrapper>
+              <ReconcileGoPayment />
+            </StripeProviderWrapper>
+          }
+        />
       </Routes>
     </Router>
   );
