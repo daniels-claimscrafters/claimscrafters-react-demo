@@ -126,35 +126,26 @@ const NPC7 = ({
   };
 
   // Define a function to calculate the total price based on the number of lines
-  const calculateTotalPrice = (numberOfLines) => {
+  const calculateTotalPrice = () => {
     let totalPrice = 0;
+    let numberOfLines = 700;
+    
     if (numberOfLines <= 100) {
-      totalPrice = 250.0;
+        totalPrice = 250.0;
     } else if (numberOfLines <= 300) {
-      totalPrice = 250.0 + (numberOfLines - 100) * 2.25;
+        totalPrice = numberOfLines * 2.25;
     } else if (numberOfLines <= 500) {
-      totalPrice = 250.0 + 200 * 2.25 + (numberOfLines - 300) * 2.0;
+        totalPrice = numberOfLines * 2.0;
     } else if (numberOfLines <= 700) {
-      totalPrice =
-        250.0 + 200 * 2.25 + 200 * 2.0 + (numberOfLines - 500) * 1.75;
+        totalPrice = numberOfLines * 1.75;
     } else if (numberOfLines <= 900) {
-      totalPrice =
-        250.0 +
-        200 * 2.25 +
-        200 * 2.0 +
-        200 * 1.75 +
-        (numberOfLines - 700) * 1.5;
+        totalPrice = numberOfLines * 1.5;
     } else {
-      totalPrice =
-        250.0 +
-        200 * 2.25 +
-        200 * 2.0 +
-        200 * 1.75 +
-        200 * 1.5 +
-        (numberOfLines - 900) * 1.25;
+        totalPrice = numberOfLines * 1.25;
     }
+    
     return totalPrice.toFixed(2); // Round the total price to 2 decimal places
-  };
+};
 
   // Update the total price whenever the number of lines changes
   useEffect(() => {
