@@ -126,9 +126,8 @@ const NPC7 = ({
   };
 
   // Define a function to calculate the total price based on the number of lines
-  const calculateTotalPrice = () => {
+  const calculateTotalPrice = (numberOfLines) => {
     let totalPrice = 0;
-    let numberOfLines = 700;
     
     if (numberOfLines <= 100) {
         totalPrice = 250.0;
