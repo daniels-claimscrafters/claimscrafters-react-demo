@@ -33,7 +33,7 @@ const ProjectsList = (projects, inProcess, completed, total) => {
         </button>
         <button onClick={() => handleFilterChange("In Process")}>
           {" "}
-          Projects Process
+          Projects In Process
         </button>
         <button onClick={() => handleFilterChange("Completed")}>
           {" "}
