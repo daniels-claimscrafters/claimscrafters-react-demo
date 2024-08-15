@@ -252,6 +252,53 @@ const CardContents = ({ projectDetails, setProjectDetails, onFilter }) => {
     });
   };
 
+  const updateQuestionableStatus = async (index) => {
+    console.log("Button pressed");
+
+    try {
+        // Get the current project data
+        const updatedProject = { ...projectDetails.project };
+        
+        // Check if the index is valid
+        if (index < 0 || index >= updatedProject.spreadsheetData.length) {
+            console.error("Invalid index");
+            return;
+        }
+
+        // Update the Questionable status for the specific row
+        updatedProject.spreadsheetData[index].Questionable = false;
+
+        // Prepare the data to send
+        const dataToSend = {
+            projectId: updatedProject.id,
+            spreadsheetData: updatedProject.spreadsheetData
+        };
+
+        // Construct the API URL with the '/npc/verify' path
+        const url = `${API_URL}/npc/verify`;
+
+        // Send a POST request to update the project in the database
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(dataToSend),
+        });
+
+        if (response.ok) {
+            console.log(`Item at index ${index} updated successfully`);
+            window.location.reload();
+        } else {
+            console.error(`Failed to update item at index ${index}`);
+        }
+    } catch (error) {
+        console.error("An error occurred while updating the item:", error);
+    }
+};
+
+  
+
   // Call the function to populate dropdowns on page load
   useEffect(() => {
     populateDropdowns();
@@ -794,85 +841,116 @@ const CardContents = ({ projectDetails, setProjectDetails, onFilter }) => {
       </div>
 
       <div style={{ ...styles.spreadsheetContainer }}>
-        <div style={styles.spreadsheet}>
-        <div style={{ ...styles.row, position: 'sticky', top: 0, backgroundColor: 'white', zIndex: 1 }}>
-          <div style={styles.cell}>Line</div>
-          <div style={styles.cell}>Room</div>
-          <div style={styles.cell}>Item</div>
-          <div style={styles.bigCell}>Description</div>
-          <div style={styles.cell}>QTY</div>
-          <div style={styles.cell}>RCV High</div>
-          <div style={styles.cell}>RCV Low</div>
-          <div style={styles.cell}>RCV Avg (ea)</div>
-          <div style={styles.cell}>RCV (ext)</div>
-          <div style={styles.cell}>Sales Tax</div>
-          <div style={styles.cell}>Sales Tax Amount</div>
-          <div style={styles.cell}>RCV Total</div>
-          <div style={styles.cell}>Depreciation (%)</div>
-          <div style={styles.cell}>Dep Years</div>
-          <div style={styles.cell}>Dep Amount</div>
-          <div style={styles.cell}>ACV Total</div>
-          <div style={styles.bigCell}>Subclass</div>
-          <div style={styles.cell}>Class</div>
+  <div style={styles.spreadsheet}>
+  <div style={{ ...styles.row, position: 'sticky', top: 0, backgroundColor: 'white', zIndex: 1 }}>
+      <div style={styles.cell}>Line</div>
+      <div style={styles.cell}>Confidence</div>
+      <div style={styles.cell}>Room</div>
+      <div style={styles.cell}>Item</div>
+      <div style={styles.bigCell}>Description</div>
+      <div style={styles.cell}>QTY</div>
+      <div style={styles.cell}>RCV High</div>
+      <div style={styles.cell}>RCV Low</div>
+      <div style={styles.cell}>RCV Avg (ea)</div>
+      <div style={styles.cell}>RCV (ext)</div>
+      <div style={styles.cell}>Sales Tax</div>
+      <div style={styles.cell}>Sales Tax Amount</div>
+      <div style={styles.cell}>RCV Total</div>
+      <div style={styles.cell}>Depreciation (%)</div>
+      <div style={styles.cell}>Dep Years</div>
+      <div style={styles.cell}>Dep Amount</div>
+      <div style={styles.cell}>ACV Total</div>
+      <div style={styles.bigCell}>Subclass</div>
+      <div style={styles.cell}>Class</div>
+    </div>
+    {/* Render data rows */}
+    {filterData().map((item, index) => (
+      <div
+        key={index}
+        style={{
+          ...styles.row,
+          backgroundColor: index % 2 === 0 ? "#cddef2" : "#f1f1f1",
+        }}
+      >
+        <div style={styles.cell}>{index + 1}</div>
+        <div style={styles.cell}>
+          {item.Questionable ? (
+            <div style={{ display: 'flex', alignItems: 'center', color: 'red' }}>
+              <span>LOW</span>
+              <button
+  style={{
+    marginLeft: '10px',
+    padding: '4px 10px',
+    backgroundColor: '#4CAF50',
+    color: 'white',
+    border: 'none',
+    borderRadius: '4px',
+    cursor: 'pointer',
+    boxShadow: '0px 2px 5px rgba(0, 0, 0, 0.2)',
+    fontSize: '14px',
+    transition: 'background-color 0.3s ease',
+  }}
+  onClick={() => updateQuestionableStatus(item.originalIndex)}
+  onMouseOver={(e) => (e.target.style.backgroundColor = '#45a049')}
+  onMouseOut={(e) => (e.target.style.backgroundColor = '#4CAF50')}
+>
+  VERIFY
+</button>
+
+            </div>
+          ) : (
+            <span style={{ color: '#66BB6A' }}>HIGH</span>
+
+          )}
         </div>
-          {/* Render data rows */}
-          {filterData().map((item, index) => (
-            <div
-              key={index}
-              style={{
-                ...styles.row,
-                backgroundColor: index % 2 === 0 ? "#cddef2" : "#f1f1f1",
-              }}
-            >
-              <div style={styles.cell}>{index + 1}</div>
-              <div style={{ ...styles.cell }}>
-                <input
-                  style={styles.input}
-                  value={item.Room}
-                  onChange={(e) =>
-                    handleFieldChange(
-                      item.originalIndex,
-                      "Room",
-                      e.target.value
-                    )
-                  }
-                />
-              </div>
-              <div style={styles.cell}>
-                <input
-                  style={styles.input}
-                  value={item.Item}
-                  onChange={(e) =>
-                    handleFieldChange(
-                      item.originalIndex,
-                      "Item",
-                      e.target.value
-                    )
-                  }
-                />
-              </div>
-              <div style={styles.bigCell}>
-                <input
-                  style={styles.bigInput}
-                  value={item.Description}
-                  onChange={(e) =>
-                    handleFieldChange(
-                      item.originalIndex,
-                      "Description",
-                      e.target.value
-                    )
-                  }
-                />
-              </div>
-              <div style={styles.cell}>
-                <input
-                  style={styles.input}
-                  value={item.Quantity}
-                  onChange={(e) =>
-                    handleQuantityChange(item.originalIndex, e.target.value)
-                  }
-                />
-              </div>
+        <div style={styles.cell}>
+          <input
+            style={styles.input}
+            value={item.Room}
+            onChange={(e) =>
+              handleFieldChange(
+                item.originalIndex,
+                "Room",
+                e.target.value
+              )
+            }
+          />
+        </div>
+        <div style={styles.cell}>
+          <input
+            style={styles.input}
+            value={item.Item}
+            onChange={(e) =>
+              handleFieldChange(
+                item.originalIndex,
+                "Item",
+                e.target.value
+              )
+            }
+          />
+        </div>
+        <div style={styles.bigCell}>
+          <input
+            style={styles.bigInput}
+            value={item.Description}
+            onChange={(e) =>
+              handleFieldChange(
+                item.originalIndex,
+                "Description",
+                e.target.value
+              )
+            }
+          />
+        </div>
+        <div style={styles.cell}>
+          <input
+            style={styles.input}
+            value={item.Quantity}
+            onChange={(e) =>
+              handleQuantityChange(item.originalIndex, e.target.value)
+            }
+          />
+        </div>
               <div style={styles.cell}>
                 <span style={{ marginRight: "2px", marginTop: "4px" }}>$</span>
                 <input

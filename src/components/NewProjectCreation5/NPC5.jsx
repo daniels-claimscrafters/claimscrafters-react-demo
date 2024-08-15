@@ -1,26 +1,79 @@
-// NPC5.jsx
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { AiFillHome } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
 import "./NPC5.css";
 
 import HorizontalDivider from "./HorizontalDivider";
-
-import TextAdditional from "./TextAdditional";
-import TextFinancialInputs from "./TextFinancialInputs";
-import TextInsuredInformation from "./TextInsuredInformation";
-import TextLossDetails from "./TextLossDetails";
-import TextPayment from "./TextPayment";
-import TextProvidePersonal from "./TextProvidePersonal";
-
-import TextCardButton from "./TextCardButton.jsx";
-import ImageMain from "./ImageMain.jsx";
-import TextMain from "./TextMain.jsx";
-import CardButton from "./CardButton.jsx";
-
+import PreviewData from "./PreviewData";
 import ButtonBack from "./ButtonBack";
 import ButtonContinue from "./ButtonContinue";
-import PreviewData from "./PreviewData";
-import { AiFillHome } from "react-icons/ai";
-import { useNavigate } from "react-router-dom";
+import TextCardButton from "./TextCardButton.jsx";
+import CardButton from "./CardButton.jsx";
+
+// Modal component for the tutorial prompt with inline styles
+const TutorialModal = ({ onClose, onYes }) => {
+  const modalStyles = {
+    overlay: {
+      position: "fixed",
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      backgroundColor: "rgba(0, 0, 0, 0.5)",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      zIndex: 1000,
+    },
+    content: {
+      backgroundColor: "#fff",
+      padding: "20px",
+      borderRadius: "8px",
+      boxShadow: "0 2px 10px rgba(0, 0, 0, 0.1)",
+      textAlign: "center",
+      width: "300px",
+      color: "#000",
+    },
+    button: {
+      margin: "10px",
+      padding: "10px 20px",
+      borderRadius: "5px",
+      border: "none",
+      cursor: "pointer",
+      fontWeight: "bold",
+    },
+    buttonYes: {
+      backgroundColor: "#132A58",
+      color: "#fff",
+    },
+    buttonNo: {
+      backgroundColor: "#ccc",
+      color: "#000",
+    },
+  };
+
+  return (
+    <div style={modalStyles.overlay}>
+      <div style={modalStyles.content}>
+        <h2>Would you like a tutorial?</h2>
+        <div>
+          <button
+            style={{ ...modalStyles.button, ...modalStyles.buttonYes }}
+            onClick={onYes}
+          >
+            YES
+          </button>
+          <button
+            style={{ ...modalStyles.button, ...modalStyles.buttonNo }}
+            onClick={onClose}
+          >
+            NO
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const NPC5 = ({
   npcData,
@@ -30,27 +83,41 @@ const NPC5 = ({
   onColumnsSelected,
 }) => {
   const navigate = useNavigate();
-  console.log("NPC5 - Excel Data:", npcData.spreadsheetUpload);
+  const [isModalVisible, setModalVisible] = useState(true);
+
   const handleColumnsSelected = (selectedColumns) => {
-    // Handle the selected columns data in NPC5 or pass it to NPCParentComponent
     console.log("Selected Columns:", selectedColumns);
     onColumnsSelected(selectedColumns);
   };
 
   const isContinueDisabled = npcData.selectedColumnsData.length === 0;
+
   const handleToHome = () => {
     navigate("/pmhs");
   };
+
+  const handleCloseModal = () => {
+    setModalVisible(false);
+  };
+
+  const handleYesClick = () => {
+    window.open("https://app2.getreprise.com/launch/ZXBoMyv/", "_blank");
+    handleCloseModal();
+};
+
+  useEffect(() => {
+    // Modal will be visible on initial load
+    setModalVisible(true);
+  }, []);
+
   return (
     <div className="npc5Div">
-      {/* Row 1 */}
+      {isModalVisible && <TutorialModal onClose={handleCloseModal} onYes={handleYesClick} />}
       <div className="npc5">
         <div>
-          {/* Assuming ImageLogo, TextHeader, and other components */}
           <img className="logoImg" src="ContentsIQ.png" alt="" />
           <div style={{ marginLeft: "10px" }}>
             <h3>New Project Creation</h3>
-            {/* Other components go here */}
           </div>
         </div>
         <div onClick={handleToHome}>
@@ -58,7 +125,6 @@ const NPC5 = ({
         </div>
       </div>
 
-      {/* Row 2 Centered */}
       <div
         style={{
           display: "flex",
@@ -70,7 +136,6 @@ const NPC5 = ({
         }}
       >
         <HorizontalDivider />
-
         <div
           style={{
             display: "flex",
@@ -97,10 +162,7 @@ const NPC5 = ({
             Insured Information
           </p>
         </div>
-
         <HorizontalDivider />
-
-        {/* Card Circle 2 */}
         <div
           style={{
             display: "flex",
@@ -127,10 +189,7 @@ const NPC5 = ({
             Loss details
           </p>
         </div>
-
         <HorizontalDivider />
-
-        {/* Card Circle 3 */}
         <div
           style={{
             display: "flex",
@@ -157,10 +216,7 @@ const NPC5 = ({
             Financial Inputs
           </p>
         </div>
-
         <HorizontalDivider />
-
-        {/* Card Circle 4 */}
         <div
           style={{
             display: "flex",
@@ -187,10 +243,7 @@ const NPC5 = ({
             Data Upload
           </p>
         </div>
-
         <HorizontalDivider />
-
-        {/* Card Circle 5 */}
         <div
           style={{
             display: "flex",
@@ -219,10 +272,7 @@ const NPC5 = ({
             Column Mapping
           </p>
         </div>
-
         <HorizontalDivider />
-
-        {/* Card Circle 6 */}
         <div
           style={{
             display: "flex",
@@ -249,9 +299,9 @@ const NPC5 = ({
             Legal disclaimer
           </p>
         </div>
-
         <HorizontalDivider />
       </div>
+
       <div
         style={{
           height: "90%",
@@ -261,7 +311,6 @@ const NPC5 = ({
           alignItems: "center",
         }}
       >
-        {/* New Section with TextHeader2 and TextSubtitle */}
         <PreviewData
           excelData={npcData.spreadsheetUpload}
           onColumnsSelected={handleColumnsSelected}
@@ -276,8 +325,6 @@ const NPC5 = ({
             padding: "20px",
           }}
         >
-          {" "}
-          {/* Container for TextMain and CardButton */}
           <div
             style={{
               display: "flex",
@@ -285,9 +332,7 @@ const NPC5 = ({
               marginRight: "10px",
             }}
           >
-            {" "}
-            {/* Flex container for TextMain */}
-            <TextMain />
+          
           </div>
           <CardButton
             style={{
@@ -320,14 +365,14 @@ const NPC5 = ({
             marginTop: "10px",
           }}
         >
-          <div style={{ marginRight: "5px" }}>
-            <ButtonBack resetParentData={resetParentData} onBack={onPrevious} />
+          <div style={{ marginRight: "10px" }}>
+          <ButtonBack resetParentData={resetParentData} onBack={onPrevious} />
           </div>
-          <div style={{ marginLeft: "5px" }}>
+          <div>
             <ButtonContinue
-              disabled={isContinueDisabled}
-              label="Continue"
               onClick={onNext}
+              disabled={isContinueDisabled}
+              text="Continue"
             />
           </div>
         </div>

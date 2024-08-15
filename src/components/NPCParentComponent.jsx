@@ -181,6 +181,7 @@ const NPCParentComponent = () => {
 
   const handlePrevious = () => {
     setStep((prevStep) => prevStep - 1);
+    console.log('Button Clicked')
   };
 
   const handleFileUpload = (file, fileContent) => {

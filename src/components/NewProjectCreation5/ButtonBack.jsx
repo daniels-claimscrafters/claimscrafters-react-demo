@@ -20,6 +20,7 @@ const styles = {
     fontWeight: 500,
     lineHeight: "26px",
     outline: "none",
+    zIndex: 1001,
   },
 };
 
@@ -29,6 +30,7 @@ const defaultProps = {
 
 const ButtonBack = ({ label, onBack, resetParentData }) => {
   const handleClick = () => {
+    console.log('Button Clicked');
     if (onBack) {
       resetParentData();
       onBack(); // Invoke the onBack function passed as prop
