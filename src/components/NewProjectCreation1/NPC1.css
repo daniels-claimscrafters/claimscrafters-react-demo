@@ -18,8 +18,11 @@
   justify-content: space-between;
   width: 100%;
 }
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
 .textField::-webkit-calendar-picker-indicator {
-  filter: invert(100%); /* Inverts the color */
+  filter: invert(0%); /* Inverts the color */
 }
 .npc1 div {
   display: flex;
