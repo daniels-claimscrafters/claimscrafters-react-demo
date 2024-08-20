@@ -139,7 +139,7 @@ const CardValuation = ({ projectDetails, filteredData }) => {
     const RCVHigh = parseFloat(item["RCV High"]) || 0;  // Convert empty string to 0
     const RCVLow = parseFloat(item["RCV Low"]) || 0;    // Convert empty string to 0
     const quantity = parseFloat(item["Quantity"]) || 0; 
-    const depreciation = parseFloat(item["Depreciation"]);
+    const depreciation = parseFloat(item["Depreciation"]) || 0;
 
    // Calculate depreciation amount for the current item using the provided formula
   const ACV1 = parseFloat((((RCVHigh + RCVLow) / 2) * quantity).toFixed(2));
@@ -175,7 +175,7 @@ filteredData.forEach((item) => {
   const RCVHigh = parseFloat(item["RCV High"]) || 0;  // Convert empty string to 0
     const RCVLow = parseFloat(item["RCV Low"]) || 0;    // Convert empty string to 0
     const quantity = parseFloat(item["Quantity"]) || 0; 
-  const depreciation = parseFloat(item["Depreciation"]);
+  const depreciation = parseFloat(item["Depreciation"]) || 0;
 
   // Calculate depreciation amount for the current item using the provided formula
   let ACV1 = (((RCVHigh + RCVLow) / 2) * quantity).toFixed(2);
