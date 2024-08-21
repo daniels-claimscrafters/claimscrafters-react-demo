@@ -70,7 +70,7 @@ const generateSummary = async (projectDetails) => {
     const RCVHigh = parseFloat(item["RCV High"]);
     const RCVLow = parseFloat(item["RCV Low"]);
     const quantity = parseFloat(item["Quantity"]);
-    const depreciation = parseFloat(item["Depreciation"]);
+    const depreciation = parseFloat(item["Depreciation"]) || 0;
 
    // Calculate depreciation amount for the current item using the provided formula
   const ACV1 = parseFloat((((RCVHigh + RCVLow) / 2) * quantity).toFixed(2));
@@ -105,7 +105,7 @@ projectDetails.project.spreadsheetData.forEach((item) => {
   const RCVHigh = parseFloat(item["RCV High"]);
   const RCVLow = parseFloat(item["RCV Low"]);
   const quantity = parseFloat(item["Quantity"]);
-  const depreciation = parseFloat(item["Depreciation"]);
+  const depreciation = parseFloat(item["Depreciation"]) || 0;
 
   // Calculate depreciation amount for the current item using the provided formula
   let ACV1 = (((RCVHigh + RCVLow) / 2) * quantity).toFixed(2);
@@ -535,7 +535,7 @@ const generateSummaryWorksheet = async (worksheet, projectDetails) => {
         const RCVHigh = parseFloat(item['RCV High']);
         const RCVLow = parseFloat(item['RCV Low']);
         const quantity = parseFloat(item['Quantity']);
-        const depreciation = parseFloat(item['Depreciation']);
+        const depreciation = parseFloat(item['Depreciation']) || 0;
         
         // Calculate depreciation amount for the current item using the provided formula
         const rcvTotal = ((RCVHigh + RCVLow) / 2 * quantity);
