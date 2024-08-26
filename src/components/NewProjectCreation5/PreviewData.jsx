@@ -359,10 +359,10 @@ const PreviewData = ({ excelData, onColumnsSelected, resetParentData }) => {
     // Update the tableData state with the modified data
     setTableData(updatedTableData);
 
-    setSelectedDescription(null);
-    setSelectedQuantity(null);
-    setSelectedRoom(null);
-    setSelectedItem(null);
+    //setSelectedDescription(null);
+    //setSelectedQuantity(null);
+    //setSelectedRoom(null);
+    //setSelectedItem(null);
     setSelectDescriptionText("");
     setSelectQuantityText("");
     setSelectRoomText("");

@@ -725,6 +725,10 @@ const CardContents = ({ projectDetails, setProjectDetails, onFilter }) => {
     return ((rcvTotal + salesTaxAmount) - depreciationAmount).toFixed(2);
   };
 
+  const sortedData = filterData().sort((a, b) => {
+    return b.Questionable - a.Questionable;
+  });
+
   return (
     <div style={styles.Card}>
       <div style={{ width: "100%", overflow: "auto" }}>
@@ -864,7 +868,7 @@ const CardContents = ({ projectDetails, setProjectDetails, onFilter }) => {
       <div style={styles.cell}>Class</div>
     </div>
     {/* Render data rows */}
-    {filterData().map((item, index) => (
+    {sortedData.map((item, index) => (
       <div
         key={index}
         style={{
@@ -875,8 +879,8 @@ const CardContents = ({ projectDetails, setProjectDetails, onFilter }) => {
         <div style={styles.cell}>{index + 1}</div>
         <div style={styles.cell}>
           {item.Questionable ? (
-            <div style={{ display: 'flex', alignItems: 'center', color: 'red' }}>
-              <span>LOW</span>
+            <div style={{ display: 'flex', alignItems: 'center', color: 'orange' }}>
+              <span>Pending</span>
               <button
   style={{
     marginLeft: '10px',
@@ -899,7 +903,7 @@ const CardContents = ({ projectDetails, setProjectDetails, onFilter }) => {
 
             </div>
           ) : (
-            <span style={{ color: '#66BB6A' }}>HIGH</span>
+            <span style={{ color: '#66BB6A' }}>Meets Criteria</span>
 
           )}
         </div>
