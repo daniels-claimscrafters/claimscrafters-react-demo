@@ -55,7 +55,7 @@ const TutorialModal = ({ onClose, onYes }) => {
   return (
     <div style={modalStyles.overlay}>
       <div style={modalStyles.content}>
-        <h2>Would you like a tutorial on how to upload your data</h2>
+        <h2>Would you like a tutorial on how to upload your data?</h2>
         <div>
           <button
             style={{ ...modalStyles.button, ...modalStyles.buttonYes }}
