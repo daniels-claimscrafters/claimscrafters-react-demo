@@ -3,8 +3,8 @@ import axios from "axios";
 
 const styles = {
   ImageContainer: {
-    width: "40px",
-    height: "40px",
+    width: "60px",
+    height: "60px",
     borderRadius: "50%",
     border: "1px solid #c2c2c2",
     boxSizing: "border-box",

@@ -166,55 +166,36 @@ const ContactUsPage = () => {
         {/* Header content */}
 
         <div style={{ display: "flex", alignItems: "center" }}>
-          <motion.div
-            initial={{ scale: 0 }} // Initial scale is 0
-            animate={{ scale: 1 }} // Animate to scale 1
-            transition={{ duration: 1.0 }} // Transition duration
-          >
+          
             {/* <ImageLogo /> */}
             <img
               src="https://assets.api.uizard.io/api/cdn/stream/616c0541-6abe-4fb7-aedb-96cdcde8c0bd.png"
               alt=""
               onClick={() => navigate("/")}
             />
-          </motion.div>
+          
         </div>
         <div style={{ display: "flex", alignItems: "center" }}>
-          <motion.div
-            initial={{ scale: 0 }} // Initial scale is 0
-            animate={{ scale: 1 }} // Animate to scale 1
-            whileHover={{ scale: 1.1 }} // Scale up to 1.1 when hovered
-            transition={{ duration: 1.0 }} // Transition duration
-          >
+          
             <TextSignIn style={{ marginRight: "10px" }} />
-          </motion.div>
+          
 
-          <motion.div
-            initial={{ scale: 0 }} // Initial scale is 0
-            animate={{ scale: 1 }} // Animate to scale 1
-            whileHover={{ scale: 1.1 }} // Scale up to 1.1 when hovered
-            transition={{ duration: 1.0 }} // Transition duration
-          >
+          
             <ButtonSignUp />
-          </motion.div>
+          
         </div>
       </div>
 
       <div className="contactForm">
         {/* Left column with ImageJumbotron */}
         <div>
-          <motion.div
-            style={{ height: "100%" }}
-            initial={{ scale: 0 }} // Initial scale is 0
-            animate={{ scale: 1 }} // Animate to scale 1
-            transition={{ duration: 1.0 }} // Transition duration
-          >
+          
             <img
               src="https://assets.api.uizard.io/api/cdn/stream/d935316d-4fe1-4d7c-985e-48488c076f15.png"
               alt=""
               className="contactPageImg"
             />
-          </motion.div>
+          
         </div>
 
         {/* Right column with other elements */}
@@ -281,16 +262,11 @@ const ContactUsPage = () => {
             </div>
             {/* Use ButtonSendMessage as the submit button */}
             <div style={{ display: "flex", justifyContent: "center" }}>
-              <motion.div
-                initial={{ scale: 0 }} // Initial scale is 0
-                animate={{ scale: 1 }} // Animate to scale 1
-                whileHover={{ scale: 1.1 }} // Scale up to 1.1 when hovered
-                transition={{ duration: 1.0 }} // Transition duration
-              >
+              
                 <ButtonSendMessage type="submit" disabled={!submitEnabled}>
                   Send Message
                 </ButtonSendMessage>
-              </motion.div>
+              
             </div>
           </form>
         </div>

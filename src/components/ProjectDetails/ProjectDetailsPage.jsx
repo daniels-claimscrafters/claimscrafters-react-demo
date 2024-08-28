@@ -1,6 +1,8 @@
 // ProjectDetailsPage.jsx
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { AppBar, Toolbar, Typography, IconButton, CircularProgress, Box } from "@mui/material";
+import HomeIcon from '@mui/icons-material/Home';
 import "./ProjectDetails.css";
 import CardChangelog from "./CardChangelog";
 import CardValuation from "./CardValuation";
@@ -9,6 +11,7 @@ import CardContents from "./CardContents";
 import { useMediaQuery } from "react-responsive";
 import { motion } from "framer-motion";
 import { AiFillHome } from "react-icons/ai";
+import CardInventory from "./CardInventory";
 
 const ProjectDetailsPage = () => {
   const navigate = useNavigate();
@@ -132,46 +135,27 @@ const ProjectDetailsPage = () => {
 
   return (
     <div className="projectDetailsPage">
-      {/* delete */}
-      {/* <div>
-        <HeaderBackground>
-          <div>
-            <ImageHeader />
-            <div>
-              <TextHeader />
-            </div>
-            <div>
-              <ImageProfile />
-            </div>
-          </div>
-        </HeaderBackground>
-      </div> */}
-      <div className="PhmsNav">
-        {/* Left Section: ImageLogo */}
-        <div>
-          <motion.div
-            style={{ width: "100%", height: "100%" }}
-            initial={{ scale: 0 }} // Initial scale is 0
-            animate={{ scale: 1 }} // Animate to scale 1
-            transition={{ duration: 0.5 }} // Transition duration
-          >
-            <Link to="/">
-              <img
-                src="https://assets.api.uizard.io/api/cdn/stream/ffd9fb9d-25b1-4238-aa81-10979a405a8e.png"
-                className="pmhsLogo"
-              />
-            </Link>
-          </motion.div>
-        </div>
-        {/* Middle Section: TextHeader and TextSubtitle */}
-        <div className="header-content">
-          <h2>Project Details</h2>
-        </div>
-        {/* Right Section: ImageProfile, TextUsername, and IconLogout */}
-        <div className="iconHome">
-          <AiFillHome onClick={handleToHome} />
-        </div>
-      </div>
+      <AppBar position="static" sx={{ backgroundColor: 'black' }}>
+  <Toolbar sx={{ justifyContent: 'space-between' }}>
+    {/* Left-aligned text */}
+    
+
+    {/* Center-aligned logo */}
+    <Link to="/" style={{ textDecoration: 'none', color: 'inherit', flexGrow: 1, display: 'flex', justifyContent: 'flex-start' }}>
+      <img
+        src="https://assets.api.uizard.io/api/cdn/stream/ffd9fb9d-25b1-4238-aa81-10979a405a8e.png"
+        className="pmhsLogo"
+        alt="PMHS Logo"
+      />
+    </Link>
+
+    {/* Right-aligned icon */}
+    <IconButton color="inherit" onClick={handleToHome}>
+      <HomeIcon />
+    </IconButton>
+  </Toolbar>
+</AppBar>
+
 
       <div className="projectDetails">
         <div>
@@ -184,12 +168,7 @@ const ProjectDetailsPage = () => {
           </div>
         </div>
         <div>
-          <CardContents
-            projectDetails={projectDetails}
-            setProjectDetails={handleUpdateProjectDetails}
-            userData={userData}
-            onFilter={handleFilteredData}
-          />
+        <CardInventory projectDetails={projectDetails} onFilteredDataChange={handleFilteredData} />
         </div>
       </div>
     </div>

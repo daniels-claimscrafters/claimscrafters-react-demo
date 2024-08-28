@@ -1,6 +1,7 @@
 // PMHSPAge.jsx
 
 import React, { useState, useEffect } from "react";
+import { Box, Drawer, List, ListItem, ListItemText, Divider, IconButton, Fab } from "@mui/material";
 import "./PHMSPage.css";
 import { Link, useNavigate } from "react-router-dom";
 import TextUsername from "./TextUsername";
@@ -44,6 +45,11 @@ import { PiSigmaBold } from "react-icons/pi";
 import { IoIosRefresh } from "react-icons/io";
 import { AiFillHome } from "react-icons/ai";
 import { MdOutlineLogout } from "react-icons/md";
+import LogoutIcon from '@mui/icons-material/Logout';
+import Tooltip from '@mui/material/Tooltip';
+import AddIcon from '@mui/icons-material/Add';
+
+const drawerWidth = 240;
 
 const PMHSPage = () => {
   const navigate = useNavigate();
@@ -55,7 +61,10 @@ const PMHSPage = () => {
   const [total, setTotal] = useState(0);
   const [tasks, setTasks] = useState(null);
   const [userData, setUserData] = useState(null);
+  const [filter, setFilter] = useState("All");
   const API_URL = process.env.REACT_APP_API_URL;
+
+  
 
   // Function to retrieve token from cookie
   const getTokenFromCookie = () => {
@@ -224,114 +233,180 @@ const PMHSPage = () => {
     navigate("/");
   };
 
+  const handleFilterChange = (status) => {
+    setFilter(status);
+    console.log("filter", filter);
+  };
+
+  const handleCreateProject = () => {
+    navigate("/npcpc"); // Navigate to the Create Project page
+  };
+
   return (
-    <div className="PHMS">
-      <div className="logoutBtn">
-        {/* <IconLogout onClick={handleLogout} /> */}
-        <MdOutlineLogout onClick={handleLogout} />
-      </div>
-      {/* Sidebar Section */}
-      <div>
-        <div className="PhmsNav">
-          {/* Left Section: ImageLogo */}
-          <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
-            <AiFillHome
-              onClick={handleToHome}
-              style={{ fontSize: "1.8rem", color: "white", cursor: "pointer" }}
-            />
-            <motion.div
-              style={{ width: "100%", height: "100%" }}
-              initial={{ scale: 0 }} // Initial scale is 0
-              animate={{ scale: 1 }} // Animate to scale 1
-              transition={{ duration: 0.5 }} // Transition duration
-            >
-              <Link to="/">
-                <img
-                  src="https://assets.api.uizard.io/api/cdn/stream/ffd9fb9d-25b1-4238-aa81-10979a405a8e.png"
-                  className="pmhsLogo"
-                />
-              </Link>
-            </motion.div>
-          </div>
-          {/* Middle Section: TextHeader and TextSubtitle */}
-          <div className="header-content">
-            <h2>Project Management</h2>
-            <h4>Welcome to ContentsIQ</h4>
-          </div>
-          {/* Right Section: ImageProfile, TextUsername, and IconLogout */}
-          <div className="profile-photo" onClick={handleClick}>
-            {/* ImageProfile */}
-            <ImageProfile userData={userData} />
-            <p>
-              Hello,{" "}
-              {userData && userData.firstName
-                ? userData.firstName
-                : "<User First Name>"}
-            </p>
-            {/* TextUsername */}
+    <div style={{ display: 'flex', height: '100vh' }}>
+      {/* Sidebar Drawer */}
+      <Drawer
+        variant="permanent"
+        sx={{
+          width: 240,
+          flexShrink: 0,
+          '& .MuiDrawer-paper': {
+            width: 240,
+            boxSizing: 'border-box',
+            backgroundColor: 'black',
+            color: 'white',
+          },
+        }}
+      >
+        {/* Sidebar Content */}
+        <div style={{ display: 'flex', flexDirection: 'column', height: '100%', padding: '10px' }}>
+          
+           {/* Sidebar: Profile Picture at the Top */}
+  <div className="profile-photo" onClick={handleClick}>
+    <ImageProfile userData={userData} />
+    <p>
+      Hello,{" "}
+      {userData && userData.firstName
+        ? userData.firstName
+        : "<User First Name>"}
+    </p>
+  </div>
 
-            {/* <TextUsername userData={userData} /> */}
-          </div>
-        </div>
-      </div>
-      {/* Main Content Section */}
+  {/* Spacer to push the list to the center */}
+  <div style={{ flexGrow: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+    {/* List Options */}
+    <List style={{ 
+        display: 'flex', 
+        flexDirection: 'column', 
+        alignItems: 'center', 
+        width: '100%', // Full width for better alignment
+        padding: 0,
+        margin: 0
+      }}>
+        {/* List Item Styling */}
+        <ListItem 
+          button 
+          onClick={() => handleFilterChange("All")} 
+          style={{ 
+            margin: '10px 0', 
+            borderRadius: '8px', 
+            padding: '10px 20px', 
+            transition: 'background-color 0.3s ease',
+            backgroundColor: '#333', // Dark background for list items
+            color: '#fff', // White text color
+          }}
+          onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#444'}
+          onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#333'}
+        >
+          <ListItemText primary="All Projects" primaryTypographyProps={{ fontWeight: 'bold' }} />
+        </ListItem>
+        <ListItem 
+          button 
+          onClick={() => handleFilterChange("Started")} 
+          style={{ 
+            margin: '10px 0', 
+            borderRadius: '8px', 
+            padding: '10px 20px', 
+            transition: 'background-color 0.3s ease',
+            backgroundColor: '#333',
+            color: '#fff',
+          }}
+          onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#444'}
+          onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#333'}
+        >
+          <ListItemText primary="Projects Started" primaryTypographyProps={{ fontWeight: 'bold' }} />
+        </ListItem>
+        <ListItem 
+          button 
+          onClick={() => handleFilterChange("In Process")} 
+          style={{ 
+            margin: '10px 0', 
+            borderRadius: '8px', 
+            padding: '10px 20px', 
+            transition: 'background-color 0.3s ease',
+            backgroundColor: '#333',
+            color: '#fff',
+          }}
+          onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#444'}
+          onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#333'}
+        >
+          <ListItemText primary="Projects In Process" primaryTypographyProps={{ fontWeight: 'bold' }} />
+        </ListItem>
+        <ListItem 
+          button 
+          onClick={() => handleFilterChange("Completed")} 
+          style={{ 
+            margin: '10px 0', 
+            borderRadius: '8px', 
+            padding: '10px 20px', 
+            transition: 'background-color 0.3s ease',
+            backgroundColor: '#333',
+            color: '#fff',
+          }}
+          onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#444'}
+          onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#333'}
+        >
+          <ListItemText primary="Projects Completed" primaryTypographyProps={{ fontWeight: 'bold' }} />
+        </ListItem>
+        <ListItem 
+          button 
+          onClick={() => handleFilterChange("Closed")} 
+          style={{ 
+            margin: '10px 0', 
+            borderRadius: '8px', 
+            padding: '10px 20px', 
+            transition: 'background-color 0.3s ease',
+            backgroundColor: '#333',
+            color: '#fff',
+          }}
+          onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#444'}
+          onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#333'}
+        >
+          <ListItemText primary="Projects Closed" primaryTypographyProps={{ fontWeight: 'bold' }} />
+        </ListItem>
+      </List>
+  </div>
 
+  {/* Divider */}
+  <Divider />
+
+  {/* Logout Icon */}
+  <div style={{ padding: '10px', textAlign: 'center' }}>
+  <Tooltip title="Logout">
+    <LogoutIcon 
+      style={{ color: 'white', cursor: 'pointer' }} 
+      onClick={handleLogout} // Use the handleLogout function
+    />
+  </Tooltip>
+</div>
+</div>
+      </Drawer>
+  
       {/* Main Content */}
-      <div>
-        {/* Top Row */}
-
-        {/* Cards and Project Buttons Section */}
-        <div className="projectTask">
-          {/* Left Section: TasksList */}
-
-          {/* ProjectsList */}
-
-          {/* <TextMyProjects /> */}
-          <ProjectsList projects={projects} pageReady={pageReady} />
-
-          <div className="projectStatus">
-            <div className="projectStates">
-              <div className="projectStateHeading">
-                <IoIosRefresh />
-                <p>In Process ({inProcess})</p>
-              </div>
-              <div className="projectStateHeading">
-                <TiTick />
-                <p>Completed ({completed})</p>
-              </div>
-              <div className="projectStateHeading">
-                <PiSigmaBold />
-                <p>Total ({total})</p>
-              </div>
-            </div>
-            <div className="activityBox">
-              {/* TasksList */}
-
-              <motion.div
-                style={{ width: "100%", height: "80%" }}
-                initial={{ scale: 0, opacity: 0 }} // Initial scale and opacity
-                animate={{ scale: 1, opacity: 1 }} // Animate to scale 1 and opacity 1
-                transition={{ delay: 1.0, duration: 0.5 }} // Delay animation by 0.5 seconds
-              >
-                <TasksList
-                  showCardTaskParent={showCardTaskParent}
-                  toggleCardTaskParent={toggleCardTaskParent}
-                  tasks={tasks}
-                />
-              </motion.div>
-
-              {/* Render CardTaskParent if showCardTaskParent is true */}
-              {showCardTaskParent && (
-                <CardTaskParent
-                  userData={userData}
-                  onClose={toggleCardTaskParent}
-                />
-              )}
-            </div>
-          </div>
-          {/* Right Section: ProjectsList */}
-        </div>
-      </div>
+      <main style={{ 
+        flexGrow: 1, 
+        display: 'flex', 
+        flexDirection: 'column',
+        backgroundColor: 'black', // Dark background color
+        color: 'white' // Light text color for contrast
+      }}>
+        {/* ProjectsList Component */}
+        <ProjectsList 
+          projects={projects}
+          filter={filter}  
+          pageReady={pageReady}
+        />
+      </main>
+      <Tooltip title="Create Project" aria-label="create-project">
+        <Fab 
+          color="primary" 
+          aria-label="add" 
+          style={{ position: 'fixed', bottom: 24, right: 48 }}
+          onClick={handleCreateProject}
+        >
+          <AddIcon />
+        </Fab>
+      </Tooltip>
     </div>
   );
 };

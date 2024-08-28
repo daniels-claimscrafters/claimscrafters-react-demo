@@ -120,18 +120,13 @@ const LogInPage = () => {
         <form action="" className="loginForm" onSubmit={handleLogin}>
           {/* <div className="loginForm"> */}
           <div className="Logo">
-            <motion.div
-              style={{ height: "100%" }}
-              initial={{ scale: 0 }} // Initial scale is 0
-              animate={{ scale: 1 }} // Animate to scale 1
-              transition={{ duration: 1.0 }} // Transition duration
-            >
+            
               <img
                 // src="https://assets.api.uizard.io/api/cdn/stream/d661662c-a6d2-4ac0-bb25-6af76fb995bd.png"
                 src="ContentsIQ.png"
                 className="form-logo"
               />
-            </motion.div>
+            
           </div>
           <div className="formContent">
             <div className="form-header">
@@ -174,16 +169,11 @@ const LogInPage = () => {
               </div>
               <Link to="/forgotpassword">Forgot your password?</Link>
             </div>
-            <motion.div
-              initial={{ scale: 0 }} // Initial scale is 0
-              animate={{ scale: 1 }} // Animate to scale 1
-              transition={{ duration: 1.0 }} // Transition duration
-              whileHover={{ scale: 1.1 }} // Scale up to 1.1 when hovered
-            >
+            
               <button className="formBtn" type="submit">
                 Log in
               </button>
-            </motion.div>
+            
             <p className="signupLink">
               I don't have an account yet. <Link to="/signup">Sign up</Link>
             </p>

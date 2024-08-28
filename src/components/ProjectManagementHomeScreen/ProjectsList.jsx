@@ -12,38 +12,16 @@ import ButtonProjectsStarted from "./ButtonProjectsStarted";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 
-const ProjectsList = (projects, inProcess, completed, total) => {
-  const [filter, setFilter] = useState("All");
+const ProjectsList = ({ projects, filter }) => {
+  
   const navigate = useNavigate();
 
-  const handleFilterChange = (status) => {
-    setFilter(status);
-    console.log("filter", filter);
-  };
+  
 
   console.log("ProjectsList: ", projects);
   return (
     <div style={{ height: "90%" }} className="projectList">
-      <div className="projectBtnTabs">
-        <button onClick={() => navigate("/npcpc")}> Create Project</button>
-        <button onClick={() => handleFilterChange("All")}> All Projects</button>
-        <button onClick={() => handleFilterChange("Started")}>
-          {" "}
-          Projects Started
-        </button>
-        <button onClick={() => handleFilterChange("In Process")}>
-          {" "}
-          Projects In Process
-        </button>
-        <button onClick={() => handleFilterChange("Completed")}>
-          {" "}
-          Projects Completed
-        </button>
-        <button onClick={() => handleFilterChange("Closed")}>
-          {" "}
-          Projects Closed
-        </button>
-      </div>
+      
       {/* </CardButtonBackground> */}
       <motion.div
         style={{ flex: "1", height: "100%" }}

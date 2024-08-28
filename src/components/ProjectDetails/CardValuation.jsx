@@ -1,204 +1,98 @@
-// CardValuation.jsx
+import React, { useState } from "react";
+import { Card, CardContent, Typography, Divider, IconButton, Collapse } from "@mui/material";
+import { styled } from "@mui/material/styles";
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'; // Import the expand icon
 
-import React from "react";
+const StyledCard = styled(Card)(({ theme }) => ({
+  backgroundColor: "#000", // Set background to black
+  color: "#fff", // Set text color to white for contrast
+  borderRadius: "16px",
+  border: `1px solid ${theme.palette.grey[700]}`,
+  marginTop: "1px",
+  width: "100%",
+  height: "auto",
+  padding: "1px",
+  boxSizing: "border-box",
+  overflow: "auto",
+}));
 
-const styles = {
-  Card: {
-    marginTop: "5px",
-    width: "100%",
-    height: "60%", // Keeping the original height
-    backgroundColor: "#f0f0f0",
-    borderRadius: "26px",
-    border: "1px solid #030303",
-    boxSizing: "border-box",
-    gap: "20px",
-    display: "flex",
-    flexDirection: "row",
-    fontSize: "1.0vw",
-    justifyContent: "center",
-    alignItems: "center",
-    overflow: "auto",
-  },
-  column: {
-    width: "25%",
-    height: "100%",
-    paddingTop: "10px",
-  },
-  firstColumn: {
-    width: "25%",
-    // Add margin right for space between columns
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    height: "100%",
-  },
-  innerCard: {
-    width: "100%", // Adjust width of the inner card as needed
-    height: "100%", // Adjust height of the inner card as needed
-    backgroundColor: "#cddef2",
-    borderRadius: "26px",
-    border: "1px solid #030303",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    textAlign: "center",
-    fontSize: "20px",
-    fontFamily: "Poppins",
-    fontWeight: 600,
-    padding: "5px",
-  },
-  headerText: {
-    fontWeight: "bold",
-    marginBottom: "5px",
-    textAlign: "center",
-  },
-  text: {
-    color: "#030303",
+const HeaderText = styled(Typography)({
+  fontWeight: "bold",
+  marginBottom: "5px",
+  textAlign: "center",
+  fontSize: "18px",
+});
 
-    fontFamily: "Poppins",
-    fontWeight: 500,
-    lineHeight: "23px",
+const Text = styled(Typography)({
+  color: "#fff", // Ensure text is readable against black background
+  fontFamily: "Poppins",
+  fontWeight: 500,
+  lineHeight: "23px",
+});
 
-    whiteSpace: "nowrap",
-  },
-};
+const Column = styled('div')({
+  flex: 1,
+  display: 'flex',
+  flexDirection: 'column',
+  padding: '10px',
+  textAlign: 'center',
+});
+
+const ExpandMore = styled(IconButton)(({ theme, expand }) => ({
+  color: "#fff", // Set the icon color to white
+  transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
+  transition: theme.transitions.create('transform', {
+    duration: theme.transitions.duration.shortest,
+  }),
+}));
 
 const CardValuation = ({ projectDetails, filteredData }) => {
+  console.log('Filtered Data:', filteredData);
 
-  console.log('yup', filteredData);
+  const [expanded, setExpanded] = useState(true);
 
-  // Initialize total
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
+
+  // Initialize totals and calculations
   let suggestedRCVTotal = 0;
-
-  // Iterate through each item in spreadsheetData
-  filteredData.forEach((item) => {
-    // Parse RCV High, RCV Low, and Quantity from the current item
-    const RCVHigh = parseFloat(item["RCV High"]) || 0;  // Convert empty string to 0
-    const RCVLow = parseFloat(item["RCV Low"]) || 0;    // Convert empty string to 0
-    const quantity = parseFloat(item["Quantity"]) || 0; 
-
-    // Check if RCVHigh, RCVLow, or quantity is NaN
-    if (isNaN(RCVHigh) || isNaN(RCVLow) || isNaN(quantity)) {
-      console.log('NaN found in RCVHigh, RCVLow, or quantity:', item);
-    }
-
-    // Calculate RCV (ext) for the current item using the provided formula
-    let RCVExt = (((parseFloat(RCVHigh) + parseFloat(RCVLow)) / 2) * quantity).toFixed(2);
-    // console.log("RCVExt "+RCVExt);
-    RCVExt = parseFloat(RCVExt);
-    
-    // Add RCV (ext) to total
-    suggestedRCVTotal += RCVExt;
-  });
-
-  // Initialize total RCV tax
   let totalRCVTax = 0;
+  let suggestedACVTotal = 0;
+  let totalDepreciation = 0;
 
-  // Iterate through each item in spreadsheetData
   filteredData.forEach((item) => {
-    // Parse RCV High, RCV Low, and Quantity from the current item
-    const RCVHigh = parseFloat(item["RCV High"]) || 0;  // Convert empty string to 0
-    const RCVLow = parseFloat(item["RCV Low"]) || 0;    // Convert empty string to 0
-    const quantity = parseFloat(item["Quantity"]) || 0; 
+    const RCVHigh = parseFloat(item["RCV High"]) || 0;
+    const RCVLow = parseFloat(item["RCV Low"]) || 0;
+    const quantity = parseFloat(item["Quantity"]) || 0;
+    const depreciation = parseFloat(item["Depreciation"]) || 0;
 
-    // Calculate RCV (ext) for the current item using the provided formula
-    const RCVExt = ((RCVHigh + RCVLow) / 2) * quantity;
+    let RCVExt = (((RCVHigh + RCVLow) / 2) * quantity).toFixed(2);
+    RCVExt = parseFloat(RCVExt);
+    suggestedRCVTotal += RCVExt;
 
-    // Round RCVExt to two decimal places to minimize rounding errors
-    const roundedRCVExt = parseFloat(RCVExt.toFixed(2));
+    const RCVTax = RCVExt * (projectDetails.project.salesTax / 100);
+    totalRCVTax += parseFloat(RCVTax.toFixed(2));
 
-    // Calculate RCV tax for the current item and add it to the total
-    const RCVTax = roundedRCVExt * (projectDetails.project.salesTax / 100);
+    const ACV1 = parseFloat((((RCVHigh + RCVLow) / 2) * quantity).toFixed(2));
+    let depreciationFactor = depreciation * 100 * projectDetails.project.depreciationRange;
+    depreciationFactor = Math.min(depreciationFactor, 100);
+    const depreciationAmount = ACV1 * (depreciationFactor / 100);
+    const formattedDepreciationAmount = parseFloat(depreciationAmount.toFixed(2));
+    let ACV2 = ACV1 - formattedDepreciationAmount;
+    suggestedACVTotal += ACV2;
 
-    // Round RCVTax to two decimal places before adding to totalRCVTax
-    const roundedRCVTax = parseFloat(RCVTax.toFixed(2));
-
-    // Add rounded RCVTax to totalRCVTax
-    totalRCVTax += roundedRCVTax;
+    totalDepreciation += formattedDepreciationAmount;
   });
 
-  // Round the total RCV tax to two decimal places
   totalRCVTax = roundToTwoDecimalPlaces(totalRCVTax);
-
-  // Output the total RCV tax
+  const rcvWithTaxTotal = suggestedRCVTotal + totalRCVTax;
+  const acvWithTaxTotal = suggestedACVTotal;
   
-
-  // Function to round a number to two decimal places
   function roundToTwoDecimalPlaces(number) {
     return Math.round(number * 100) / 100;
   }
 
-  // Calculate RCV with tax total
-  const rcvWithTaxTotal = suggestedRCVTotal + totalRCVTax;
-
-  let suggestedACVTotal = 0; // Initialize total ACV
-
-  // Iterate over each item in the spreadsheet data
-  filteredData.forEach((item) => {
-    // Parse RCV High, RCV Low, Quantity, and Depreciation from the current item
-    const RCVHigh = parseFloat(item["RCV High"]) || 0;  // Convert empty string to 0
-    const RCVLow = parseFloat(item["RCV Low"]) || 0;    // Convert empty string to 0
-    const quantity = parseFloat(item["Quantity"]) || 0; 
-    const depreciation = parseFloat(item["Depreciation"]) || 0;
-
-   // Calculate depreciation amount for the current item using the provided formula
-  const ACV1 = parseFloat((((RCVHigh + RCVLow) / 2) * quantity).toFixed(2));
-    
-  let depreciationFactor = depreciation * 100 * projectDetails.project.depreciationRange;
-
-  // Ensure that the depreciation factor does not exceed 100
-  depreciationFactor = Math.min(depreciationFactor, 100);
-
-  const depreciationAmount = ACV1 * (depreciationFactor / 100);
-
-  // Convert the depreciation amount to a string with 2 decimal places
-  const formattedDepreciationAmount = parseFloat(depreciationAmount.toFixed(2));
-
-    let ACV2 = ACV1 - formattedDepreciationAmount;
-
-    // Add ACV to total
-    suggestedACVTotal += ACV2;
-  });
-
-  // Calculate total ACV tax by multiplying total ACV by the sales tax rate
-  const totalACVTax =
-    suggestedACVTotal * (projectDetails.project.salesTax / 100);
-
-  // Calculate ACV with tax total by adding total ACV and total ACV tax
-  const acvWithTaxTotal = suggestedACVTotal;
-
-  let totalDepreciation = 0 + totalRCVTax; // Initialize total depreciation
-
-  // Iterate over each item in the spreadsheet data
-filteredData.forEach((item) => {
-  // Parse RCV High, Quantity, and Depreciation from the current item
-  const RCVHigh = parseFloat(item["RCV High"]) || 0;  // Convert empty string to 0
-    const RCVLow = parseFloat(item["RCV Low"]) || 0;    // Convert empty string to 0
-    const quantity = parseFloat(item["Quantity"]) || 0; 
-  const depreciation = parseFloat(item["Depreciation"]) || 0;
-
-  // Calculate depreciation amount for the current item using the provided formula
-  let ACV1 = (((RCVHigh + RCVLow) / 2) * quantity).toFixed(2);
-  ACV1 = parseFloat(ACV1);
-  let depreciationFactor = depreciation * 100 * projectDetails.project.depreciationRange;
-
-  // Ensure that the depreciation factor does not exceed 100
-  depreciationFactor = Math.min(depreciationFactor, 100);
-
-  const depreciationAmount = ACV1 * (depreciationFactor / 100);
-
-  // Convert the depreciation amount to a string with 2 decimal places
-  const formattedDepreciationAmount = parseFloat(depreciationAmount.toFixed(2));
-
-  // console.log(formattedDepreciationAmount);
-
-  // Add formatted depreciation amount to total
-  totalDepreciation += formattedDepreciationAmount;
-});
-
-// console.log("totalDepreciation "+ totalDepreciation);
-
-  // Now you have the total depreciation amount
   let depreciationRange;
   switch (projectDetails.project.depreciationRange) {
     case 2:
@@ -219,94 +113,93 @@ filteredData.forEach((item) => {
   }
 
   return (
-    <div className="cardValuation">
-      <div className="numItem">
-        Number Of Items: {projectDetails.project.numberOfLines}
-      </div>
-      <div className="calcProject">
-        <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-          <div className="calcProjectHeader">RCV</div>
-          <div>
-            Suggested RCV Total: $
-            {suggestedRCVTotal.toLocaleString("en-US", {
-              minimumFractionDigits: 2,
-              maximumFractionDigits: 2,
-            })}
+    <StyledCard>
+      <CardContent>
+        <HeaderText variant="h5" align="center" gutterBottom>
+        
+          Valuation
+          <ExpandMore
+          expand={expanded}
+          onClick={handleExpandClick}
+          aria-expanded={expanded}
+          aria-label="show more"
+        >
+          <ExpandMoreIcon />
+        </ExpandMore>
+        </HeaderText>
+        
+        <Collapse in={expanded} timeout="auto" unmountOnExit>
+          <Typography variant="body1" align="center" gutterBottom>
+            Number Of Items: {projectDetails.project.numberOfLines}
+          </Typography>
+          <div style={{ display: "flex", gap: "10px" }}>
+            <Column>
+              <HeaderText variant="h6">RCV</HeaderText>
+              <Text>
+                Suggested RCV Total: $
+                {suggestedRCVTotal.toLocaleString("en-US", {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })}
+              </Text>
+              <Text>Tax Rate: {projectDetails.project.salesTax}%</Text>
+              <Text>
+                Total RCV Tax: $
+                {totalRCVTax.toLocaleString("en-US", {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })}
+              </Text>
+              <Divider style={{ backgroundColor: "#fff", margin: "10px 0" }} />
+              <Text>
+                RCV with Tax Total: $
+                {rcvWithTaxTotal.toLocaleString("en-US", {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })}
+              </Text>
+            </Column>
+            <Column>
+              <HeaderText variant="h6">ACV</HeaderText>
+              <Text>
+                RCV with Tax Total: $
+                {rcvWithTaxTotal.toLocaleString("en-US", {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })}
+              </Text>
+              <Text>
+                Total Depreciation: ($
+                {totalDepreciation.toLocaleString("en-US", {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })}
+                )
+              </Text>
+              <Divider style={{ backgroundColor: "#fff", margin: "10px 0" }} />
+              <Text>
+                ACV Total: $
+                {acvWithTaxTotal.toLocaleString("en-US", {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })}
+              </Text>
+            </Column>
+            <Column>
+              <HeaderText variant="h6">DEPRECIATION</HeaderText>
+              <Text>Depreciating Years: {depreciationRange}</Text>
+              <Text>
+                Total Depreciation: $
+                {totalDepreciation.toLocaleString("en-US", {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })}
+              </Text>
+            </Column>
           </div>
-          <div>Tax Rate: {projectDetails.project.salesTax}%</div>
-          <div>
-            Total RCV Tax: $
-            {totalRCVTax.toLocaleString("en-US", {
-              minimumFractionDigits: 2,
-              maximumFractionDigits: 2,
-            })}
-          </div>
-          <hr
-            style={{
-              backgroundColor: "white",
-              height: "1px",
-              width: "100%",
-              margin: "5px 0",
-            }}
-            align="left"
-          />
-          <div>
-            RCV with Tax Total: $
-            {rcvWithTaxTotal.toLocaleString("en-US", {
-              minimumFractionDigits: 2,
-              maximumFractionDigits: 2,
-            })}
-          </div>
-        </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-          <div className="calcProjectHeader">ACV</div>
-          <div>
-            RCV with Tax Total: $
-            {rcvWithTaxTotal.toLocaleString("en-US", {
-              minimumFractionDigits: 2,
-              maximumFractionDigits: 2,
-            })}
-          </div>
-          <div>
-            Total Depreciation: ($
-            {totalDepreciation.toLocaleString("en-US", {
-              minimumFractionDigits: 2,
-              maximumFractionDigits: 2,
-            })}
-            )
-          </div>
-          <hr
-            style={{
-              backgroundColor: "white",
-              height: "1px",
-              width: "100%",
-              margin: "5px 0",
-            }}
-            align="left"
-          />{" "}
-          {/* Updated line here */}
-          <div>
-            ACV Total: $
-            {acvWithTaxTotal.toLocaleString("en-US", {
-              minimumFractionDigits: 2,
-              maximumFractionDigits: 2,
-            })}
-          </div>
-        </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-          <div className="calcProjectHeader">DEPRECIATION</div>
-
-          <div>Depreciating Years: {depreciationRange}</div>
-          <div>
-            Total Depreciation: $
-            {totalDepreciation.toLocaleString("en-US", {
-              minimumFractionDigits: 2,
-              maximumFractionDigits: 2,
-            })}
-          </div>
-        </div>
-      </div>
-    </div>
+        </Collapse>
+      </CardContent>
+    </StyledCard>
   );
 };
 

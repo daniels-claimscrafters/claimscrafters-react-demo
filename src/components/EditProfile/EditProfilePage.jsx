@@ -314,7 +314,7 @@ const EditProfilePage = () => {
       <div className="editProfile">
         <div className="logoutBtn">
           {/* <IconLogout onClick={handleLogout} /> */}
-          <MdOutlineLogout onClick={handleLogout} />
+          
         </div>
         {/* First Column */}
         {/* <div style={{ flex: 1, minHeight: "100vh", maxWidth: "3%" }}>
@@ -342,7 +342,7 @@ const EditProfilePage = () => {
           <div className="editHeader">
             <div>
               <AiFillHome onClick={handleToHome} />
-              <h3>My Profile</h3>
+              
             </div>
             <ButtonSave
               label="Save"

@@ -1,5 +1,3 @@
-// ProjectsList/CardProjects.jsx
-
 import React, { useState } from "react";
 import StatusCard from "./statusCard";
 
@@ -7,27 +5,18 @@ const CardProjects = ({ projects, filter }) => {
   const [searchQuery, setSearchQuery] = useState("");
 
   // Check if projects is null or undefined
-  const filteredProjects =
-    projects && projects["projects"]
-      ? filter === "All"
-        ? projects["projects"]
-        : projects["projects"].filter((project) => {
-            return project.status === filter;
-          })
-      : [];
+  const filteredProjects = projects ? (filter === "All" ? projects : projects.filter(project => project.status === filter)) : [];
 
-  console.log("Filtered Projects:", filteredProjects);
-  filteredProjects.sort((a, b) => {
-    return new Date(b.createdAt) - new Date(a.createdAt);
-  });
+  // Sort only if filteredProjects is not empty
+  if (filteredProjects.length > 0) {
+    filteredProjects.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+  }
 
   const searchFilteredProjects = filteredProjects.filter((project) => {
     const searchLower = searchQuery.toLowerCase();
     return (
       project.claimNumber.toLowerCase().includes(searchLower) ||
-      `${project.insuredFirstName} ${project.insuredLastName}`
-        .toLowerCase()
-        .includes(searchLower) ||
+      `${project.insuredFirstName} ${project.insuredLastName}`.toLowerCase().includes(searchLower) ||
       project.lossAddress.toLowerCase().includes(searchLower) ||
       project.lossCity.toLowerCase().includes(searchLower) ||
       project.lossState.toLowerCase().includes(searchLower) ||
@@ -74,7 +63,6 @@ const CardProjects = ({ projects, filter }) => {
                   <td>{project.lossCity}</td>
                   <td>{project.lossState}</td>
                   <td>
-                    {/* Render your card component here */}
                     <div
                       style={{
                         display: "flex",
@@ -83,10 +71,7 @@ const CardProjects = ({ projects, filter }) => {
                         height: "100%",
                       }}
                     >
-                      {/* Replace 'CardComponent' with your actual card component */}
-                      {/* <statuscard status={project.status} /> */}
                       <StatusCard status={project.status} />
-                      {/* <div className="projectStatusBtn">{project.status}</div> */}
                     </div>
                   </td>
                 </tr>
@@ -102,7 +87,7 @@ const CardProjects = ({ projects, filter }) => {
                     color: "white",
                   }}
                 >
-                  No Projects
+                  Projects...
                 </td>
               </tr>
             )}

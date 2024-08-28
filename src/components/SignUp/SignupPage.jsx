@@ -497,20 +497,9 @@ const SignupPage = () => {
                   {errorMessage}
                 </div>
               )}
-              <motion.div
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                transition={{ duration: 1.0 }}
-                style={{
-                  width: "100%",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  height: "70%",
-                }}
-              >
+              
                 <ButtonSignup disabled={!isFormComplete()} />
-              </motion.div>
+              
 
               <div
                 style={{

@@ -17,6 +17,41 @@ a {
   /* background-color: red; */
   min-height: 100vh;
 }
+.sticky-container {
+  position: sticky;
+  top: 0; /* Align with the top of the viewport */
+  background-color: #1e1f26; /* Background color */
+  padding: 10px;
+  z-index: 20; /* Ensure it's above the table */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: add shadow for better visibility */
+}
+
+/* Ensure the search box fits well */
+.projectSearchBox {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ceced3;
+  background-color: #333; /* Dark background for consistency */
+  color: #ffffff;
+  font-size: 14px;
+  font-family: "Red Hat Display", sans-serif;
+}
+
+
+.centeredList {
+  display: flex;
+  flex-direction: column; /* Align items vertically in a column */
+  align-items: center;    /* Center items horizontally */
+  padding: 0;
+  margin: 0;
+}
+
+/* Optional: Adjust ListItem styling */
+.centeredList .MuiListItem-root {
+  width: 100%;  /* Make each ListItem take full width */
+  text-align: center; /* Center text inside ListItem */
+}
 .PhmsNav {
   display: flex;
   height: 89px;
@@ -130,15 +165,22 @@ a {
 .card {
   width: 100%;
   margin: auto;
-  height: 50vh;
-  /* max-height: 60vh; */
+  height: 100vh; /* Ensure the card takes up the full viewport height */
   background-color: #1e1f26;
-  /* border-radius: 20px; */
   border: 2px solid #cddef2;
   box-sizing: border-box;
   padding: 20px;
-  overflow-x: auto;
+  overflow: hidden; /* Prevent scrolling on the card itself */
 }
+
+.search-container {
+  
+  background-color: #333; /* Background color for search bar container */
+  padding: 10px;
+  border-radius: 8px; /* Optional: Rounded corners */
+}
+
+
 .card h3 {
   color: white;
   font-size: 1.2rem;
@@ -147,7 +189,7 @@ a {
 .projectSearchBox {
   display: block;
   margin: 0 auto;
-  padding: 10px;
+  
   width: 95%;
   border-radius: 12px;
   color: #1d1d1f;
@@ -157,6 +199,13 @@ a {
   background-color: #f0f0f0;
   border: 1px solid #ceced3;
 }
+/* Adjust for the header */
+.projectTableBox {
+  margin-top: 10px; /* Ensure content starts below the sticky container */
+  max-height: calc(100vh - 100px); /* Adjust this value based on your header and other content */
+  overflow-y: auto; /* Enable vertical scrolling */
+}
+
 .projectTable {
   width: 100%;
 
@@ -248,6 +297,13 @@ a {
   border-bottom: 1px solid white;
   font-weight: bold;
   /* background: red; */
+}
+
+.sticky-header th {
+  position: sticky;
+  top: 0;
+  background-color: #333; /* Background color for the sticky header */
+  z-index: 10; /* Ensure header is on top of the table rows */
 }
 
 .newTaskBtn {

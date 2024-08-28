@@ -15,6 +15,7 @@ import { motion } from "framer-motion";
 import Popup from "./Popup";
 import { isValidEmailNPC } from "../../validationUtils";
 import { useNavigate } from "react-router-dom";
+import HomeIcon from '@mui/icons-material/Home';
 
 const ForgotPasswordPage = () => {
   const navigate = useNavigate();
@@ -65,37 +66,19 @@ const ForgotPasswordPage = () => {
           display: "flex",
           background: "#132A58",
           justifyContent: "space-between",
-          padding: "20px",
+          padding: "10px",
         }}
       >
-        <motion.div
-          initial={{ scale: 0 }} // Initial scale is 0
-          animate={{ scale: 1 }} // Animate to scale 1
-          transition={{ duration: 1.0 }} // Transition duration
-        >
+        
           <ImageMain />
-        </motion.div>
-        <div
-          style={{ display: "flex", alignItems: "center", marginLeft: "10px" }}
-          onClick={handleClick}
-        >
-          <motion.div
-            initial={{ scale: 0 }} // Initial scale is 0
-            animate={{ scale: 1 }} // Animate to scale 1
-            whileHover={{ scale: 1.1 }} // Scale up to 1.1 when hovered
-            transition={{ duration: 1.0 }} // Transition duration
-          >
-            <IconBack />
-          </motion.div>
-          <motion.div
-            initial={{ scale: 0 }} // Initial scale is 0
-            animate={{ scale: 1 }} // Animate to scale 1
-            whileHover={{ scale: 1.1 }} // Scale up to 1.1 when hovered
-            transition={{ duration: 1.0 }} // Transition duration
-          >
-            <h4 style={{ color: "white" }}>Back to login</h4>
-          </motion.div>
-        </div>
+        
+          <div
+      style={{ display: "flex", alignItems: "center", marginLeft: "10px" }}
+      onClick={handleClick}
+    >
+      <HomeIcon style={{ color: "white", fontSize: "36px"}} />
+      
+    </div>
       </div>
       <div className="forgotDiv">
         <h3 style={{ fontSize: "1.8rem" }}>Forgot Your Password</h3>

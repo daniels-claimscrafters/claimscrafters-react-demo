@@ -1,96 +1,43 @@
-// CardDetails.jsx
-
 import React, { useState, useEffect } from "react";
+import { Card, CardContent, Typography, MenuItem, Select, Grid, Collapse, IconButton } from "@mui/material";
 import Popup from "./Popup";
+import { styled } from "@mui/material/styles";
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 
-const styles = {
-  cardContainer: {
-    width: "100%",
-    // height: "50%",
-    backgroundColor: "#f1f1f1",
-    borderRadius: "26px",
-    border: "1px solid #505050",
-    boxSizing: "border-box",
-    alignItems: "center",
-    justifyContent: "center",
-    padding: "10px",
-    display: "flex",
-    fontSize: "0.9vw",
-  },
-  fieldContainer: {
-    display: "flex",
-    alignItems: "center",
-    marginBottom: "2px",
-  },
-  secondColumn: {
-    borderRight: "2px solid #c2c2c2", // Add a border to create the divider effect
-    alignItems: "center", // Optional: Add padding to visually separate the columns
-    marginBottom: "30px",
-    marginRight: "30px",
-  },
-  label: {
-    fontWeight: 700,
-    fontFamily: "Poppins, sans-serif",
-    color: "#222222",
-    width: "20%", // Adjust label width as needed
+const StyledCard = styled(Card)(({ theme }) => ({
+  backgroundColor: "#000", // Set background to black
+  height: "auto", // Adjust height as needed
+  borderRadius: "16px", // Rounded corners
+  border: `1px solid ${theme.palette.grey[700]}`, // Border outline
+  padding: "1px", // Padding inside the card
+  margin: "10px",
+}));
 
-    display: "flex",
-    alignItems: "center",
-  },
+const StyledInput = styled(Typography)({
+  color: "#fff", // Text color for black background
+  backgroundColor: "#333", // Background for input-like appearance
+  padding: "8px",
+  borderRadius: "8px",
+});
 
-  input: {
-    flex: "1",
-    padding: "5px",
-    fontSize: "14px",
-    fontFamily: "Poppins",
-    fontWeight: 500,
-    border: "1px solid #ceced3",
-    color: "#030303",
-    outline: "none",
-    maxWidth: "70%", // Adjust input width as needed
-  },
-  addressInput: {
-    flex: "1",
-    padding: "5px",
-    fontSize: "14px",
-    fontFamily: "Poppins",
-    fontWeight: 500,
-    border: "1px solid #ceced3",
-    color: "#030303",
-    outline: "none",
-    maxWidth: "70%", // Adjust input width as needed
-    whiteSpace: "nowrap",
-    overflow: "hidden",
-    textOverflow: "ellipsis",
-  },
-  firstInput: {
-    flex: "1",
-    padding: "5px",
-    fontSize: "14px",
-    fontFamily: "Poppins",
-    fontWeight: 500,
-    border: "1px solid #ceced3",
-    color: "#ffffff",
-    textTransform: "capitalize",
-    outline: "none",
-    maxWidth: "70%", // Adjust input width as needed
-    backgroundColor: "#030303",
-  },
-  dropdownInput: {
-    cursor: "pointer",
-    flex: "1",
-    padding: "5px",
-    fontSize: "14px",
-    fontFamily: "Poppins",
-    fontWeight: 500,
-    border: "1px solid #ceced3",
-    borderRadius: "12px",
-    textTransform: "capitalize",
-    outline: "none",
-    maxWidth: "70%", // Adjust input width as needed
-    color: "#030303",
-  },
-};
+const Label = styled(Typography)({
+  color: "#fff", // Label color for black background
+  marginBottom: "4px",
+});
+
+const HeaderContainer = styled('div')({
+  display: 'flex',
+  justifyContent: 'center', // Center horizontally
+  alignItems: 'center', // Center vertically if needed
+  marginBottom: '1px',
+});
+
+const Header = styled(Typography)({
+  color: "#fff",
+  fontSize: "18px",
+  fontWeight: "bold",
+});
 
 const CardDetails = ({ projectDetails }) => {
   const [selectedStatus, setSelectedStatus] = useState(
@@ -100,6 +47,7 @@ const CardDetails = ({ projectDetails }) => {
   const [popupMessage, setPopupMessage] = useState("");
   const [popupType, setPopupType] = useState("");
   const [popupTextColor, setPopupTextColor] = useState("");
+  const [collapsed, setCollapsed] = useState(false); // State to manage collapse
   const API_URL = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
@@ -112,15 +60,12 @@ const CardDetails = ({ projectDetails }) => {
     return <div>Loading...</div>;
   }
 
-  // Log projectDetails and its properties
-
   const projectStatusOptions = ["Started", "In Process", "Completed", "Closed"];
-  // Render UI using the project details directly
+
   const handleStatusChange = (event) => {
     const newStatus = event.target.value;
     setSelectedStatus(newStatus);
     updateProjectStatus(newStatus);
-    setTimeout(() => window.location.reload(), 1500);
   };
 
   const updateProjectStatus = async (newStatus) => {
@@ -168,90 +113,101 @@ const CardDetails = ({ projectDetails }) => {
   };
 
   return (
-    <div className="createdProject">
-      <div>
-        <div>
-          <label>Claim Number:</label>
-          <input
-            type="text"
-            value={projectDetails.project.claimNumber}
-            readOnly
-          />
-        </div>
-        <div>
-          <label>Insured Name:</label>
-          <input
-            type="text"
-            value={formatInsuredName(
-              projectDetails.project.insuredFirstName,
-              projectDetails.project.insuredLastName
-            )}
-            readOnly
-          />
-        </div>
-        <div style={styles.fieldContainer}>
-          <label>Carrier:</label>
-          <input type="text" value={projectDetails.project.carrier} readOnly />
-        </div>
-      </div>
-      <div>
-        <div>
-          <label>Project Status:</label>
-          <select
-            className="statusSelection"
-            value={selectedStatus}
-            onChange={handleStatusChange}
-          >
-            {projectStatusOptions.map((status, index) => (
-              <option key={index} value={status}>
-                {status}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div>
-          <label>Insured Address:</label>
-          <input
-            type="text"
-            value={formatAddress(
-              projectDetails.project.lossAddress,
-              projectDetails.project.lossCity,
-              projectDetails.project.lossState,
-              projectDetails.project.lossPostalCode
-            )}
-            readOnly
-          />
-        </div>
-      </div>
-      <div>
-        <div>
-          <label>Adjuster Name:</label>
-          <input
-            type="text"
-            value={formatAdjusterName(
-              projectDetails.project.adjusterFirstName,
-              projectDetails.project.adjusterLastName
-            )}
-            readOnly
-          />
-        </div>
-        <div>
-          <label>Adjuster Email:</label>
-          <input
-            type="email"
-            value={projectDetails.project.adjusterEmail}
-            readOnly
-          />
-        </div>
-        <div>
-          <label>Adjuster Phone:</label>
-          <input
-            type="tel"
-            value={projectDetails.project.adjusterPhone}
-            readOnly
-          />
-        </div>
-      </div>
+    <StyledCard>
+      <CardContent>
+        {/* Centered Header Section */}
+        <HeaderContainer>
+        
+          <Header>Project Details</Header>
+          <IconButton
+          onClick={() => setCollapsed(!collapsed)}
+          style={{ color: "#fff", marginRight: "1px" }}
+        >
+          {collapsed ? <ExpandMoreIcon /> : <ExpandLessIcon />}
+        </IconButton>
+        </HeaderContainer>
+        
+        
+
+        <Collapse in={!collapsed}>
+          <Grid container spacing={3}>
+            <Grid item xs={12} sm={4}>
+              <div>
+                <Label variant="body2">Claim Number:</Label>
+                <StyledInput>{projectDetails.project.claimNumber}</StyledInput>
+              </div>
+              <div>
+                <Label variant="body2">Insured Name:</Label>
+                <StyledInput>
+                  {formatInsuredName(
+                    projectDetails.project.insuredFirstName,
+                    projectDetails.project.insuredLastName
+                  )}
+                </StyledInput>
+              </div>
+              <div>
+                <Label variant="body2">Carrier:</Label>
+                <StyledInput>{projectDetails.project.carrier}</StyledInput>
+              </div>
+            </Grid>
+
+            <Grid item xs={12} sm={4}>
+              <div>
+                <Label variant="body2">Project Status:</Label>
+                <Select
+  value={selectedStatus}
+  onChange={handleStatusChange}
+  variant="outlined"
+  style={{ 
+    width: "100%", 
+    color: "#fff", 
+    backgroundColor: "#333", 
+    padding: "1px",  // Match padding to StyledInput
+    height: "40px"   // Set a consistent height
+  }}
+>
+  {projectStatusOptions.map((status, index) => (
+    <MenuItem key={index} value={status}>
+      {status}
+    </MenuItem>
+  ))}
+</Select>
+              </div>
+              <div>
+                <Label variant="body2">Insured Address:</Label>
+                <StyledInput>
+                  {formatAddress(
+                    projectDetails.project.lossAddress,
+                    projectDetails.project.lossCity,
+                    projectDetails.project.lossState,
+                    projectDetails.project.lossPostalCode
+                  )}
+                </StyledInput>
+              </div>
+            </Grid>
+
+            <Grid item xs={12} sm={4}>
+              <div>
+                <Label variant="body2">Adjuster Name:</Label>
+                <StyledInput>
+                  {formatAdjusterName(
+                    projectDetails.project.adjusterFirstName,
+                    projectDetails.project.adjusterLastName
+                  )}
+                </StyledInput>
+              </div>
+              <div>
+                <Label variant="body2">Adjuster Email:</Label>
+                <StyledInput>{projectDetails.project.adjusterEmail}</StyledInput>
+              </div>
+              <div>
+                <Label variant="body2">Adjuster Phone:</Label>
+                <StyledInput>{projectDetails.project.adjusterPhone}</StyledInput>
+              </div>
+            </Grid>
+          </Grid>
+        </Collapse>
+      </CardContent>
       {showPopup && (
         <Popup
           message={popupMessage}
@@ -259,7 +215,7 @@ const CardDetails = ({ projectDetails }) => {
           textColor={popupTextColor}
         />
       )}
-    </div>
+    </StyledCard>
   );
 };
 
