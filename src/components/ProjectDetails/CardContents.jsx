@@ -10,18 +10,21 @@ import {
   generateAll,
 } from "./ExcelGenerator";
 import { useNavigate } from "react-router-dom";
+import { Grid, Card, CardContent, Typography, Button, TextField, Select, MenuItem } from '@mui/material';
+
 
 
 const styles = {
   Card: {
     width: "100%",
-    height: "40vh",
-    maxHeight: "40vh",
-    backgroundColor: "#04101E",
+    height: "60vh",
+    maxHeight: "60vh",
+    backgroundColor: "#000",
     color: "white",
     borderRadius: "26px",
     border: "1px solid white",
     boxSizing: "border-box",
+    marginTop: "10px"
   },
   headerRow: {
     display: "flex",
@@ -32,6 +35,7 @@ const styles = {
     color: "white",
     // width: "100%",
     overflow: "hidden",
+    backgroundColor: "#000",
   },
   titleText: {
     color: "white",
@@ -60,7 +64,7 @@ const styles = {
     width: "100%",
     height: "100%",
     overflow: "auto", // Add overflow to allow scrolling if content exceeds height
-    backgroundColor: "#04101E",
+    backgroundColor: "#000",
   },
   row: {
     display: "flex",
@@ -69,7 +73,7 @@ const styles = {
     boxSizing: "border-box",
     width: "fit-content",
     color: "white",
-    backgroundColor: "#04101E",
+    backgroundColor: "#000",
     // backgroundColor: "red",
   },
   bigCell: {
@@ -85,7 +89,7 @@ const styles = {
     fontSize: "12px",
     padding: "10px",
     fontWeight: 600,
-    backgroundColor: "#04101E",
+    backgroundColor: "#000",
   },
   cell: {
     display: "flex",
@@ -101,7 +105,7 @@ const styles = {
     padding: "10px",
     fontWeight: 600,
     alignItems: "center",
-    backgroundColor: "#04101E",
+    backgroundColor: "#000",
   },
   bigInput: {
     display: "flex",
@@ -111,7 +115,7 @@ const styles = {
     fontSize: "12px",
     fontWeight: 600,
     color: "white",
-    backgroundColor: "#04101E",
+    backgroundColor: "#000",
   },
   input: {
     display: "flex",
@@ -121,7 +125,7 @@ const styles = {
     fontSize: "12px",
     fontWeight: 600,
     color: "white",
-    backgroundColor: "#04101E",
+    backgroundColor: "#000",
   },
   Button: {
     cursor: "pointer",
@@ -152,7 +156,7 @@ const styles = {
   },
   dropdown: {
     marginRight: "10px",
-    backgroundColor: "#04101E",
+    backgroundColor: "#000",
     maxWidth: '150px',
   },
 };
@@ -178,7 +182,7 @@ const CardContents = ({ projectDetails, setProjectDetails, onFilter }) => {
 
   const navigate = useNavigate();
 
- 
+
 
   useEffect(() => {
     // Call the filtering function when searchQuery or dropdown selections change
@@ -256,48 +260,48 @@ const CardContents = ({ projectDetails, setProjectDetails, onFilter }) => {
     console.log("Button pressed");
 
     try {
-        // Get the current project data
-        const updatedProject = { ...projectDetails.project };
-        
-        // Check if the index is valid
-        if (index < 0 || index >= updatedProject.spreadsheetData.length) {
-            console.error("Invalid index");
-            return;
-        }
+      // Get the current project data
+      const updatedProject = { ...projectDetails.project };
 
-        // Update the Questionable status for the specific row
-        updatedProject.spreadsheetData[index].Questionable = false;
+      // Check if the index is valid
+      if (index < 0 || index >= updatedProject.spreadsheetData.length) {
+        console.error("Invalid index");
+        return;
+      }
 
-        // Prepare the data to send
-        const dataToSend = {
-            projectId: updatedProject.id,
-            spreadsheetData: updatedProject.spreadsheetData
-        };
+      // Update the Questionable status for the specific row
+      updatedProject.spreadsheetData[index].Questionable = false;
 
-        // Construct the API URL with the '/npc/verify' path
-        const url = `${API_URL}/npc/verify`;
+      // Prepare the data to send
+      const dataToSend = {
+        projectId: updatedProject.id,
+        spreadsheetData: updatedProject.spreadsheetData
+      };
 
-        // Send a POST request to update the project in the database
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(dataToSend),
-        });
+      // Construct the API URL with the '/npc/verify' path
+      const url = `${API_URL}/npc/verify`;
 
-        if (response.ok) {
-            console.log(`Item at index ${index} updated successfully`);
-            window.location.reload();
-        } else {
-            console.error(`Failed to update item at index ${index}`);
-        }
+      // Send a POST request to update the project in the database
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(dataToSend),
+      });
+
+      if (response.ok) {
+        console.log(`Item at index ${index} updated successfully`);
+        window.location.reload();
+      } else {
+        console.error(`Failed to update item at index ${index}`);
+      }
     } catch (error) {
-        console.error("An error occurred while updating the item:", error);
+      console.error("An error occurred while updating the item:", error);
     }
-};
+  };
 
-  
+
 
   // Call the function to populate dropdowns on page load
   useEffect(() => {
@@ -331,7 +335,7 @@ const CardContents = ({ projectDetails, setProjectDetails, onFilter }) => {
 
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
-    
+
   };
 
   const handleRoomChange = (e) => {
@@ -356,7 +360,7 @@ const CardContents = ({ projectDetails, setProjectDetails, onFilter }) => {
       JSON.stringify(projectDetails)
     );
     setOriginalProjectDetails(originalProjectDetailsCopy);
-    
+
   }, []);
 
   useEffect(() => {
@@ -415,7 +419,7 @@ const CardContents = ({ projectDetails, setProjectDetails, onFilter }) => {
       const updatedProjectDetails = { ...projectDetails };
       updatedProjectDetails.project.spreadsheetData[index]["Quantity"] = value;
       setProjectDetails(updatedProjectDetails);
-      
+
       setDataChanged(true);
     }
   };
@@ -426,7 +430,7 @@ const CardContents = ({ projectDetails, setProjectDetails, onFilter }) => {
     updatedProjectDetails.project.spreadsheetData[index][
       "DepreciationDisplay"
     ] = value;
-    
+
 
     // Update the actual depreciation value based on the user's input
     const newDepreciation = parseFloat(value) / 100; // Convert the input value to a decimal fraction
@@ -556,7 +560,7 @@ const CardContents = ({ projectDetails, setProjectDetails, onFilter }) => {
       // Assuming you have the necessary attributes available:
       const originalSpreadsheetData =
         originalProjectDetails.project.spreadsheetData;
-      
+
 
       const userFirstName = userData.firstName;
 
@@ -676,8 +680,8 @@ const CardContents = ({ projectDetails, setProjectDetails, onFilter }) => {
     const ext = avg * quantity;
     const taxAmount = (salesTax / 100) * ext;
     return taxAmount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,");
-  }; 
-  
+  };
+
   const calculateRCVTotal = (salesTax, high, low, quantity) => {
     const avg = (Number(high) + Number(low)) / 2;
     const ext = avg * quantity;
@@ -685,7 +689,7 @@ const CardContents = ({ projectDetails, setProjectDetails, onFilter }) => {
     const total = ext + taxAmount;
     return total.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,");
   };
-  
+
 
   // Define a function to calculate total depreciation
   const calculateDepreciationAmount = (item, projectDetails) => {
@@ -721,7 +725,7 @@ const CardContents = ({ projectDetails, setProjectDetails, onFilter }) => {
       (((Number(item["RCV High"]) + Number(item["RCV Low"])) / 2) *
         item.Quantity);
     const depreciationAmount = (rcvTotal + salesTaxAmount) * (depreciationFactor / 100);
-    
+
     return ((rcvTotal + salesTaxAmount) - depreciationAmount).toFixed(2);
   };
 
@@ -731,11 +735,9 @@ const CardContents = ({ projectDetails, setProjectDetails, onFilter }) => {
 
   return (
     <div style={styles.Card}>
-      <div style={{ width: "100%", overflow: "auto" }}>
+      <div style={{ width: "100%", overflow: "auto", borderRadius: "26px" }}>
         <div style={styles.headerRow} className="headerRow">
-          <div style={styles.titleText} className="titleText">
-            Contents Inventory
-          </div>
+          
           {error && (
             <div style={{ color: "red", marginLeft: "10px" }}>
               {errorMessage}
@@ -750,7 +752,7 @@ const CardContents = ({ projectDetails, setProjectDetails, onFilter }) => {
               placeholder="Search contents..."
               value={searchQuery}
               onChange={handleSearchChange}
-              style={{ flex: 1, marginRight: "10px" }}
+              style={{ flex: 1, marginRight: "10px", background: "#000", }}
             />
             <select
               id="roomFilter"
@@ -783,17 +785,17 @@ const CardContents = ({ projectDetails, setProjectDetails, onFilter }) => {
           </div>
 
           <div className="buttons">
-          <div style={{ display: "inline-block" }}>
-            <button
-                  style={{
-                    ...styles.Button,
-                  }}
-                  onClick={handleReconcileGoClick}
-                  
-                  className="saveBtn"
-                >
-                  ReconcileGo
-                </button>
+            <div style={{ display: "inline-block" }}>
+              <button
+                style={{
+                  ...styles.Button,
+                }}
+                onClick={handleReconcileGoClick}
+
+                className="saveBtn"
+              >
+                ReconcileGo
+              </button>
             </div>
             <div style={{ display: "inline-block" }}>
               <motion.div
@@ -845,116 +847,116 @@ const CardContents = ({ projectDetails, setProjectDetails, onFilter }) => {
       </div>
 
       <div style={{ ...styles.spreadsheetContainer }}>
-  <div style={styles.spreadsheet}>
-  <div style={{ ...styles.row, position: 'sticky', top: 0, backgroundColor: 'white', zIndex: 1 }}>
-      <div style={styles.cell}>Line</div>
-      <div style={styles.cell}>Confidence</div>
-      <div style={styles.cell}>Room</div>
-      <div style={styles.cell}>Item</div>
-      <div style={styles.bigCell}>Description</div>
-      <div style={styles.cell}>QTY</div>
-      <div style={styles.cell}>RCV High</div>
-      <div style={styles.cell}>RCV Low</div>
-      <div style={styles.cell}>RCV Avg (ea)</div>
-      <div style={styles.cell}>RCV (ext)</div>
-      <div style={styles.cell}>Sales Tax</div>
-      <div style={styles.cell}>Sales Tax Amount</div>
-      <div style={styles.cell}>RCV Total</div>
-      <div style={styles.cell}>Depreciation (%)</div>
-      <div style={styles.cell}>Dep Years</div>
-      <div style={styles.cell}>Dep Amount</div>
-      <div style={styles.cell}>ACV Total</div>
-      <div style={styles.bigCell}>Subclass</div>
-      <div style={styles.cell}>Class</div>
-    </div>
-    {/* Render data rows */}
-    {sortedData.map((item, index) => (
-      <div
-        key={index}
-        style={{
-          ...styles.row,
-          backgroundColor: index % 2 === 0 ? "#cddef2" : "#f1f1f1",
-        }}
-      >
-        <div style={styles.cell}>{index + 1}</div>
-        <div style={styles.cell}>
-          {item.Questionable ? (
-            <div style={{ display: 'flex', alignItems: 'center', color: 'orange' }}>
-              <span>Pending</span>
-              <button
-  style={{
-    marginLeft: '10px',
-    padding: '4px 10px',
-    backgroundColor: '#4CAF50',
-    color: 'white',
-    border: 'none',
-    borderRadius: '4px',
-    cursor: 'pointer',
-    boxShadow: '0px 2px 5px rgba(0, 0, 0, 0.2)',
-    fontSize: '14px',
-    transition: 'background-color 0.3s ease',
-  }}
-  onClick={() => updateQuestionableStatus(item.originalIndex)}
-  onMouseOver={(e) => (e.target.style.backgroundColor = '#45a049')}
-  onMouseOut={(e) => (e.target.style.backgroundColor = '#4CAF50')}
->
-  VERIFY
-</button>
+        <div style={styles.spreadsheet}>
+          <div style={{ ...styles.row, position: 'sticky', top: 0, backgroundColor: 'white', zIndex: 1 }}>
+            <div style={styles.cell}>Line</div>
+            <div style={styles.cell}>Confidence</div>
+            <div style={styles.cell}>Room</div>
+            <div style={styles.cell}>Item</div>
+            <div style={styles.bigCell}>Description</div>
+            <div style={styles.cell}>QTY</div>
+            <div style={styles.cell}>RCV High</div>
+            <div style={styles.cell}>RCV Low</div>
+            <div style={styles.cell}>RCV Avg (ea)</div>
+            <div style={styles.cell}>RCV (ext)</div>
+            <div style={styles.cell}>Sales Tax</div>
+            <div style={styles.cell}>Sales Tax Amount</div>
+            <div style={styles.cell}>RCV Total</div>
+            <div style={styles.cell}>Depreciation (%)</div>
+            <div style={styles.cell}>Dep Years</div>
+            <div style={styles.cell}>Dep Amount</div>
+            <div style={styles.cell}>ACV Total</div>
+            <div style={styles.bigCell}>Subclass</div>
+            <div style={styles.cell}>Class</div>
+          </div>
+          {/* Render data rows */}
+          {sortedData.map((item, index) => (
+            <div
+              key={index}
+              style={{
+                ...styles.row,
+                backgroundColor: index % 2 === 0 ? "#cddef2" : "#f1f1f1",
+              }}
+            >
+              <div style={styles.cell}>{index + 1}</div>
+              <div style={styles.cell}>
+                {item.Questionable ? (
+                  <div style={{ display: 'flex', alignItems: 'center', color: 'orange' }}>
+                    <span>Pending</span>
+                    <button
+                      style={{
+                        marginLeft: '10px',
+                        padding: '4px 10px',
+                        backgroundColor: '#4CAF50',
+                        color: 'white',
+                        border: 'none',
+                        borderRadius: '4px',
+                        cursor: 'pointer',
+                        boxShadow: '0px 2px 5px rgba(0, 0, 0, 0.2)',
+                        fontSize: '14px',
+                        transition: 'background-color 0.3s ease',
+                      }}
+                      onClick={() => updateQuestionableStatus(item.originalIndex)}
+                      onMouseOver={(e) => (e.target.style.backgroundColor = '#45a049')}
+                      onMouseOut={(e) => (e.target.style.backgroundColor = '#4CAF50')}
+                    >
+                      VERIFY
+                    </button>
 
-            </div>
-          ) : (
-            <span style={{ color: '#66BB6A' }}>Meets Criteria</span>
+                  </div>
+                ) : (
+                  <span style={{ color: '#66BB6A' }}>Meets Criteria</span>
 
-          )}
-        </div>
-        <div style={styles.cell}>
-          <input
-            style={styles.input}
-            value={item.Room}
-            onChange={(e) =>
-              handleFieldChange(
-                item.originalIndex,
-                "Room",
-                e.target.value
-              )
-            }
-          />
-        </div>
-        <div style={styles.cell}>
-          <input
-            style={styles.input}
-            value={item.Item}
-            onChange={(e) =>
-              handleFieldChange(
-                item.originalIndex,
-                "Item",
-                e.target.value
-              )
-            }
-          />
-        </div>
-        <div style={styles.bigCell}>
-          <input
-            style={styles.bigInput}
-            value={item.Description}
-            onChange={(e) =>
-              handleFieldChange(
-                item.originalIndex,
-                "Description",
-                e.target.value
-              )
-            }
-          />
-        </div>
-        <div style={styles.cell}>
-          <input
-            style={styles.input}
-            value={item.Quantity}
-            onChange={(e) =>
-              handleQuantityChange(item.originalIndex, e.target.value)
-            }
-          />
-        </div>
+                )}
+              </div>
+              <div style={styles.cell}>
+                <input
+                  style={styles.input}
+                  value={item.Room}
+                  onChange={(e) =>
+                    handleFieldChange(
+                      item.originalIndex,
+                      "Room",
+                      e.target.value
+                    )
+                  }
+                />
+              </div>
+              <div style={styles.cell}>
+                <input
+                  style={styles.input}
+                  value={item.Item}
+                  onChange={(e) =>
+                    handleFieldChange(
+                      item.originalIndex,
+                      "Item",
+                      e.target.value
+                    )
+                  }
+                />
+              </div>
+              <div style={styles.bigCell}>
+                <input
+                  style={styles.bigInput}
+                  value={item.Description}
+                  onChange={(e) =>
+                    handleFieldChange(
+                      item.originalIndex,
+                      "Description",
+                      e.target.value
+                    )
+                  }
+                />
+              </div>
+              <div style={styles.cell}>
+                <input
+                  style={styles.input}
+                  value={item.Quantity}
+                  onChange={(e) =>
+                    handleQuantityChange(item.originalIndex, e.target.value)
+                  }
+                />
+              </div>
               <div style={styles.cell}>
                 <span style={{ marginRight: "2px", marginTop: "4px" }}>$</span>
                 <input
@@ -984,11 +986,11 @@ const CardContents = ({ projectDetails, setProjectDetails, onFilter }) => {
                 />
               </div>
               <div style={styles.cell}>
-  ${calculateRCVAvg(item["RCV High"], item["RCV Low"])}
-</div>
-<div style={styles.cell}>
-  ${calculateRCVExt(item["RCV High"], item["RCV Low"], item.Quantity)}
-</div>
+                ${calculateRCVAvg(item["RCV High"], item["RCV Low"])}
+              </div>
+              <div style={styles.cell}>
+                ${calculateRCVExt(item["RCV High"], item["RCV Low"], item.Quantity)}
+              </div>
 
               <div style={styles.cell}>
                 {typeof projectDetails.project.salesTax === "number"
@@ -997,17 +999,17 @@ const CardContents = ({ projectDetails, setProjectDetails, onFilter }) => {
                 %
               </div>
               <div style={styles.cell}>
-  ${calculateSalesTaxAmount(projectDetails.project.salesTax, item["RCV High"], item["RCV Low"], item.Quantity)}
-</div>
+                ${calculateSalesTaxAmount(projectDetails.project.salesTax, item["RCV High"], item["RCV Low"], item.Quantity)}
+              </div>
 
-<div style={styles.cell}>
-  ${calculateRCVTotal(
-    projectDetails.project.salesTax,
-    item["RCV High"],
-    item["RCV Low"],
-    item.Quantity
-  )}
-</div>
+              <div style={styles.cell}>
+                ${calculateRCVTotal(
+                  projectDetails.project.salesTax,
+                  item["RCV High"],
+                  item["RCV Low"],
+                  item.Quantity
+                )}
+              </div>
 
               <div style={styles.cell}>
                 <input

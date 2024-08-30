@@ -20,7 +20,7 @@ const ProjectsList = ({ projects, filter }) => {
 
   console.log("ProjectsList: ", projects);
   return (
-    <div style={{ height: "90%" }} className="projectList">
+    <div style={{ height: "90%", marginTop: "20px" }} className="projectList">
       
       {/* </CardButtonBackground> */}
       

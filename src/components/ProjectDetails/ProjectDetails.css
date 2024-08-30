@@ -110,10 +110,13 @@
   width: 100%;
   justify-content: space-between;
   overflow: auto !important;
+  background: "#000",
 }
 
 .search-filter {
   flex-shrink: 0;
+  background: "#000";
+  padding-left: 10px
 }
 .buttons {
   flex-shrink: 0;

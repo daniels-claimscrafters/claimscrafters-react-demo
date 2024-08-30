@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 import { motion } from "framer-motion";
 import "./Login.css";
-import { AiFillHome } from "react-icons/ai";
+import { AiFillHome, AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
 const LogInPage = () => {
   const [email, setEmail] = useState("");
@@ -14,6 +14,7 @@ const LogInPage = () => {
   const [rememberMe, setRememberMe] = useState(false);
   const [error, setError] = useState(""); // State for error message
   const [authenticated, setAuthenticated] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const API_URL = process.env.REACT_APP_API_URL;
   const navigate = useNavigate();
   const isSmallScreen = useMediaQuery({ maxWidth: 1250 });
@@ -101,6 +102,10 @@ const LogInPage = () => {
     navigate("/");
   };
 
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
   return (
     <div className="loginPage">
       <div
@@ -150,14 +155,22 @@ const LogInPage = () => {
               />
             </div>
             <div className="input-column">
-              <label>Password:</label>
-              <input
-                type="password"
-                required
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </div>
+  <label>Password:</label>
+  <div className="password-input-container">
+    <input
+      type={showPassword ? "text" : "password"}
+      required
+      value={password}
+      onChange={(e) => setPassword(e.target.value)}
+    />
+    <span
+      className="password-toggle-icon"
+      onClick={togglePasswordVisibility}
+    >
+      {showPassword ? <AiFillEyeInvisible /> : <AiFillEye />}
+    </span>
+  </div>
+</div>
             <div className="remember-me">
               <div className="remember-box">
                 <label>Remember me</label>

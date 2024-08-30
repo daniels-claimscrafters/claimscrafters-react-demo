@@ -97,6 +97,7 @@ const CardInventory = ({ projectDetails, onFilteredDataChange }) => {
   const [showPopup, setShowPopup] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedOption, setSelectedOption] = useState('Download');
+  
 
   const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -120,28 +121,6 @@ const CardInventory = ({ projectDetails, onFilteredDataChange }) => {
     }
   }, [rows]);
 
-  const handleCheckboxChange = (id) => {
-    setSelectedPending(prev => {
-      const updated = new Set(prev);
-      if (updated.has(id)) {
-        updated.delete(id);
-      } else {
-        updated.add(id);
-      }
-      return updated;
-    });
-  };
-
-  const handleBulkUpdate = () => {
-    setRows(prevRows =>
-      prevRows.map(row =>
-        selectedPending.has(row.id)
-          ? { ...row, Questionable: false }
-          : row
-      )
-    );
-    setSelectedPending(new Set()); // Clear selected checkboxes
-  };
 
   const handleRoomChange = (event) => setRoom(event.target.value);
   const handleItemChange = (event) => setItem(event.target.value);
@@ -289,44 +268,30 @@ const CardInventory = ({ projectDetails, onFilteredDataChange }) => {
     }
   };
 
-  const handleDownloadOption1 = () => {
-    // Implement your download logic for Option 1
-    console.log("Download Option 1 selected");
-    handleMenuClose();
-  };
-
-  const handleDownloadOption2 = () => {
-    // Implement your download logic for Option 2
-    console.log("Download Option 2 selected");
-    handleMenuClose();
-  };
-
-  const handleDownloadOption3 = () => {
-    // Implement your download logic for Option 3
-    console.log("Download Option 3 selected");
-    handleMenuClose();
-  };
-
-
-
   // Filtered rows logic
   const filteredRows = useMemo(() => {
-    const result = rows.filter(row => {
-      const matchesRoom = room ? row.Room === room : true;
-      const matchesItem = item ? row.Item === item : true;
-      const matchesClass = classFilter ? row.Class === classFilter : true;
-      const matchesSubclass = subclass ? row.Subclass === subclass : true;
-      const matchesSearch = search
-        ? row.Description.toLowerCase().includes(search.toLowerCase()) ||
-        row.Item.toLowerCase().includes(search.toLowerCase()) ||
-        row.Room.toLowerCase().includes(search.toLowerCase())
-        : true;
+    const result = rows
+      .filter(row => {
+        const matchesRoom = room ? row.Room === room : true;
+        const matchesItem = item ? row.Item === item : true;
+        const matchesClass = classFilter ? row.Class === classFilter : true;
+        const matchesSubclass = subclass ? row.Subclass === subclass : true;
+        const matchesSearch = search
+          ? row.Description.toLowerCase().includes(search.toLowerCase()) ||
+          row.Item.toLowerCase().includes(search.toLowerCase()) ||
+          row.Room.toLowerCase().includes(search.toLowerCase())
+          : true;
 
-      return matchesRoom && matchesItem && matchesClass && matchesSubclass && matchesSearch;
-    });
+        return matchesRoom && matchesItem && matchesClass && matchesSubclass && matchesSearch;
+      })
+      .sort((a, b) => {
+        // Move rows with `Questionable` status to the top
+        if (a.Questionable && !b.Questionable) return -1;
+        if (!a.Questionable && b.Questionable) return 1;
+        return 0; // Leave rows unchanged if they have the same `Questionable` status
+      });
 
     // Update the parent component with the filtered data
-
     return result;
   }, [rows, room, item, classFilter, subclass, search]);
 
@@ -335,6 +300,30 @@ const CardInventory = ({ projectDetails, onFilteredDataChange }) => {
       onFilteredDataChange(filteredRows);
     }
   }, [filteredRows, onFilteredDataChange]);
+
+  const handleCheckboxChange = (id) => {
+    setSelectedPending(prev => {
+      const updated = new Set(prev);
+      if (updated.has(id)) {
+        updated.delete(id);
+      } else {
+        updated.add(id);
+      }
+      return updated;
+    });
+  };
+
+  // Handle bulk update
+  const handleBulkUpdate = () => {
+    setRows(prevRows =>
+      prevRows.map(row =>
+        selectedPending.has(row.id)
+          ? { ...row, Questionable: false }
+          : row
+      )
+    );
+    setSelectedPending(new Set()); // Clear selected checkboxes
+  };
 
   const handleDropdownChange = async (selectedOption) => {
     try {

@@ -168,7 +168,13 @@ const ProjectDetailsPage = () => {
           </div>
         </div>
         <div>
-        <CardInventory projectDetails={projectDetails} onFilteredDataChange={handleFilteredData} />
+        <CardContents
+            projectDetails={projectDetails}
+            setProjectDetails={handleUpdateProjectDetails}
+            userData={userData}
+            onFilter={handleFilteredData}
+          />
+        
         </div>
       </div>
     </div>

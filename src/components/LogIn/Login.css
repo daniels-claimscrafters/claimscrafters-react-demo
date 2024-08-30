@@ -12,6 +12,25 @@ a:hover {
   text-decoration: underline;
 }
 
+.password-input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.password-input-container input {
+  width: 100%;
+  padding-right: 40px; /* Add space for the icon */
+}
+
+.password-toggle-icon {
+  position: absolute;
+  right: 10px;
+  cursor: pointer;
+}
+
+
 .login {
   display: flex;
   justify-content: center;
