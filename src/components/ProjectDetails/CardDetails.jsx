@@ -161,7 +161,7 @@ const CardDetails = ({ projectDetails }) => {
   style={{ 
     width: "100%", 
     color: "#fff", 
-    backgroundColor: "#333", 
+    backgroundColor: "#0D1B45",
     padding: "1px",  // Match padding to StyledInput
     height: "40px"   // Set a consistent height
   }}

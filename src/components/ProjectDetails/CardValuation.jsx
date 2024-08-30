@@ -16,6 +16,13 @@ const StyledCard = styled(Card)(({ theme }) => ({
   overflow: "auto",
 }));
 
+const HeaderWrapper = styled('div')({
+  backgroundColor: '#0D1B45', // Dark blue background
+  padding: '10px',
+  borderRadius: '8px',
+  marginBottom: '10px',
+});
+
 const HeaderText = styled(Typography)({
   fontWeight: "bold",
   marginBottom: "5px",
@@ -116,16 +123,15 @@ const CardValuation = ({ projectDetails, filteredData }) => {
     <StyledCard>
       <CardContent>
         <HeaderText variant="h5" align="center" gutterBottom>
-        
           Valuation
           <ExpandMore
-          expand={expanded}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="show more"
-        >
-          <ExpandMoreIcon />
-        </ExpandMore>
+            expand={expanded}
+            onClick={handleExpandClick}
+            aria-expanded={expanded}
+            aria-label="show more"
+          >
+            <ExpandMoreIcon />
+          </ExpandMore>
         </HeaderText>
         
         <Collapse in={expanded} timeout="auto" unmountOnExit>
@@ -134,7 +140,9 @@ const CardValuation = ({ projectDetails, filteredData }) => {
           </Typography>
           <div style={{ display: "flex", gap: "10px" }}>
             <Column>
-              <HeaderText variant="h6">RCV</HeaderText>
+              <HeaderWrapper>
+                <HeaderText variant="h6">RCV</HeaderText>
+              </HeaderWrapper>
               <Text>
                 Suggested RCV Total: $
                 {suggestedRCVTotal.toLocaleString("en-US", {
@@ -160,7 +168,9 @@ const CardValuation = ({ projectDetails, filteredData }) => {
               </Text>
             </Column>
             <Column>
-              <HeaderText variant="h6">ACV</HeaderText>
+              <HeaderWrapper>
+                <HeaderText variant="h6">ACV</HeaderText>
+              </HeaderWrapper>
               <Text>
                 RCV with Tax Total: $
                 {rcvWithTaxTotal.toLocaleString("en-US", {
@@ -186,7 +196,9 @@ const CardValuation = ({ projectDetails, filteredData }) => {
               </Text>
             </Column>
             <Column>
-              <HeaderText variant="h6">DEPRECIATION</HeaderText>
+              <HeaderWrapper>
+                <HeaderText variant="h6">DEPRECIATION</HeaderText>
+              </HeaderWrapper>
               <Text>Depreciating Years: {depreciationRange}</Text>
               <Text>
                 Total Depreciation: $
