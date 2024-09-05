@@ -17,8 +17,8 @@ import { Grid, Card, CardContent, Typography, Button, TextField, Select, MenuIte
 const styles = {
   Card: {
     width: "100%",
-    height: "60vh",
-    maxHeight: "60vh",
+    height: "70vh",
+    maxHeight: "70vh",
     backgroundColor: "#000",
     color: "white",
     borderRadius: "26px",
