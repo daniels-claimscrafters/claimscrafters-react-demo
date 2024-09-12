@@ -173,16 +173,15 @@ const CardContents = ({ projectDetails, setProjectDetails, onFilter }) => {
   const [errorMessage, setErrorMessage] = useState("");
   const API_URL = process.env.REACT_APP_API_URL;
 
-
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedRoom, setSelectedRoom] = useState("");
   const [selectedItem, setSelectedItem] = useState("");
   const [selectedClass, setSelectedClass] = useState("");
   const [selectedSubclass, setSelectedSubclass] = useState("");
 
+  const [selectedRows, setSelectedRows] = useState([]);
+
   const navigate = useNavigate();
-
-
 
   useEffect(() => {
     // Call the filtering function when searchQuery or dropdown selections change
@@ -255,53 +254,6 @@ const CardContents = ({ projectDetails, setProjectDetails, onFilter }) => {
       subclassFilter.add(option);
     });
   };
-
-  const updateQuestionableStatus = async (index) => {
-    console.log("Button pressed");
-
-    try {
-      // Get the current project data
-      const updatedProject = { ...projectDetails.project };
-
-      // Check if the index is valid
-      if (index < 0 || index >= updatedProject.spreadsheetData.length) {
-        console.error("Invalid index");
-        return;
-      }
-
-      // Update the Questionable status for the specific row
-      updatedProject.spreadsheetData[index].Questionable = false;
-
-      // Prepare the data to send
-      const dataToSend = {
-        projectId: updatedProject.id,
-        spreadsheetData: updatedProject.spreadsheetData
-      };
-
-      // Construct the API URL with the '/npc/verify' path
-      const url = `${API_URL}/npc/verify`;
-
-      // Send a POST request to update the project in the database
-      const response = await fetch(url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(dataToSend),
-      });
-
-      if (response.ok) {
-        console.log(`Item at index ${index} updated successfully`);
-        window.location.reload();
-      } else {
-        console.error(`Failed to update item at index ${index}`);
-      }
-    } catch (error) {
-      console.error("An error occurred while updating the item:", error);
-    }
-  };
-
-
 
   // Call the function to populate dropdowns on page load
   useEffect(() => {
@@ -733,11 +685,77 @@ const CardContents = ({ projectDetails, setProjectDetails, onFilter }) => {
     return b.Questionable - a.Questionable;
   });
 
+  const handleRowCheckboxChange = (index) => {
+    setSelectedRows(prevState => {
+      const newState = prevState.includes(index)
+        ? prevState.filter(rowIndex => rowIndex !== index)
+        : [...prevState, index];
+        
+      // Log the selected rows
+      console.log('Selected Rows:', newState);
+      
+      return newState;
+    });
+  };
+
+  const handleSelectAllChange = () => {
+  const newSelectedRows =
+    selectedRows.length === sortedData.length ? [] : sortedData.map((_, i) => i);
+    
+  // Log the selected rows
+  console.log('Selected Rows:', newSelectedRows);
+  
+  setSelectedRows(newSelectedRows);
+};
+
+const handleUpdateStatus = async () => {
+  // Ensure there are selected rows before making the request
+  if (selectedRows.length === 0) {
+    console.log('No rows selected.');
+    return;
+  }
+
+  // Access the project ID from projectDetails
+  const projectId = projectDetails.project.id;
+
+  try {
+    const response = await fetch(`${API_URL}/npc/verify`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ projectId, selectedRows }), // Include projectId and selectedRows in the request body
+    });
+
+    if (response.ok) {
+      const result = await response.json();
+      setPopupMessage("Status updated successfully");
+      setPopupType("success");
+      setPopupTextColor("green");
+    } else {
+      console.error('Update failed:', response.statusText);
+      setPopupMessage("Failed to update status");
+      setPopupType("error");
+      setPopupTextColor("red");
+    }
+
+    setShowPopup(true);
+    setTimeout(() => window.location.reload(), 1500);
+  } catch (error) {
+    console.error('Request error:', error);
+    setPopupMessage("Failed to update status");
+    setPopupType("error");
+    setPopupTextColor("red");
+    setShowPopup(true);
+    setTimeout(() => window.location.reload(), 1500);
+  }
+};
+
   return (
     <div style={styles.Card}>
       <div style={{ width: "100%", overflow: "auto", borderRadius: "26px" }}>
         <div style={styles.headerRow} className="headerRow">
-          
+
           {error && (
             <div style={{ color: "red", marginLeft: "10px" }}>
               {errorMessage}
@@ -785,6 +803,20 @@ const CardContents = ({ projectDetails, setProjectDetails, onFilter }) => {
           </div>
 
           <div className="buttons">
+          <div style={{ display: "inline-block" }}>
+              <button
+                style={{
+                  ...styles.Button,
+                  backgroundColor: selectedRows.length === 0 ? '#808080' : '#4CAF50', // Change color based on disabled state
+                  cursor: selectedRows.length === 0 ? 'not-allowed' : 'pointer', // Change cursor to indicate disabled state
+                }}
+              onClick={handleUpdateStatus}
+              disabled={selectedRows.length === 0}
+              >
+                Mark as Meets Criteria
+              </button>
+            </div>
+
             <div style={{ display: "inline-block" }}>
               <button
                 style={{
@@ -817,6 +849,7 @@ const CardContents = ({ projectDetails, setProjectDetails, onFilter }) => {
                 </button>
               </motion.div>
             </div>
+            
             <div style={{ display: "inline-block" }}>
               <select
                 style={styles.Button}
@@ -849,8 +882,17 @@ const CardContents = ({ projectDetails, setProjectDetails, onFilter }) => {
       <div style={{ ...styles.spreadsheetContainer }}>
         <div style={styles.spreadsheet}>
           <div style={{ ...styles.row, position: 'sticky', top: 0, backgroundColor: 'white', zIndex: 1 }}>
+
             <div style={styles.cell}>Line</div>
-            <div style={styles.cell}>Confidence</div>
+            <div style={styles.cell}>
+              <span>Confidence</span>
+              <input
+                type="checkbox"
+                onChange={handleSelectAllChange}
+                checked={selectedRows.length === sortedData.length}
+                style={{ marginLeft: '5px' }} // Adjust margin as needed
+              />
+            </div>
             <div style={styles.cell}>Room</div>
             <div style={styles.cell}>Item</div>
             <div style={styles.bigCell}>Description</div>
@@ -880,35 +922,20 @@ const CardContents = ({ projectDetails, setProjectDetails, onFilter }) => {
             >
               <div style={styles.cell}>{index + 1}</div>
               <div style={styles.cell}>
-                {item.Questionable ? (
-                  <div style={{ display: 'flex', alignItems: 'center', color: 'orange' }}>
-                    <span>Pending</span>
-                    <button
-                      style={{
-                        marginLeft: '10px',
-                        padding: '4px 10px',
-                        backgroundColor: '#4CAF50',
-                        color: 'white',
-                        border: 'none',
-                        borderRadius: '4px',
-                        cursor: 'pointer',
-                        boxShadow: '0px 2px 5px rgba(0, 0, 0, 0.2)',
-                        fontSize: '14px',
-                        transition: 'background-color 0.3s ease',
-                      }}
-                      onClick={() => updateQuestionableStatus(item.originalIndex)}
-                      onMouseOver={(e) => (e.target.style.backgroundColor = '#45a049')}
-                      onMouseOut={(e) => (e.target.style.backgroundColor = '#4CAF50')}
-                    >
-                      VERIFY
-                    </button>
-
-                  </div>
-                ) : (
-                  <span style={{ color: '#66BB6A' }}>Meets Criteria</span>
-
-                )}
-              </div>
+      {item.Questionable ? (
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <span style={{ color: 'orange' }}>Pending</span>
+          <input
+            type="checkbox"
+            checked={selectedRows.includes(item.originalIndex)}
+            onChange={() => handleRowCheckboxChange(item.originalIndex)}
+            style={{ marginLeft: '5px' }} // Adjust spacing as needed
+          />
+        </div>
+      ) : (
+        <span style={{ color: '#66BB6A' }}>Meets Criteria</span>
+      )}
+    </div>
               <div style={styles.cell}>
                 <input
                   style={styles.input}
@@ -991,7 +1018,6 @@ const CardContents = ({ projectDetails, setProjectDetails, onFilter }) => {
               <div style={styles.cell}>
                 ${calculateRCVExt(item["RCV High"], item["RCV Low"], item.Quantity)}
               </div>
-
               <div style={styles.cell}>
                 {typeof projectDetails.project.salesTax === "number"
                   ? projectDetails.project.salesTax
@@ -1001,7 +1027,6 @@ const CardContents = ({ projectDetails, setProjectDetails, onFilter }) => {
               <div style={styles.cell}>
                 ${calculateSalesTaxAmount(projectDetails.project.salesTax, item["RCV High"], item["RCV Low"], item.Quantity)}
               </div>
-
               <div style={styles.cell}>
                 ${calculateRCVTotal(
                   projectDetails.project.salesTax,
@@ -1010,7 +1035,6 @@ const CardContents = ({ projectDetails, setProjectDetails, onFilter }) => {
                   item.Quantity
                 )}
               </div>
-
               <div style={styles.cell}>
                 <input
                   style={styles.input}
@@ -1038,7 +1062,6 @@ const CardContents = ({ projectDetails, setProjectDetails, onFilter }) => {
               <div style={styles.cell}>
                 ${calculateACVTotal(item, projectDetails)}
               </div>
-
               <div style={styles.bigCell}>
                 <input
                   style={styles.bigInput}

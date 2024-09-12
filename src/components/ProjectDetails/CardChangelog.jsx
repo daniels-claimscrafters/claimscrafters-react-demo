@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Card, CardContent, Typography, Button, List, ListItem, ListItemText, Divider } from '@mui/material';
+import { Card, CardContent, Typography, Button, List, ListItem, ListItemText, Divider, IconButton, Collapse } from '@mui/material';
 import { FaFileDownload } from 'react-icons/fa';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'; // Import the expand icon
 import { styled } from '@mui/material/styles';
 
 const StyledCard = styled(Card)(({ theme }) => ({
@@ -15,12 +16,17 @@ const StyledCard = styled(Card)(({ theme }) => ({
   overflow: 'hidden',
 }));
 
+const HeaderWrapper = styled('div')({
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  marginBottom: '1rem',
+});
+
 const Header = styled(Typography)({
-  textAlign: 'center',
   fontSize: '16px',
   fontFamily: 'Poppins',
   fontWeight: 600,
-  marginBottom: '1rem',
 });
 
 const StyledButton = styled(Button)({
@@ -33,7 +39,7 @@ const EntryList = styled(List)({
   padding: '0',
   margin: '0',
   overflowY: 'auto',
-  maxHeight: '400px', // Adjust based on your needs
+  maxHeight: '200px', // Adjust based on your needs
 });
 
 const EntryItem = styled(ListItem)({
@@ -44,8 +50,17 @@ const EntryItem = styled(ListItem)({
   fontWeight: 600,
 });
 
+const ExpandMore = styled(IconButton)(({ theme, expand }) => ({
+  color: "#fff", // Set the icon color to white
+  transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
+  transition: theme.transitions.create('transform', {
+    duration: theme.transitions.duration.shortest,
+  }),
+}));
+
 const CardChangelog = ({ projectDetails }) => {
   const [entries, setEntries] = useState([]);
+  const [expanded, setExpanded] = useState(true); // State for collapse
 
   const projectId = projectDetails.project.id;
   const API_URL = process.env.REACT_APP_API_URL;
@@ -89,49 +104,66 @@ const CardChangelog = ({ projectDetails }) => {
     URL.revokeObjectURL(url);
   };
 
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
+
   return (
     <StyledCard>
       <CardContent>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <HeaderWrapper>
           <Header variant="h6">Changelog Entries</Header>
-          <StyledButton onClick={handleDownload}>
-            <FaFileDownload />
-          </StyledButton>
-        </div>
-        <EntryList>
-  {entries
-    .slice()
-    .reverse()
-    .map((entry) => {
-      if (/\bDepreciationDisplay\b/.test(entry.entry)) {
-        return null; // Skip entries with "DepreciationDisplay"
-      }
-      return (
-        <EntryItem key={entry.id}>
-          <ListItemText
-            primary={
-              entry.entry
-                .split(/(User ID: \d+|DepreciationDisplay)/)
-                .map((part, index) => {
-                  let textStyle = {};
-                  if (/User ID: \d+/.test(part)) {
-                    textStyle.color = 'blue';
-                  } else if (part === 'DepreciationDisplay') {
-                    part = 'Depreciation';
-                  }
-                  textStyle.color = 'inherit';
-                  return (
-                    <span key={index} style={textStyle}>
-                      {part}
-                    </span>
-                  );
-                })
-            }
-          />
-        </EntryItem>
-      );
-    })}
-</EntryList>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <StyledButton onClick={handleDownload}>
+              <FaFileDownload />
+            </StyledButton>
+            <ExpandMore
+              expand={expanded}
+              onClick={handleExpandClick}
+              aria-expanded={expanded}
+              aria-label="show more"
+              style={{ marginLeft: '8px' }}
+            >
+              <ExpandMoreIcon />
+            </ExpandMore>
+          </div>
+        </HeaderWrapper>
+        <Collapse in={expanded} timeout="auto" unmountOnExit>
+          <EntryList>
+            {entries
+              .slice()
+              .reverse()
+              .map((entry) => {
+                if (/\bDepreciationDisplay\b/.test(entry.entry)) {
+                  return null; // Skip entries with "DepreciationDisplay"
+                }
+                return (
+                  <EntryItem key={entry.id}>
+                    <ListItemText
+                      primary={
+                        entry.entry
+                          .split(/(User ID: \d+|DepreciationDisplay)/)
+                          .map((part, index) => {
+                            let textStyle = {};
+                            if (/User ID: \d+/.test(part)) {
+                              textStyle.color = 'blue';
+                            } else if (part === 'DepreciationDisplay') {
+                              part = 'Depreciation';
+                            }
+                            textStyle.color = 'inherit';
+                            return (
+                              <span key={index} style={textStyle}>
+                                {part}
+                              </span>
+                            );
+                          })
+                      }
+                    />
+                  </EntryItem>
+                );
+              })}
+          </EntryList>
+        </Collapse>
       </CardContent>
     </StyledCard>
   );
