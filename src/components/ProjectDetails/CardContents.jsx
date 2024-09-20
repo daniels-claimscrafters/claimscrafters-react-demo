@@ -11,7 +11,9 @@ import {
 } from "./ExcelGenerator";
 import { useNavigate } from "react-router-dom";
 import { Grid, Card, CardContent, Typography, Button, TextField, Select, MenuItem } from '@mui/material';
-
+import Tooltip from '@mui/material/Tooltip';
+import InfoIcon from '@mui/icons-material/Info'; // Import any icon you prefer
+import Checkbox from '@mui/material/Checkbox';
 
 
 const styles = {
@@ -886,6 +888,9 @@ const handleUpdateStatus = async () => {
             <div style={styles.cell}>Line</div>
             <div style={styles.cell}>
               <span>Confidence</span>
+              <Tooltip title="Confidence provides guidance on whether a line item requires further review. 'Pending' signifies that the item's description lacks detail or contains a pricing anomaly that may affect its valuation. 'Meets Criteria' indicates that the line item complies with the requirements for ContentsIQ to generate an accurate valuation.">
+              <InfoIcon style={{ fontSize: 16, marginLeft: '5px', cursor: 'pointer' }} />
+            </Tooltip>
               <input
                 type="checkbox"
                 onChange={handleSelectAllChange}
