@@ -116,7 +116,31 @@ const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   const handleSubmit = () => {
     // Handle form submission logic here
     console.log("Form submitted");
+  
+    // Example URL: assuming your API endpoint for creating RG is `/api/rg`
+    const endpointUrl = "http://localhost:5000/api/rg";
+  
+    fetch(endpointUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log("Successfully reached backend:", data);
+      })
+      .catch((error) => {
+        console.error("Error reaching backend:", error);
+      });
   };
+  
 
   const validateForm = (data) => {
     const { firstName, lastName, mobilePhone, email, finalDateToClose } = data;
@@ -274,7 +298,7 @@ const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 </Form.Group>
               {/* Bottom Button */}
               <div className="d-flex justify-content-center">
-              <Button variant="primary" onClick={handleNext} disabled={!isFormValid}>
+              <Button variant="primary" onClick={handleSubmit} disabled={!isFormValid}>
                     Continue
                   </Button>
                 </div>
