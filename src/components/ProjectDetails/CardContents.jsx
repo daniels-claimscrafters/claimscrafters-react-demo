@@ -819,6 +819,19 @@ const handleUpdateStatus = async () => {
               </button>
             </div>
 
+            <div style={{ display: "inline-block" }}>
+              <button
+                style={{
+                  ...styles.Button,
+                }}
+                onClick={handleReconcileGoClick}
+
+                className="saveBtn"
+              >
+                ReconcileGo
+              </button>
+            </div>
+
             
             <div style={{ display: "inline-block" }}>
               <motion.div
